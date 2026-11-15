@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b1446"/>
+      <stop offset="0.6" stop-color="#2a1d6b"/>
+      <stop offset="1" stop-color="#ff7a3d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="512" cy="300" r="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd27a" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffd27a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e6ddff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <clipPath id="sq"><rect x="100" y="100" width="824" height="824" rx="185"/></clipPath>
+  </defs>
+  <g id="background" filter="url(#shadow)">
+    <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+  </g>
+  <g id="glyph" clip-path="url(#sq)">
+    <circle cx="512" cy="300" r="220" fill="url(#glow)"/>
+    <path d="M190 800 L512 400 L834 800" fill="none" stroke="url(#peak)" stroke-width="64" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M330 800 L512 574 L694 800" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="40" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="512" cy="282" r="46" fill="#fff4d6"/>
+  </g>
+</svg>
