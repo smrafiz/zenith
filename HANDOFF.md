@@ -17,7 +17,7 @@ mkdir -p ~/GithubRepos && cd ~/GithubRepos
 git clone https://github.com/wp-sigmadevs/zenith.git
 git clone --filter=blob:none https://github.com/wp-sigmadevs/zed.git
 git -C zed remote add upstream https://github.com/zed-industries/zed.git
-git -C zed fetch origin && git -C zed switch zenith 2>/dev/null || git -C zed switch -c zenith
+git -C zed switch zenith
 
 # Stock-Zed config layer (plan 03)
 zenith/zed-kit/install.sh --dry-run && zenith/zed-kit/install.sh
@@ -39,7 +39,7 @@ Xcode notes from the work machine:
 | Plan (32 docs) + GitHub (31 issues, 6 milestones) | ✅ `wp-sigmadevs/zenith` |
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
-| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write), branch `zenith` **local only, not pushed yet** |
+| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write), branch `zenith` pushed (`596dfdcf32`, = upstream main, no Zenith commits yet) |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
@@ -53,9 +53,8 @@ Xcode notes from the work machine:
 
 ## 4. Next steps (in order)
 
-1. Home: `cd ~/GithubRepos/zed && cargo build -p zed` → `cargo run` launches a dev window → `cargo test -p workspace` (plan 01 "Done when").
-2. `git -C ~/GithubRepos/zed push -u origin zenith` once it builds.
-3. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
+1. `cd ~/GithubRepos/zed && cargo run` → confirm the dev window opens (last open item of plan 01; build + workspace tests already pass).
+2. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
 4. lead-engineer re-checks the agents' Zed API facts against the real fork source (8 items still marked *verify*).
 5. Verify plan 03 in Zed (checklist in `zed-kit/README.md`) → mark ✅, close its issue.
 6. Plan 15 `zenith_core` → Phase 1 (04 scratches?, 14 toolbar, 05 local history…).
