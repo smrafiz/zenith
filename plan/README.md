@@ -1,6 +1,6 @@
 # Zenith — Master Plan (Zed fork with JetBrains parity)
 
-**Zenith** = fork of Zed. Bundle: `Zenith.app`, id `dev.zenith.app`, settings key `"zenith"`, crates `zenith_*`, branch `zenith`. Never ship with Zed name/logo (trademark); keep GPL/AGPL licence + publish source if distributed.
+**Zenith** = fork of Zed. Bundle: `Zenith.app`, id `io.github.wp-sigmadevs.Zenith` (Dev: `…Zenith-Dev`), settings key `"zenith"`, crates `zenith_*`, branch `zenith`. Never ship with Zed name/logo (trademark); keep GPL/AGPL licence + publish source if distributed.
 
 Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agentic PHP/JS development, by (a) configuring stock Zed + extensions where possible and (b) maintaining a fork of Zed for features that need core changes.
 
@@ -12,7 +12,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 
 | # | File | Layer | Effort | Status |
 |---|---|---|---|---|
-| 01 | [Prerequisites & fork setup](01-prerequisites.md) | Machine | 1 day | 🟨 |
+| 01 | [Prerequisites & fork setup](01-prerequisites.md) | Machine | 1 day | ✅ |
 | 02 | [Fork architecture & conventions](02-fork-architecture.md) | Core | — | 🟨 |
 | 03 | [Config layer: PHP/JS intelligence, inspections, frameworks](03-config-layer.md) | Config/Extension | 1–3 wk | 🟨 |
 | 04 | [Scratch files](04-scratches.md) | Core | ~1 wk | ⬜ |

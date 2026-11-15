@@ -39,19 +39,19 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 
 15 subagents in `.claude/agents/` — roster, routing per phase, setup and sources in `.claude/agents/README.md`. `lead-engineer` plans anything new (crates, upstream hooks, LS-vs-fork); one implementer per planned chunk; `code-reviewer` (+ security/performance/accessibility as relevant) before merge; `debugger` for a red gate. Read-only agents can't write; agents never push. Guard hooks live in `.claude/hooks/` (read-only-bash, guard-push, writer-gate).
 
-## Status (2026-11-15)
+## Status (2026-11-16)
 
 | Item | State |
 |---|---|
 | Plan docs 01–31 | ✅ written |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
-| Fork (01) | 🟨 build/run/tests/upstream-merge ✅; release bundle pending. Branches zenith, feat/branding (icon+bundle ids), feat/rebrand (core rebrand + WIP strings) — see HANDOFF.md §2b |
+| Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). Branches zenith (= upstream), feat/branding (`0214f9dbc5`, full rebrand, pushed, not merged) — HANDOFF.md §2b |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence, no cmake.
 
-| Rebrand (02) | 🟨 full rebrand chosen; telemetry/auto-update off; core done uncompiled, strings WIP — HANDOFF.md §2b |
+| Rebrand (02) | ✅ code done, compiled, 785 tests pass; telemetry/auto-update off; logo + tagline replaced. Owner: remove fork README notice, merge into zenith |
 | Icon | ✅ `brand/` |
 
 ## Findings worth keeping
