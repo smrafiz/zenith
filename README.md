@@ -24,9 +24,13 @@ Progress is tracked in [Issues](../../issues) (one per plan doc) and [Milestones
 
 | Repo | Purpose |
 |---|---|
-| `smrafiz/zenith` (this) | plan, docs, `zed-kit` config, issue tracking |
-| `smrafiz/zed` fork (to be created, see plan/01) | Zenith source code, branch `zenith` |
+| `wp-sigmadevs/zenith` (this) | plan, docs, `zed-kit` config, issue tracking |
+| `wp-sigmadevs/zed` fork (to be created, see plan/01) | Zenith source code, branch `zenith` |
 
 ## Licence
 
-Plan documents: © the author, all rights reserved until decided. Zenith source code will follow Zed's licences (GPL-3.0 / AGPL-3.0 / Apache-2.0 per crate).
+- This repository (plan docs, `zed-kit` config): [MIT](LICENSE).
+- Zenith fork code: follows Zed's licences (GPL-3.0 editor, AGPL-3.0 server parts, Apache-2.0 GPUI); new `zenith_*` crates are GPL-3.0-or-later.
+- Standalone language servers (`wp-hooks-ls`, `laravel-ls`, …): MIT, in their own repositories.
+
+Security issues: see [SECURITY.md](SECURITY.md).
