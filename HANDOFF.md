@@ -1,6 +1,6 @@
 # Zenith — Handoff (work machine → home machine)
 
-Last updated: 2026-11-15. Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
+Last updated: 2026-11-15 (evening, work machine). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
 
 ## 1. Set up the home machine
 
@@ -39,10 +39,33 @@ Xcode notes from the work machine:
 | Plan (32 docs) + GitHub (31 issues, 6 milestones) | ✅ `wp-sigmadevs/zenith` |
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
-| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write), branch `zenith` pushed (`596dfdcf32`, = upstream main, no Zenith commits yet) |
+| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`596dfdcf32` = upstream main) · `feat/branding` (`09d5ede914`: icon + bundle names/ids) · `feat/rebrand` (`04f99cf8a4`, from feat/branding: core rebrand + WIP strings) |
+| Plan 01 | 🟨 run ✅, `cargo test -p workspace` ✅ (307), upstream merge ✅; release bundle (`script/bundle-mac -i`) was building when I left — result unknown |
+| Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
+| Plan 02 rebrand | 🟨 see §2b |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
+
+## 2b. Rebrand (plan 02) — status
+
+Owner decisions: **full rebrand** ("everything"), **telemetry/crash/auto-update off**, settings **copied once** (done).
+
+`feat/rebrand` commits:
+- `9359dfe882` core (complete, uncompiled): `paths.rs` APP_NAME "Zenith" (+ removed main.rs bin-name assert), release_channel display_name + app_id → `io.github.wp-sigmadevs.Zenith*`, URL scheme `zenith://` / `zenith-cli://` (+ Cargo.toml osx_url_schemes), CLI → `/usr/local/bin/zenith`, auto-update off via `.cargo/config.toml` `ZED_UPDATE_EXPLANATION`, telemetry defaults off, DMG `Zenith-<arch>.dmg`, plist strings.
+- `04f99cf8a4` **WIP, unfinished, uncompiled**: ~151 lines in 65 files of user-visible "Zed" → "Zenith" (agent was stopped mid-way, last step "scheme seds"). Rule: app/editor → Zenith; Zed's services/company (zed.dev account, Zed AI/Pro, billing, extension registry, Zed Industries) stay "Zed". Keep identifiers, `ZED_*` env, `.zed/` project dir, `.zed_server`, zed.dev URLs, licences, docs/.
+
+To finish:
+1. Review `git -C ../zed diff feat/branding..feat/rebrand` — esp. the WIP commit for over-replacement (service refs) and half-done scheme edits.
+2. Finish the remaining strings: `git grep -n '"[^"]*\bZed\b' -- 'crates/*.rs'`, apply the rule above.
+3. `cargo check -p zed` → `cargo test -p zed -p release_channel -p paths -p cli` → fix tests asserting old text/URLs.
+4. Merge into `feat/branding`, `script/bundle-mac -i` → `/Applications/Zenith Dev.app` opens with Zenith icon/name, reads `~/.config/zenith`.
+5. Fix `plan/README.md` line 3 (says bundle id `dev.zenith.app`; actual `io.github.wp-sigmadevs.Zenith`).
+6. Fork README.md has the required `> [!IMPORTANT]` 2-line notice (fork CLAUDE.md hard rule) — owner removes it by hand before merging into `zenith`.
+
+Data: `~/.config/zenith` and `~/Library/Application Support/Zenith` were copied from Zed on the work machine (db via `sqlite3 .backup`, integrity ok). At home, repeat: `cp -Rn ~/.config/zed/ ~/.config/zenith/` and the sqlite `.backup` loop for `db/*/db.sqlite`.
+
+Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2025) — goods/services unchecked. Check before any public release.
 
 ## 3. Open decisions (owner)
 
@@ -53,8 +76,9 @@ Xcode notes from the work machine:
 
 ## 4. Next steps (in order)
 
-1. Plan 01 last item: `script/bundle-mac` → release bundle opens from `/Applications` (run, launch, test, upstream merge already ✅).
-2. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
+1. Finish the rebrand (§2b steps 1–6); this also closes plan 01's last item (bundle opens from `/Applications`).
+2. Merge `feat/branding` → `zenith` after review.
+3. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
 4. lead-engineer re-checks the agents' Zed API facts against the real fork source (8 items still marked *verify*).
 5. Verify plan 03 in Zed (checklist in `zed-kit/README.md`) → mark ✅, close its issue.
 6. Plan 15 `zenith_core` → Phase 1 (04 scratches?, 14 toolbar, 05 local history…).
@@ -71,5 +95,5 @@ Xcode notes from the work machine:
 
 ```
 cd ~/GithubRepos/zenith && claude
-> Read HANDOFF.md and CLAUDE.md. Continue from "Next steps" step 1: build the fork at ~/GithubRepos/zed and verify plan 01.
+> Read HANDOFF.md and CLAUDE.md. Continue §2b: finish the Zenith rebrand on feat/rebrand in ../zed, build, test, bundle.
 ```

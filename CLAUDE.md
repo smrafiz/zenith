@@ -46,12 +46,19 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 | Plan docs 01–31 | ✅ written |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
-| Fork (01) | 🟨 `wp-sigmadevs/zed` forked (smrafiz write), cloned to `~/GithubRepos/zed`, branch `zenith` pushed; debug build ✅, `cargo test -p workspace` ✅ (307); `cargo run` ✅; release bundle pending — see HANDOFF.md |
+| Fork (01) | 🟨 build/run/tests/upstream-merge ✅; release bundle pending. Branches zenith, feat/branding (icon+bundle ids), feat/rebrand (core rebrand + WIP strings) — see HANDOFF.md §2b |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence, no cmake.
 
+| Rebrand (02) | 🟨 full rebrand chosen; telemetry/auto-update off; core done uncompiled, strings WIP — HANDOFF.md §2b |
+| Icon | ✅ `brand/` |
+
 ## Findings worth keeping
+
+- Rebrand choke points: `crates/paths/src/paths.rs` APP_NAME (+ assert in zed main.rs that APP_NAME_LOWERCASE == bin name), `release_channel` display_name/app_id, `client.rs` ZED_URL_SCHEME + open_listener literals, `install_cli_binary.rs` CLI path, auto-update off via build env `ZED_UPDATE_EXPLANATION`, crash upload off when `ZED_MINIDUMP_ENDPOINT` unset, telemetry defaults in `assets/settings/default.json`. Keychain creds keyed by server URL (keep `zed.dev`).
+- Fork's own `CLAUDE.md` hard rule: any source edit ⇒ prepend `> [!IMPORTANT]` + review line to README.md; only the human removes it.
+- Release builds: `script/bundle-mac -i` (dev channel → `Zenith Dev.app`); `-d` debug. Unsigned → ad-hoc codesign, universal links off.
 
 - Zed PHP extension: Phpactor is the default LS; Intelephense alternate; licence via `~/intelephense/licence.txt` or `lsp.intelephense.initialization_options.licenceKey`. Xdebug debug adapter built into the PHP extension.
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.
