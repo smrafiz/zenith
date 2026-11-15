@@ -46,7 +46,7 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 | Plan docs 01–31 | ✅ written |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
-| Fork (01) | ⬜ blocked: disk 95% full (23 GB free, need ~80 GB), only Xcode CLT (need full Xcode), cmake missing |
+| Fork (01) | 🟨 `wp-sigmadevs/zed` forked (smrafiz write), cloned to `~/GithubRepos/zed`, branch `zenith` (local), Xcode 26.5 + cmake ready; first build result pending — see HANDOFF.md |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence, no cmake.
