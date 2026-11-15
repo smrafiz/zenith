@@ -14,7 +14,7 @@ for a in "$@"; do
 done
 
 run() { if [ $dry = 1 ]; then echo "  would run: $*"; else "$@"; fi; }
-ok() { echo "ok   $*"; }
+ok() { [ $dry = 1 ] && echo "dry  $*" || echo "ok   $*"; }
 todo() { echo "TODO $*"; }
 
 echo "== Requirements"
