@@ -53,7 +53,7 @@ Xcode notes from the work machine:
 
 ## 4. Next steps (in order)
 
-1. `cd ~/GithubRepos/zed && cargo run` → confirm the dev window opens (last open item of plan 01; build + workspace tests already pass).
+1. Plan 01 last item: `script/bundle-mac` → release bundle opens from `/Applications` (run, launch, test, upstream merge already ✅).
 2. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
 4. lead-engineer re-checks the agents' Zed API facts against the real fork source (8 items still marked *verify*).
 5. Verify plan 03 in Zed (checklist in `zed-kit/README.md`) → mark ✅, close its issue.

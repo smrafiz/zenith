@@ -46,7 +46,7 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 | Plan docs 01–31 | ✅ written |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
-| Fork (01) | 🟨 `wp-sigmadevs/zed` forked (smrafiz write), cloned to `~/GithubRepos/zed`, branch `zenith` pushed; debug build ✅, `cargo test -p workspace` ✅ (307); `cargo run` window not yet confirmed — see HANDOFF.md |
+| Fork (01) | 🟨 `wp-sigmadevs/zed` forked (smrafiz write), cloned to `~/GithubRepos/zed`, branch `zenith` pushed; debug build ✅, `cargo test -p workspace` ✅ (307); `cargo run` ✅; release bundle pending — see HANDOFF.md |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence, no cmake.

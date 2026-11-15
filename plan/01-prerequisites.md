@@ -47,7 +47,7 @@ Expected: first build 30–60 min, incremental 30 s–3 min.
 
 ## Done when
 
-- [ ] `cargo run` launches a dev Zed window.
-- [ ] `cargo test -p workspace` passes.
+- [x] `cargo run` launches a dev Zed window.
+- [x] `cargo test -p workspace` passes.
 - [ ] Release bundle builds and opens from `/Applications`.
-- [ ] `git fetch upstream && git merge upstream/main` into `zenith` works.
+- [x] `git fetch upstream && git merge upstream/main` into `zenith` works.
