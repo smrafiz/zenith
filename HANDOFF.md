@@ -75,6 +75,7 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
+0. Run lead-engineer on plan/32-welcome-screen.md (welcome screen brief; plan not written yet), review, then build.
 1. Owner: remove the fork README `> [!IMPORTANT]` notice, then merge `feat/branding` → `zenith` and push.
 2. Commit-prefix decision (§3.1), then close plan 02.
 3. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
