@@ -41,6 +41,7 @@ Xcode notes from the work machine:
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
 | Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write), branch `zenith` **local only, not pushed yet** |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
+| `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
 
 ## 3. Open decisions (owner)
