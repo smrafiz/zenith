@@ -1,0 +1,14 @@
+name: Feature / plan item
+description: A Zenith feature or plan task
+labels: ["type:feature"]
+body:
+  - type: input
+    id: plan
+    attributes: { label: Plan doc, placeholder: "plan/NN-name.md" }
+  - type: textarea
+    id: goal
+    attributes: { label: Goal / JetBrains equivalent }
+    validations: { required: true }
+  - type: textarea
+    id: done
+    attributes: { label: Done when, placeholder: "- [ ] ..." }
