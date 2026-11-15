@@ -57,7 +57,7 @@ Manual checklist on one Laravel app, one WP plugin, one TS project: go-to-def, f
 ## Risks / open questions
 
 - Intelephense + Phpactor duplicate diagnostics/completions — tune which features each provides.
-- Laravel: no first-class LS confirmed for Zed — may require feature work later (would become a new plan doc).
+- Laravel: `laravel-official` Zed extension exists (Official Laravel LSP) — used in the Laravel template; community `laravel` extension also available. Plan 25 should build on it.
 - Pint `{buffer_path}` vs stdin handling — verify formatter mode.
 
 ## Effort

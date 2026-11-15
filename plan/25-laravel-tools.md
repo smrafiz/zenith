@@ -19,7 +19,7 @@ Laravel Idea–level navigation and tooling.
 
 ## Architecture (extension-first, 16)
 
-- **`laravel-ls`** language server (check first for an existing maintained Laravel LS compatible with Zed; reuse if good):
+- **Use the existing `laravel-official` Zed extension (Official Laravel LSP)** before building anything; `laravel-ls` only for gaps (check first for an existing maintained Laravel LS compatible with Zed; reuse if good):
   - Index: routes (from `route:list --json`, refreshed on routes file save), views (`resources/views/**`), config (parse `config/*.php` arrays via tree-sitter), lang files, `.env`.
   - LSP: definition, completion, hover inside the relevant string literals.
 - **`zenith_laravel`** crate: Artisan + Routes (+ Migrations, Logs) panels; commands via `zenith_core::process`.

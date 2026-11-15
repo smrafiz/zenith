@@ -1,0 +1,29 @@
+// Zenith zed-kit: keys to MERGE into ~/.config/zed/settings.json (do not replace the file).
+// Project-specific settings live in templates/<type>/.zed/settings.json.
+{
+  // Intelephense = completion/navigation/rename; Phpactor = code actions + PHPStan/PHPCS diagnostics.
+  // Phpactor completion is disabled in ~/.config/phpactor/phpactor.json to avoid duplicates.
+  "languages": {
+    "PHP": { "language_servers": ["intelephense", "phpactor", "..."] }
+  },
+
+  "lsp": {
+    // Premium licence (rename, implementations): put the key in ~/intelephense/licence.txt
+    "tailwindcss-language-server": {
+      "settings": { "includeLanguages": { "php": "html", "blade": "html" } }
+    }
+  },
+
+  "auto_install_extensions": {
+    "php": true,
+    "blade": true,
+    "scss": true,
+    "twig": true,
+    "dockerfile": true,
+    "make": true,
+    "http": true
+  },
+
+  // plan/18 A8: no telemetry
+  "telemetry": { "diagnostics": false, "metrics": false }
+}

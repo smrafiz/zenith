@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Zed external formatter adapter for PHP tools that only format files in place.
+# Zed pipes the buffer on stdin and expects formatted code on stdout.
+# Usage: zed-php-fmt <pint|phpcbf|php-cs-fixer> [extra args...]
+set -euo pipefail
+
+tool="${1:?usage: zed-php-fmt <pint|phpcbf|php-cs-fixer> [args]}"
+shift
+
+# Prefer the project's own binary (cwd = worktree root), else PATH.
+bin="vendor/bin/$tool"
+[ -x "$bin" ] || bin="$(command -v "$tool" || true)"
+[ -n "$bin" ] || { echo "zed-php-fmt: $tool not found (vendor/bin or PATH)" >&2; exit 127; }
+
+tmp="$(mktemp -t zed-php-fmt.XXXXXX).php"
+trap 'rm -f "$tmp" "${tmp%.php}"' EXIT
+cat > "$tmp"
+
+case "$tool" in
+  phpcbf)
+    # Use the project ruleset when the caller didn't pass one.
+    args=("$@")
+    if [[ " ${args[*]-} " != *" --standard="* ]]; then
+      for f in .phpcs.xml phpcs.xml .phpcs.xml.dist phpcs.xml.dist; do
+        [ -f "$f" ] && { args+=("--standard=$PWD/$f"); break; }
+      done
+    fi
+    set +e; "$bin" -q "${args[@]+"${args[@]}"}" "$tmp" >/dev/null 2>&1; rc=$?; set -e
+    # phpcbf: 0 = nothing to fix, 1 = fixed, 2 = fixed but errors remain, 3 = failure
+    [ "$rc" -le 2 ] || { echo "zed-php-fmt: phpcbf failed (exit $rc)" >&2; exit "$rc"; }
+    ;;
+  pint)
+    "$bin" -q "$@" "$tmp" >/dev/null
+    ;;
+  php-cs-fixer)
+    "$bin" fix -q "$@" "$tmp" >/dev/null
+    ;;
+  *)
+    echo "zed-php-fmt: unsupported tool '$tool'" >&2; exit 2
+    ;;
+esac
+
+cat "$tmp"
