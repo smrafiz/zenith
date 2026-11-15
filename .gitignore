@@ -3,3 +3,6 @@
 .idea/
 .zed/
 *.backup-*
+.claude/supercharger-memory.md
+.claude/settings.local.json
+.claude/worktrees/

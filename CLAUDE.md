@@ -35,6 +35,10 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 - Zed internal APIs in plan docs are from memory and marked *verify* — check against current Zed source before implementing.
 - Supercharger hook blocks writes under `~/.config/` — give the user the exact edit instead; never work around it.
 
+## Engineers
+
+15 subagents in `.claude/agents/` — roster, routing per phase, setup and sources in `.claude/agents/README.md`. `lead-engineer` plans anything new (crates, upstream hooks, LS-vs-fork); one implementer per planned chunk; `code-reviewer` (+ security/performance/accessibility as relevant) before merge; `debugger` for a red gate. Read-only agents can't write; agents never push. Hooks are staged in `.claude/hooks-pending/` until the user moves them to `.claude/hooks/` (see README setup).
+
 ## Status (2026-11-15)
 
 | Item | State |
