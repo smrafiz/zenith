@@ -4,7 +4,7 @@ Zenith = fork of Zed aiming at full PhpStorm/WebStorm parity (classic + agentic 
 
 ## Repo & accounts
 
-- Repo: `wp-sigmadevs/zenith` (public). Local: `~/GithubRepos/zenith`. Default branch `main`.
+- Repo: `wp-sigmadevs/zenith` (public). Local: `~/GithubRepos/zenith` (work) / `~/GithubProjects/zenith` (home; fork at `~/GithubProjects/zed`). Default branch `main`.
 - gh accounts on this machine: `smrafiz` (default, write access) and `wp-sigmadevs` (owner). Repo settings/admin tasks: `gh auth switch -u wp-sigmadevs`, then switch back to `smrafiz`.
 - Personal-account repo ⇒ collaborators can't get admin; that's fine, owner does admin tasks.
 - Enabled: Discussions, private vulnerability reporting, secret scanning + push protection, Dependabot alerts.
@@ -49,7 +49,7 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 | Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). Branches zenith (= upstream), feat/branding (`0214f9dbc5`, full rebrand, pushed, not merged) — HANDOFF.md §2b |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
-Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence, no cmake.
+Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence. Home machine: Xcode 26.5 + Metal Toolchain, cmake.
 
 | Rebrand (02) | ✅ code done, compiled, 785 tests pass; telemetry/auto-update off; logo + tagline replaced. Owner: remove fork README notice, merge into zenith |
 | Icon | ✅ `brand/` |
@@ -58,7 +58,10 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 
 - Rebrand choke points: `crates/paths/src/paths.rs` APP_NAME (+ assert in zed main.rs that APP_NAME_LOWERCASE == bin name), `release_channel` display_name/app_id, `client.rs` ZED_URL_SCHEME + open_listener literals, `install_cli_binary.rs` CLI path, auto-update off via build env `ZED_UPDATE_EXPLANATION`, crash upload off when `ZED_MINIDUMP_ENDPOINT` unset, telemetry defaults in `assets/settings/default.json`. Keychain creds keyed by server URL (keep `zed.dev`).
 - Fork's own `CLAUDE.md` hard rule: any source edit ⇒ prepend `> [!IMPORTANT]` + review line to README.md; only the human removes it.
-- Release builds: `script/bundle-mac -i` (dev channel → `Zenith Dev.app`); `-d` debug. Unsigned → ad-hoc codesign, universal links off.
+- Release builds: `script/bundle-mac -i` (dev channel → `Zenith Dev.app`); `-d` debug. Unsigned → ad-hoc codesign, universal links off. `-i` exits 1 *after* "Installed application bundle" (upstream script then mv-s the moved app for the DMG) — app is fine. Build regenerates `assets/licenses.md` (stays clean).
+- Rebrand keep-as-"Zed" list (services, User-Agent, MCP/DAP client names, fonts/icons/themes, base keymap "Zed", internal `zed:///` mention + `zed://schemas/` URIs, Windows-only names): HANDOFF.md §2b. Logo = contents of `assets/images/zed_logo.svg` + `zed_x_copilot.svg` (no code hook).
+- Timings (home, first run): `cargo check -p zed` 11m 13s; bundle zed binaries 11m 10s + remote_server 7m 49s. Plan 17 targets these.
+- gpui tests: `cx.update_global::<T, _>` needs `use gpui::BorrowAppContext as _`.
 
 - Zed PHP extension: Phpactor is the default LS; Intelephense alternate; licence via `~/intelephense/licence.txt` or `lsp.intelephense.initialization_options.licenceKey`. Xdebug debug adapter built into the PHP extension.
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.
