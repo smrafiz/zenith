@@ -14,7 +14,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 |---|---|---|---|---|
 | 01 | [Prerequisites & fork setup](01-prerequisites.md) | Machine | 1 day | ⬜ |
 | 02 | [Fork architecture & conventions](02-fork-architecture.md) | Core | — | ⬜ |
-| 03 | [Config layer: PHP/JS intelligence, inspections, frameworks](03-config-layer.md) | Config/Extension | 1–3 wk | ⬜ |
+| 03 | [Config layer: PHP/JS intelligence, inspections, frameworks](03-config-layer.md) | Config/Extension | 1–3 wk | 🟨 |
 | 04 | [Scratch files](04-scratches.md) | Core | ~1 wk | ⬜ |
 | 05 | [Local history](05-local-history.md) | Core | 1–2 wk | ⬜ |
 | 06 | [Zed as MCP/IDE server for external agents](06-ide-mcp-server.md) | Core | 2–3 wk | ⬜ |
