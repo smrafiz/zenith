@@ -29,6 +29,7 @@ Xcode notes from the work machine:
 - The App Store Xcode needs macOS ≥ 26.6. On 26.5, use Xcodes.app (`brew install --cask xcodes`) → Xcode 26.5.0 → Make active.
 - Run `sudo` in the real Terminal app, not Claude's `!` prompt (no password prompt there).
 - `sudo xcode-select -s /Applications/Xcode-26.5.0.app/Contents/Developer && sudo xcodebuild -license accept`
+- `xcodebuild -downloadComponent MetalToolchain` — required; without it `gpui_apple` fails with "missing Metal Toolchain".
 - Need ≥ 80 GB free for Xcode plus Zed's `target/`.
 
 ## 2. State
@@ -39,7 +40,7 @@ Xcode notes from the work machine:
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
 | Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write), branch `zenith` **local only, not pushed yet** |
-| First build `cargo build -p zed` | ⏳ was running on the work machine when this was written. Unknown result. Rerun at home. |
+| First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
 
 ## 3. Open decisions (owner)

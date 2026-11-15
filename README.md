@@ -48,6 +48,7 @@ Progress: [Issues](../../issues) (one per plan doc) and [Milestones](../../miles
 | Full Xcode | App Store (needs macOS ≥ 26.6), or Xcodes.app → Xcode 26.5 on macOS 26.5. Then, in the real Terminal: `sudo xcode-select -s /Applications/Xcode-<ver>.app/Contents/Developer && sudo xcodebuild -license accept` |
 | Rust | `rustup`. The fork pins the version in `rust-toolchain.toml` (currently 1.98.1) |
 | cmake, gh | `brew install cmake gh` |
+| Metal Toolchain | `xcodebuild -downloadComponent MetalToolchain` (Xcode 26 no longer bundles it; GPUI shaders fail without it, ~700 MB) |
 | Disk | ≥ 80 GB free (Xcode + `target/`) |
 
 ### Set up
