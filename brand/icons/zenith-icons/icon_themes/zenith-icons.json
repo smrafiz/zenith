@@ -1,0 +1,1122 @@
+{
+  "$schema": "https://zed.dev/schema/icon_themes/v0.3.0.json",
+  "name": "Zenith Icons",
+  "author": "Zenith contributors",
+  "themes": [
+    {
+      "name": "Zenith Icons",
+      "appearance": "dark",
+      "directory_icons": {
+        "collapsed": "./icons/folders/folder.svg",
+        "expanded": "./icons/folders/folder-open.svg"
+      },
+      "named_directory_icons": {
+        "src": {
+          "collapsed": "./icons/folders/src.svg",
+          "expanded": "./icons/folders/src-open.svg"
+        },
+        "source": {
+          "collapsed": "./icons/folders/source.svg",
+          "expanded": "./icons/folders/source-open.svg"
+        },
+        "app": {
+          "collapsed": "./icons/folders/app.svg",
+          "expanded": "./icons/folders/app-open.svg"
+        },
+        "core": {
+          "collapsed": "./icons/folders/core.svg",
+          "expanded": "./icons/folders/core-open.svg"
+        },
+        "kernel": {
+          "collapsed": "./icons/folders/kernel.svg",
+          "expanded": "./icons/folders/kernel-open.svg"
+        },
+        "includes": {
+          "collapsed": "./icons/folders/includes.svg",
+          "expanded": "./icons/folders/includes-open.svg"
+        },
+        "inc": {
+          "collapsed": "./icons/folders/inc.svg",
+          "expanded": "./icons/folders/inc-open.svg"
+        },
+        "lib": {
+          "collapsed": "./icons/folders/lib.svg",
+          "expanded": "./icons/folders/lib-open.svg"
+        },
+        "libs": {
+          "collapsed": "./icons/folders/libs.svg",
+          "expanded": "./icons/folders/libs-open.svg"
+        },
+        "tests": {
+          "collapsed": "./icons/folders/tests.svg",
+          "expanded": "./icons/folders/tests-open.svg"
+        },
+        "test": {
+          "collapsed": "./icons/folders/test.svg",
+          "expanded": "./icons/folders/test-open.svg"
+        },
+        "__tests__": {
+          "collapsed": "./icons/folders/tests.svg",
+          "expanded": "./icons/folders/tests-open.svg"
+        },
+        "spec": {
+          "collapsed": "./icons/folders/spec.svg",
+          "expanded": "./icons/folders/spec-open.svg"
+        },
+        "specs": {
+          "collapsed": "./icons/folders/specs.svg",
+          "expanded": "./icons/folders/specs-open.svg"
+        },
+        "e2e": {
+          "collapsed": "./icons/folders/e2e.svg",
+          "expanded": "./icons/folders/e2e-open.svg"
+        },
+        "fixtures": {
+          "collapsed": "./icons/folders/fixtures.svg",
+          "expanded": "./icons/folders/fixtures-open.svg"
+        },
+        "mocks": {
+          "collapsed": "./icons/folders/mocks.svg",
+          "expanded": "./icons/folders/mocks-open.svg"
+        },
+        "__mocks__": {
+          "collapsed": "./icons/folders/mocks.svg",
+          "expanded": "./icons/folders/mocks-open.svg"
+        },
+        "stubs": {
+          "collapsed": "./icons/folders/stubs.svg",
+          "expanded": "./icons/folders/stubs-open.svg"
+        },
+        "build": {
+          "collapsed": "./icons/folders/build.svg",
+          "expanded": "./icons/folders/build-open.svg"
+        },
+        "dist": {
+          "collapsed": "./icons/folders/dist.svg",
+          "expanded": "./icons/folders/dist-open.svg"
+        },
+        "out": {
+          "collapsed": "./icons/folders/out.svg",
+          "expanded": "./icons/folders/out-open.svg"
+        },
+        "release": {
+          "collapsed": "./icons/folders/release.svg",
+          "expanded": "./icons/folders/release-open.svg"
+        },
+        "public": {
+          "collapsed": "./icons/folders/public.svg",
+          "expanded": "./icons/folders/public-open.svg"
+        },
+        "static": {
+          "collapsed": "./icons/folders/static.svg",
+          "expanded": "./icons/folders/static-open.svg"
+        },
+        "www": {
+          "collapsed": "./icons/folders/www.svg",
+          "expanded": "./icons/folders/www-open.svg"
+        },
+        "assets": {
+          "collapsed": "./icons/folders/assets.svg",
+          "expanded": "./icons/folders/assets-open.svg"
+        },
+        "resources": {
+          "collapsed": "./icons/folders/resources.svg",
+          "expanded": "./icons/folders/resources-open.svg"
+        },
+        "images": {
+          "collapsed": "./icons/folders/images.svg",
+          "expanded": "./icons/folders/images-open.svg"
+        },
+        "img": {
+          "collapsed": "./icons/folders/img.svg",
+          "expanded": "./icons/folders/img-open.svg"
+        },
+        "icons": {
+          "collapsed": "./icons/folders/icons.svg",
+          "expanded": "./icons/folders/icons-open.svg"
+        },
+        "media": {
+          "collapsed": "./icons/folders/media.svg",
+          "expanded": "./icons/folders/media-open.svg"
+        },
+        "uploads": {
+          "collapsed": "./icons/folders/uploads.svg",
+          "expanded": "./icons/folders/uploads-open.svg"
+        },
+        "styles": {
+          "collapsed": "./icons/folders/styles.svg",
+          "expanded": "./icons/folders/styles-open.svg"
+        },
+        "css": {
+          "collapsed": "./icons/folders/css.svg",
+          "expanded": "./icons/folders/css-open.svg"
+        },
+        "scss": {
+          "collapsed": "./icons/folders/scss.svg",
+          "expanded": "./icons/folders/scss-open.svg"
+        },
+        "sass": {
+          "collapsed": "./icons/folders/sass.svg",
+          "expanded": "./icons/folders/sass-open.svg"
+        },
+        "js": {
+          "collapsed": "./icons/folders/js.svg",
+          "expanded": "./icons/folders/js-open.svg"
+        },
+        "scripts": {
+          "collapsed": "./icons/folders/scripts.svg",
+          "expanded": "./icons/folders/scripts-open.svg"
+        },
+        "bin": {
+          "collapsed": "./icons/folders/bin.svg",
+          "expanded": "./icons/folders/bin-open.svg"
+        },
+        "components": {
+          "collapsed": "./icons/folders/components.svg",
+          "expanded": "./icons/folders/components-open.svg"
+        },
+        "blocks": {
+          "collapsed": "./icons/folders/blocks.svg",
+          "expanded": "./icons/folders/blocks-open.svg"
+        },
+        "block": {
+          "collapsed": "./icons/folders/block.svg",
+          "expanded": "./icons/folders/block-open.svg"
+        },
+        "patterns": {
+          "collapsed": "./icons/folders/patterns.svg",
+          "expanded": "./icons/folders/patterns-open.svg"
+        },
+        "parts": {
+          "collapsed": "./icons/folders/parts.svg",
+          "expanded": "./icons/folders/parts-open.svg"
+        },
+        "hooks": {
+          "collapsed": "./icons/folders/hooks.svg",
+          "expanded": "./icons/folders/hooks-open.svg"
+        },
+        "webhooks": {
+          "collapsed": "./icons/folders/webhooks.svg",
+          "expanded": "./icons/folders/webhooks-open.svg"
+        },
+        "config": {
+          "collapsed": "./icons/folders/config.svg",
+          "expanded": "./icons/folders/config-open.svg"
+        },
+        "configs": {
+          "collapsed": "./icons/folders/configs.svg",
+          "expanded": "./icons/folders/configs-open.svg"
+        },
+        "settings": {
+          "collapsed": "./icons/folders/settings.svg",
+          "expanded": "./icons/folders/settings-open.svg"
+        },
+        "routes": {
+          "collapsed": "./icons/folders/routes.svg",
+          "expanded": "./icons/folders/routes-open.svg"
+        },
+        "router": {
+          "collapsed": "./icons/folders/router.svg",
+          "expanded": "./icons/folders/router-open.svg"
+        },
+        "database": {
+          "collapsed": "./icons/folders/database.svg",
+          "expanded": "./icons/folders/database-open.svg"
+        },
+        "migrations": {
+          "collapsed": "./icons/folders/migrations.svg",
+          "expanded": "./icons/folders/migrations-open.svg"
+        },
+        "seeders": {
+          "collapsed": "./icons/folders/seeders.svg",
+          "expanded": "./icons/folders/seeders-open.svg"
+        },
+        "factories": {
+          "collapsed": "./icons/folders/factories.svg",
+          "expanded": "./icons/folders/factories-open.svg"
+        },
+        "db": {
+          "collapsed": "./icons/folders/db.svg",
+          "expanded": "./icons/folders/db-open.svg"
+        },
+        "models": {
+          "collapsed": "./icons/folders/models.svg",
+          "expanded": "./icons/folders/models-open.svg"
+        },
+        "entities": {
+          "collapsed": "./icons/folders/entities.svg",
+          "expanded": "./icons/folders/entities-open.svg"
+        },
+        "views": {
+          "collapsed": "./icons/folders/views.svg",
+          "expanded": "./icons/folders/views-open.svg"
+        },
+        "templates": {
+          "collapsed": "./icons/folders/templates.svg",
+          "expanded": "./icons/folders/templates-open.svg"
+        },
+        "template-parts": {
+          "collapsed": "./icons/folders/template-parts.svg",
+          "expanded": "./icons/folders/template-parts-open.svg"
+        },
+        "layouts": {
+          "collapsed": "./icons/folders/layouts.svg",
+          "expanded": "./icons/folders/layouts-open.svg"
+        },
+        "pages": {
+          "collapsed": "./icons/folders/pages.svg",
+          "expanded": "./icons/folders/pages-open.svg"
+        },
+        "lang": {
+          "collapsed": "./icons/folders/lang.svg",
+          "expanded": "./icons/folders/lang-open.svg"
+        },
+        "languages": {
+          "collapsed": "./icons/folders/languages.svg",
+          "expanded": "./icons/folders/languages-open.svg"
+        },
+        "i18n": {
+          "collapsed": "./icons/folders/i18n.svg",
+          "expanded": "./icons/folders/i18n-open.svg"
+        },
+        "locales": {
+          "collapsed": "./icons/folders/locales.svg",
+          "expanded": "./icons/folders/locales-open.svg"
+        },
+        "docs": {
+          "collapsed": "./icons/folders/docs.svg",
+          "expanded": "./icons/folders/docs-open.svg"
+        },
+        "doc": {
+          "collapsed": "./icons/folders/doc.svg",
+          "expanded": "./icons/folders/doc-open.svg"
+        },
+        "documentation": {
+          "collapsed": "./icons/folders/documentation.svg",
+          "expanded": "./icons/folders/documentation-open.svg"
+        },
+        "plan": {
+          "collapsed": "./icons/folders/plan.svg",
+          "expanded": "./icons/folders/plan-open.svg"
+        },
+        "plans": {
+          "collapsed": "./icons/folders/plans.svg",
+          "expanded": "./icons/folders/plans-open.svg"
+        },
+        "vendor": {
+          "collapsed": "./icons/folders/vendor.svg",
+          "expanded": "./icons/folders/vendor-open.svg"
+        },
+        "node_modules": {
+          "collapsed": "./icons/folders/node_modules.svg",
+          "expanded": "./icons/folders/node_modules-open.svg"
+        },
+        ".git": {
+          "collapsed": "./icons/folders/git.svg",
+          "expanded": "./icons/folders/git-open.svg"
+        },
+        ".github": {
+          "collapsed": "./icons/folders/github.svg",
+          "expanded": "./icons/folders/github-open.svg"
+        },
+        ".gitlab": {
+          "collapsed": "./icons/folders/gitlab.svg",
+          "expanded": "./icons/folders/gitlab-open.svg"
+        },
+        ".claude": {
+          "collapsed": "./icons/folders/claude.svg",
+          "expanded": "./icons/folders/claude-open.svg"
+        },
+        ".zenith": {
+          "collapsed": "./icons/folders/zenith.svg",
+          "expanded": "./icons/folders/zenith-open.svg"
+        },
+        ".cursor": {
+          "collapsed": "./icons/folders/cursor.svg",
+          "expanded": "./icons/folders/cursor-open.svg"
+        },
+        "admin": {
+          "collapsed": "./icons/folders/admin.svg",
+          "expanded": "./icons/folders/admin-open.svg"
+        },
+        "dashboard": {
+          "collapsed": "./icons/folders/dashboard.svg",
+          "expanded": "./icons/folders/dashboard-open.svg"
+        },
+        "api": {
+          "collapsed": "./icons/folders/api.svg",
+          "expanded": "./icons/folders/api-open.svg"
+        },
+        "http": {
+          "collapsed": "./icons/folders/http.svg",
+          "expanded": "./icons/folders/http-open.svg"
+        },
+        "storage": {
+          "collapsed": "./icons/folders/storage.svg",
+          "expanded": "./icons/folders/storage-open.svg"
+        },
+        "cache": {
+          "collapsed": "./icons/folders/cache.svg",
+          "expanded": "./icons/folders/cache-open.svg"
+        },
+        "tmp": {
+          "collapsed": "./icons/folders/tmp.svg",
+          "expanded": "./icons/folders/tmp-open.svg"
+        },
+        "temp": {
+          "collapsed": "./icons/folders/temp.svg",
+          "expanded": "./icons/folders/temp-open.svg"
+        },
+        "logs": {
+          "collapsed": "./icons/folders/logs.svg",
+          "expanded": "./icons/folders/logs-open.svg"
+        },
+        "bootstrap": {
+          "collapsed": "./icons/folders/bootstrap.svg",
+          "expanded": "./icons/folders/bootstrap-open.svg"
+        },
+        "types": {
+          "collapsed": "./icons/folders/types.svg",
+          "expanded": "./icons/folders/types-open.svg"
+        },
+        "@types": {
+          "collapsed": "./icons/folders/types.svg",
+          "expanded": "./icons/folders/types-open.svg"
+        },
+        "typings": {
+          "collapsed": "./icons/folders/typings.svg",
+          "expanded": "./icons/folders/typings-open.svg"
+        },
+        "interfaces": {
+          "collapsed": "./icons/folders/interfaces.svg",
+          "expanded": "./icons/folders/interfaces-open.svg"
+        },
+        "utils": {
+          "collapsed": "./icons/folders/utils.svg",
+          "expanded": "./icons/folders/utils-open.svg"
+        },
+        "helpers": {
+          "collapsed": "./icons/folders/helpers.svg",
+          "expanded": "./icons/folders/helpers-open.svg"
+        },
+        "support": {
+          "collapsed": "./icons/folders/support.svg",
+          "expanded": "./icons/folders/support-open.svg"
+        },
+        "middleware": {
+          "collapsed": "./icons/folders/middleware.svg",
+          "expanded": "./icons/folders/middleware-open.svg"
+        },
+        "guards": {
+          "collapsed": "./icons/folders/guards.svg",
+          "expanded": "./icons/folders/guards-open.svg"
+        },
+        "policies": {
+          "collapsed": "./icons/folders/policies.svg",
+          "expanded": "./icons/folders/policies-open.svg"
+        },
+        "auth": {
+          "collapsed": "./icons/folders/auth.svg",
+          "expanded": "./icons/folders/auth-open.svg"
+        },
+        "security": {
+          "collapsed": "./icons/folders/security.svg",
+          "expanded": "./icons/folders/security-open.svg"
+        },
+        "providers": {
+          "collapsed": "./icons/folders/providers.svg",
+          "expanded": "./icons/folders/providers-open.svg"
+        },
+        "plugins": {
+          "collapsed": "./icons/folders/plugins.svg",
+          "expanded": "./icons/folders/plugins-open.svg"
+        },
+        "mu-plugins": {
+          "collapsed": "./icons/folders/mu-plugins.svg",
+          "expanded": "./icons/folders/mu-plugins-open.svg"
+        },
+        "extensions": {
+          "collapsed": "./icons/folders/extensions.svg",
+          "expanded": "./icons/folders/extensions-open.svg"
+        },
+        "services": {
+          "collapsed": "./icons/folders/services.svg",
+          "expanded": "./icons/folders/services-open.svg"
+        },
+        "actions": {
+          "collapsed": "./icons/folders/actions.svg",
+          "expanded": "./icons/folders/actions-open.svg"
+        },
+        "jobs": {
+          "collapsed": "./icons/folders/jobs.svg",
+          "expanded": "./icons/folders/jobs-open.svg"
+        },
+        "queue": {
+          "collapsed": "./icons/folders/queue.svg",
+          "expanded": "./icons/folders/queue-open.svg"
+        },
+        "controllers": {
+          "collapsed": "./icons/folders/controllers.svg",
+          "expanded": "./icons/folders/controllers-open.svg"
+        },
+        "handlers": {
+          "collapsed": "./icons/folders/handlers.svg",
+          "expanded": "./icons/folders/handlers-open.svg"
+        },
+        "console": {
+          "collapsed": "./icons/folders/console.svg",
+          "expanded": "./icons/folders/console-open.svg"
+        },
+        "commands": {
+          "collapsed": "./icons/folders/commands.svg",
+          "expanded": "./icons/folders/commands-open.svg"
+        },
+        "cli": {
+          "collapsed": "./icons/folders/cli.svg",
+          "expanded": "./icons/folders/cli-open.svg"
+        },
+        "events": {
+          "collapsed": "./icons/folders/events.svg",
+          "expanded": "./icons/folders/events-open.svg"
+        },
+        "listeners": {
+          "collapsed": "./icons/folders/listeners.svg",
+          "expanded": "./icons/folders/listeners-open.svg"
+        },
+        "cron": {
+          "collapsed": "./icons/folders/cron.svg",
+          "expanded": "./icons/folders/cron-open.svg"
+        },
+        "schedule": {
+          "collapsed": "./icons/folders/schedule.svg",
+          "expanded": "./icons/folders/schedule-open.svg"
+        },
+        "mail": {
+          "collapsed": "./icons/folders/mail.svg",
+          "expanded": "./icons/folders/mail-open.svg"
+        },
+        "mails": {
+          "collapsed": "./icons/folders/mails.svg",
+          "expanded": "./icons/folders/mails-open.svg"
+        },
+        "emails": {
+          "collapsed": "./icons/folders/emails.svg",
+          "expanded": "./icons/folders/emails-open.svg"
+        },
+        "notifications": {
+          "collapsed": "./icons/folders/notifications.svg",
+          "expanded": "./icons/folders/notifications-open.svg"
+        },
+        "fonts": {
+          "collapsed": "./icons/folders/fonts.svg",
+          "expanded": "./icons/folders/fonts-open.svg"
+        },
+        "themes": {
+          "collapsed": "./icons/folders/themes.svg",
+          "expanded": "./icons/folders/themes-open.svg"
+        },
+        "theme": {
+          "collapsed": "./icons/folders/theme.svg",
+          "expanded": "./icons/folders/theme-open.svg"
+        },
+        "wp-content": {
+          "collapsed": "./icons/folders/wp-content.svg",
+          "expanded": "./icons/folders/wp-content-open.svg"
+        },
+        "wp-includes": {
+          "collapsed": "./icons/folders/wp-includes.svg",
+          "expanded": "./icons/folders/wp-includes-open.svg"
+        },
+        "users": {
+          "collapsed": "./icons/folders/users.svg",
+          "expanded": "./icons/folders/users-open.svg"
+        },
+        "accounts": {
+          "collapsed": "./icons/folders/accounts.svg",
+          "expanded": "./icons/folders/accounts-open.svg"
+        },
+        "scratches": {
+          "collapsed": "./icons/folders/scratches.svg",
+          "expanded": "./icons/folders/scratches-open.svg"
+        },
+        ".vscode": {
+          "collapsed": "./icons/folders/vscode.svg",
+          "expanded": "./icons/folders/vscode-open.svg"
+        },
+        ".idea": {
+          "collapsed": "./icons/folders/idea.svg",
+          "expanded": "./icons/folders/idea-open.svg"
+        },
+        ".zed": {
+          "collapsed": "./icons/folders/zed.svg",
+          "expanded": "./icons/folders/zed-open.svg"
+        },
+        "docker": {
+          "collapsed": "./icons/folders/docker.svg",
+          "expanded": "./icons/folders/docker-open.svg"
+        },
+        ".docker": {
+          "collapsed": "./icons/folders/docker.svg",
+          "expanded": "./icons/folders/docker-open.svg"
+        }
+      },
+      "file_stems": {
+        "composer.json": "json-composer",
+        "composer.lock": "json-lock",
+        "package.json": "json-pkg",
+        "package-lock.json": "json-lock",
+        "yarn.lock": "lock",
+        "pnpm-lock.yaml": "yaml-lock",
+        "bun.lockb": "lock",
+        "bun.lock": "lock",
+        "tsconfig.json": "json-ts",
+        "jsconfig.json": "json-ts",
+        "theme.json": "json-theme",
+        "block.json": "json-block",
+        ".mcp.json": "json-mcp",
+        "manifest.json": "json-web",
+        "pint.json": "json-style",
+        ".prettierrc": "json-style",
+        ".prettierrc.json": "json-style",
+        ".eslintrc": "json-lint",
+        ".eslintrc.json": "json-lint",
+        ".stylelintrc.json": "json-lint",
+        "phpunit.xml": "xml-phpunit",
+        "phpunit.xml.dist": "xml-phpunit",
+        "phpcs.xml": "xml-rules",
+        "phpcs.xml.dist": "xml-rules",
+        ".phpcs.xml.dist": "xml-rules",
+        "psalm.xml": "xml-rules",
+        "phpstan.neon": "neon-stan",
+        "phpstan.neon.dist": "neon-stan",
+        ".php-cs-fixer.php": "php-fixer",
+        ".php-cs-fixer.dist.php": "php-fixer",
+        "rector.php": "php-fixer",
+        "functions.php": "php-hook",
+        "wp-config.php": "php-config",
+        "wp-config-sample.php": "php-config",
+        "index.php": "php-entry",
+        "artisan": "php-cli",
+        "web.php": "php-route",
+        "api.php": "php-route",
+        "console.php": "php-route",
+        "channels.php": "php-route",
+        "style.css": "css-theme",
+        "vite.config.js": "js-build",
+        "vite.config.ts": "ts-build",
+        "webpack.config.js": "js-build",
+        "rollup.config.js": "js-build",
+        "next.config.js": "js-build",
+        "next.config.mjs": "js-build",
+        "next.config.ts": "ts-build",
+        "tailwind.config.js": "js-style",
+        "tailwind.config.ts": "ts-style",
+        "postcss.config.js": "js-style",
+        "prettier.config.js": "js-style",
+        "eslint.config.js": "js-lint",
+        "eslint.config.mjs": "js-lint",
+        "jest.config.js": "js-testcfg",
+        "vitest.config.ts": "ts-testcfg",
+        "playwright.config.ts": "ts-testcfg",
+        "README.md": "md-readme",
+        "readme.md": "md-readme",
+        "README": "txt-readme",
+        "readme.txt": "txt-readme",
+        "CHANGELOG.md": "md-changelog",
+        "CLAUDE.md": "md-agent",
+        "AGENTS.md": "md-agent",
+        "GEMINI.md": "md-agent",
+        "LICENSE": "license",
+        "LICENSE.md": "license",
+        "LICENSE.txt": "license",
+        "license.txt": "license",
+        "robots.txt": "robots",
+        ".env": "env",
+        ".env.example": "env",
+        ".env.local": "env",
+        ".env.testing": "env",
+        ".env.production": "env",
+        ".gitignore": "git",
+        ".gitattributes": "git",
+        ".gitmodules": "git",
+        ".gitkeep": "git",
+        "Dockerfile": "docker",
+        "docker-compose.yml": "docker",
+        "docker-compose.yaml": "docker",
+        "compose.yaml": "docker",
+        "compose.yml": "docker",
+        ".dockerignore": "docker",
+        "Makefile": "make",
+        ".editorconfig": "editorconfig",
+        ".htaccess": "htaccess",
+        ".nvmrc": "nvm",
+        ".node-version": "nvm",
+        ".npmrc": "npmrc",
+        "dependabot.yml": "yaml-ci",
+        ".gitlab-ci.yml": "yaml-ci",
+        "favicon.ico": "icon"
+      },
+      "file_suffixes": {
+        "php": "php",
+        "phtml": "php",
+        "inc": "php",
+        "blade.php": "blade",
+        "twig": "twig",
+        "js": "js",
+        "mjs": "js",
+        "cjs": "js",
+        "jsx": "jsx",
+        "ts": "ts",
+        "mts": "ts",
+        "cts": "ts",
+        "tsx": "tsx",
+        "d.ts": "dts",
+        "css": "css",
+        "scss": "scss",
+        "sass": "scss",
+        "less": "less",
+        "html": "html",
+        "htm": "html",
+        "vue": "vue",
+        "svelte": "svelte",
+        "astro": "astro",
+        "json": "json",
+        "jsonc": "json",
+        "json5": "json",
+        "md": "md",
+        "markdown": "md",
+        "mdx": "mdx",
+        "txt": "txt",
+        "yml": "yaml",
+        "yaml": "yaml",
+        "xml": "xml",
+        "xml.dist": "xml",
+        "toml": "toml",
+        "ini": "ini",
+        "conf": "ini",
+        "cfg": "ini",
+        "neon": "neon",
+        "neon.dist": "neon",
+        "sql": "sql",
+        "prisma": "prisma",
+        "sqlite": "sqlite",
+        "db": "sqlite",
+        "sh": "sh",
+        "bash": "sh",
+        "zsh": "sh",
+        "fish": "sh",
+        "http": "http",
+        "rest": "http",
+        "graphql": "gql",
+        "gql": "gql",
+        "py": "py",
+        "rs": "rs",
+        "go": "go",
+        "rb": "rb",
+        "java": "java",
+        "kt": "kt",
+        "swift": "swift",
+        "c": "c",
+        "h": "h",
+        "cpp": "cpp",
+        "cc": "cpp",
+        "hpp": "cpp",
+        "cs": "cs",
+        "lua": "lua",
+        "dart": "dart",
+        "wasm": "wasm",
+        "svg": "svg",
+        "ico": "icon",
+        "pdf": "pdf",
+        "log": "log",
+        "csv": "csv",
+        "tsv": "csv",
+        "map": "map",
+        "lock": "lock",
+        "patch": "diff",
+        "diff": "diff",
+        "po": "i18n",
+        "pot": "i18n",
+        "mo": "i18n",
+        "png": "image",
+        "jpg": "image",
+        "jpeg": "image",
+        "gif": "image",
+        "webp": "image",
+        "avif": "image",
+        "bmp": "image",
+        "tiff": "image",
+        "heic": "image",
+        "zip": "archive",
+        "gz": "archive",
+        "tgz": "archive",
+        "tar": "archive",
+        "rar": "archive",
+        "7z": "archive",
+        "bz2": "archive",
+        "xz": "archive",
+        "woff": "font",
+        "woff2": "font",
+        "ttf": "font",
+        "otf": "font",
+        "eot": "font",
+        "mp4": "video",
+        "mov": "video",
+        "webm": "video",
+        "mkv": "video",
+        "avi": "video",
+        "mp3": "audio",
+        "wav": "audio",
+        "ogg": "audio",
+        "flac": "audio",
+        "m4a": "audio",
+        "test.js": "js-test",
+        "spec.js": "js-test",
+        "e2e.js": "js-test",
+        "test.jsx": "js-test",
+        "spec.jsx": "js-test",
+        "e2e.jsx": "js-test",
+        "test.mjs": "js-test",
+        "spec.mjs": "js-test",
+        "e2e.mjs": "js-test",
+        "test.ts": "ts-test",
+        "spec.ts": "ts-test",
+        "e2e.ts": "ts-test",
+        "test.tsx": "ts-test",
+        "spec.tsx": "ts-test",
+        "e2e.tsx": "ts-test",
+        "config.js": "js-config",
+        "config.mjs": "js-config",
+        "config.cjs": "js-config",
+        "config.ts": "ts-config",
+        "config.mts": "ts-config"
+      },
+      "file_icons": {
+        "default": {
+          "path": "./icons/files/default.svg"
+        },
+        "php": {
+          "path": "./icons/files/php.svg"
+        },
+        "php-entry": {
+          "path": "./icons/files/php-entry.svg"
+        },
+        "php-hook": {
+          "path": "./icons/files/php-hook.svg"
+        },
+        "php-config": {
+          "path": "./icons/files/php-config.svg"
+        },
+        "php-route": {
+          "path": "./icons/files/php-route.svg"
+        },
+        "php-cli": {
+          "path": "./icons/files/php-cli.svg"
+        },
+        "php-fixer": {
+          "path": "./icons/files/php-fixer.svg"
+        },
+        "blade": {
+          "path": "./icons/files/blade.svg"
+        },
+        "twig": {
+          "path": "./icons/files/twig.svg"
+        },
+        "js": {
+          "path": "./icons/files/js.svg"
+        },
+        "jsx": {
+          "path": "./icons/files/jsx.svg"
+        },
+        "ts": {
+          "path": "./icons/files/ts.svg"
+        },
+        "tsx": {
+          "path": "./icons/files/tsx.svg"
+        },
+        "dts": {
+          "path": "./icons/files/dts.svg"
+        },
+        "js-test": {
+          "path": "./icons/files/js-test.svg"
+        },
+        "ts-test": {
+          "path": "./icons/files/ts-test.svg"
+        },
+        "php-test": {
+          "path": "./icons/files/php-test.svg"
+        },
+        "js-config": {
+          "path": "./icons/files/js-config.svg"
+        },
+        "ts-config": {
+          "path": "./icons/files/ts-config.svg"
+        },
+        "js-build": {
+          "path": "./icons/files/js-build.svg"
+        },
+        "ts-build": {
+          "path": "./icons/files/ts-build.svg"
+        },
+        "js-style": {
+          "path": "./icons/files/js-style.svg"
+        },
+        "ts-style": {
+          "path": "./icons/files/ts-style.svg"
+        },
+        "js-lint": {
+          "path": "./icons/files/js-lint.svg"
+        },
+        "js-testcfg": {
+          "path": "./icons/files/js-testcfg.svg"
+        },
+        "ts-testcfg": {
+          "path": "./icons/files/ts-testcfg.svg"
+        },
+        "css": {
+          "path": "./icons/files/css.svg"
+        },
+        "scss": {
+          "path": "./icons/files/scss.svg"
+        },
+        "less": {
+          "path": "./icons/files/less.svg"
+        },
+        "css-theme": {
+          "path": "./icons/files/css-theme.svg"
+        },
+        "html": {
+          "path": "./icons/files/html.svg"
+        },
+        "vue": {
+          "path": "./icons/files/vue.svg"
+        },
+        "svelte": {
+          "path": "./icons/files/svelte.svg"
+        },
+        "astro": {
+          "path": "./icons/files/astro.svg"
+        },
+        "json": {
+          "path": "./icons/files/json.svg"
+        },
+        "json-pkg": {
+          "path": "./icons/files/json-pkg.svg"
+        },
+        "json-composer": {
+          "path": "./icons/files/json-composer.svg"
+        },
+        "json-lock": {
+          "path": "./icons/files/json-lock.svg"
+        },
+        "json-config": {
+          "path": "./icons/files/json-config.svg"
+        },
+        "json-ts": {
+          "path": "./icons/files/json-ts.svg"
+        },
+        "json-theme": {
+          "path": "./icons/files/json-theme.svg"
+        },
+        "json-block": {
+          "path": "./icons/files/json-block.svg"
+        },
+        "json-mcp": {
+          "path": "./icons/files/json-mcp.svg"
+        },
+        "json-web": {
+          "path": "./icons/files/json-web.svg"
+        },
+        "json-style": {
+          "path": "./icons/files/json-style.svg"
+        },
+        "json-lint": {
+          "path": "./icons/files/json-lint.svg"
+        },
+        "md": {
+          "path": "./icons/files/md.svg"
+        },
+        "mdx": {
+          "path": "./icons/files/mdx.svg"
+        },
+        "md-readme": {
+          "path": "./icons/files/md-readme.svg"
+        },
+        "md-agent": {
+          "path": "./icons/files/md-agent.svg"
+        },
+        "md-changelog": {
+          "path": "./icons/files/md-changelog.svg"
+        },
+        "txt": {
+          "path": "./icons/files/txt.svg"
+        },
+        "txt-readme": {
+          "path": "./icons/files/txt-readme.svg"
+        },
+        "license": {
+          "path": "./icons/files/license.svg"
+        },
+        "robots": {
+          "path": "./icons/files/robots.svg"
+        },
+        "yaml": {
+          "path": "./icons/files/yaml.svg"
+        },
+        "yaml-ci": {
+          "path": "./icons/files/yaml-ci.svg"
+        },
+        "yaml-lock": {
+          "path": "./icons/files/yaml-lock.svg"
+        },
+        "xml": {
+          "path": "./icons/files/xml.svg"
+        },
+        "xml-phpunit": {
+          "path": "./icons/files/xml-phpunit.svg"
+        },
+        "xml-rules": {
+          "path": "./icons/files/xml-rules.svg"
+        },
+        "toml": {
+          "path": "./icons/files/toml.svg"
+        },
+        "ini": {
+          "path": "./icons/files/ini.svg"
+        },
+        "neon": {
+          "path": "./icons/files/neon.svg"
+        },
+        "neon-stan": {
+          "path": "./icons/files/neon-stan.svg"
+        },
+        "sql": {
+          "path": "./icons/files/sql.svg"
+        },
+        "prisma": {
+          "path": "./icons/files/prisma.svg"
+        },
+        "sqlite": {
+          "path": "./icons/files/sqlite.svg"
+        },
+        "sh": {
+          "path": "./icons/files/sh.svg"
+        },
+        "make": {
+          "path": "./icons/files/make.svg"
+        },
+        "env": {
+          "path": "./icons/files/env.svg"
+        },
+        "http": {
+          "path": "./icons/files/http.svg"
+        },
+        "gql": {
+          "path": "./icons/files/gql.svg"
+        },
+        "py": {
+          "path": "./icons/files/py.svg"
+        },
+        "rs": {
+          "path": "./icons/files/rs.svg"
+        },
+        "go": {
+          "path": "./icons/files/go.svg"
+        },
+        "rb": {
+          "path": "./icons/files/rb.svg"
+        },
+        "java": {
+          "path": "./icons/files/java.svg"
+        },
+        "kt": {
+          "path": "./icons/files/kt.svg"
+        },
+        "swift": {
+          "path": "./icons/files/swift.svg"
+        },
+        "c": {
+          "path": "./icons/files/c.svg"
+        },
+        "h": {
+          "path": "./icons/files/h.svg"
+        },
+        "cpp": {
+          "path": "./icons/files/cpp.svg"
+        },
+        "cs": {
+          "path": "./icons/files/cs.svg"
+        },
+        "lua": {
+          "path": "./icons/files/lua.svg"
+        },
+        "dart": {
+          "path": "./icons/files/dart.svg"
+        },
+        "wasm": {
+          "path": "./icons/files/wasm.svg"
+        },
+        "image": {
+          "path": "./icons/files/image.svg"
+        },
+        "svg": {
+          "path": "./icons/files/svg.svg"
+        },
+        "icon": {
+          "path": "./icons/files/icon.svg"
+        },
+        "pdf": {
+          "path": "./icons/files/pdf.svg"
+        },
+        "archive": {
+          "path": "./icons/files/archive.svg"
+        },
+        "log": {
+          "path": "./icons/files/log.svg"
+        },
+        "csv": {
+          "path": "./icons/files/csv.svg"
+        },
+        "font": {
+          "path": "./icons/files/font.svg"
+        },
+        "video": {
+          "path": "./icons/files/video.svg"
+        },
+        "audio": {
+          "path": "./icons/files/audio.svg"
+        },
+        "i18n": {
+          "path": "./icons/files/i18n.svg"
+        },
+        "map": {
+          "path": "./icons/files/map.svg"
+        },
+        "lock": {
+          "path": "./icons/files/lock.svg"
+        },
+        "diff": {
+          "path": "./icons/files/diff.svg"
+        },
+        "git": {
+          "path": "./icons/files/git.svg"
+        },
+        "docker": {
+          "path": "./icons/files/docker.svg"
+        },
+        "editorconfig": {
+          "path": "./icons/files/editorconfig.svg"
+        },
+        "htaccess": {
+          "path": "./icons/files/htaccess.svg"
+        },
+        "nvm": {
+          "path": "./icons/files/nvm.svg"
+        },
+        "npmrc": {
+          "path": "./icons/files/npmrc.svg"
+        }
+      }
+    }
+  ]
+}

@@ -78,6 +78,7 @@ Left stripe: Project, Git, Tests, Local History, Scratches. Right stripe: Databa
 
 - `workspace` and `title_bar` are hot upstream code → frequent conflicts. Mitigation: copy-and-swap for title bar, single hook for stripes, monthly re-sync.
 - Accessibility: every toolbar/stripe button needs a tooltip + action name (keyboard and command-palette reachable).
+- Islands geometry (target look in `mockups/zenith-v2.html`): colours and icons come from theme/icon-theme JSON (Driftwood + Archipelago Icons, no code), but rounded, gapped panels (editor, docks and bottom panel as separate islands) cannot be expressed in a Zed theme. It needs dock/pane rendering changes in `workspace` (*verify* where docks and the center pane are drawn) — the same hot code as the stripes hook. Mitigation: do it in the stripes hook's call site, behind a `zenith.ui.islands` setting, and drop it if it breaks the merge-cost kill criterion.
 
 ## Effort
 
