@@ -53,6 +53,8 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 
 | Rebrand (02) | ✅ code done, compiled, 785 tests pass; telemetry/auto-update off; logo + tagline replaced. Owner: remove fork README notice, merge into zenith |
 | Icon | ✅ `brand/` |
+| Welcome (32) | 🟨 fork `feat/welcome` @ `bffc425d7b` pushed; tests + full clippy green; installed. Owner: visual check (nav left-align not yet seen), remove README notice, merge into `zenith` |
+| Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
 
 ## Findings worth keeping
 
@@ -62,6 +64,12 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 - Rebrand keep-as-"Zed" list (services, User-Agent, MCP/DAP client names, fonts/icons/themes, base keymap "Zed", internal `zed:///` mention + `zed://schemas/` URIs, Windows-only names): HANDOFF.md §2b. Logo = contents of `assets/images/zed_logo.svg` + `zed_x_copilot.svg` (no code hook).
 - Timings (home, first run): `cargo check -p zed` 11m 13s; bundle zed binaries 11m 10s + remote_server 7m 49s. Plan 17 targets these.
 - gpui tests: `cx.update_global::<T, _>` needs `use gpui::BorrowAppContext as _`.
+- Welcome screen (plan 32): `workspace::welcome::WelcomeOverride` global (fn ptr → `Option<AnyView>`) replaces upstream page; `zenith::show_onboarding_view` swaps onboarding in `main.rs`/`open_listener.rs`. Tests need `editor::init`, `LoadThemes::All(Box::new(assets::Assets))`, `Client` + `Fs` globals, and `AppState::test` *before* re-init (it resets themes). Never `read` the Workspace inside its own update — read `fs` in the spawned task.
+- No-Zed-branding rule (owner, 2026-11-16): nothing user-visible says "Zed". Cheapest levers: `command_palette::humanize_action_name` shows `zed::` as `zenith:` (display only; ids stay `zed::` so keymaps work; also feeds which-key); `title_bar.show_sign_in` default false; own copies in `zenith_welcome` instead of upstream edits. Still Zed-pointing: "zenith: get merch", "zenith: open docs" (zed.dev).
+- `ui::Button::full_width()` centers its label; for left-aligned nav drop it and let the column stretch.
+- New `IconName` variant needs `assets/icons/<snake>.svg`; `icons` tests fail on a missing or dangling svg.
+- Disk/time (work machine, 2026-11-16): `target/` reached 73–80 GiB; `cargo clean` freed 80.1 GiB. Full release bundle from clean 115m 11s; full `./script/clippy` after it 8m 45s; incremental bundle after small UI edits ≈ 51m (35m + 16m). Never `cargo clean`/delete `target/` while a build or clippy runs — it killed clippy (`os error 2`).
+- Plinth (`~/GithubRepos/plinth`, Next.js + Prisma + better-auth multi-tenant CMS) fits the Zenith website (`zenith.plinthsites.com`), not accounts: users are CMS editors, no blob/licence/registry (plan 33).
 
 - Zed PHP extension: Phpactor is the default LS; Intelephense alternate; licence via `~/intelephense/licence.txt` or `lsp.intelephense.initialization_options.licenceKey`. Xdebug debug adapter built into the PHP extension.
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.

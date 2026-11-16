@@ -76,7 +76,8 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Plan 32 welcome screen: built on fork `feat/welcome` (`6f77bb386a`), tests + clippy green, installed as Zenith Dev.app. Owner: visual check, remove README notice; then merge `feat/welcome` into `zenith`.
+0. Plan 32 welcome screen: fork `feat/welcome` @ `bffc425d7b` (pushed). Since last install: Sign In hidden, `zed:`→`zenith:` in palette, nav left-aligned — needs a rebuild (`script/bundle-mac -i`, ≈50 min) then owner visual check, README notice removal, merge into `zenith`.
+0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
 1. ✅ 2026-11-16: notice removed, `feat/branding` merged into `zenith` (`76f912fa08`), pushed.
 2. Commit-prefix decision (§3.1), then close plan 02.
 3. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
@@ -96,5 +97,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubRepos/zenith && claude
-> Read HANDOFF.md and CLAUDE.md. Continue §2b: finish the Zenith rebrand on feat/rebrand in ../zed, build, test, bundle.
+> Read HANDOFF.md, CLAUDE.md and the newest .claude/handoff-*.md. Continue §4 step 0: rebuild ../zed feat/welcome, then the owner's visual check and the plan 31 JetBrains-import decision.
 ```
