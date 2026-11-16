@@ -1,6 +1,6 @@
 # 32 — Zenith Welcome Screen
 
-Status: ⬜ brief agreed (2026-11-16), **plan not yet written** — run `lead-engineer` with this brief first.
+Status: 🟨 chunks 0–8 built on fork `feat/welcome` (`6f77bb386a`, pushed 2026-11-16): tests green (workspace 307, zed 148, zenith_welcome 12), full `./script/clippy` clean, bundled to `/Applications/Zenith Dev.app`. Pending: owner visual check, README notice removal, merge into `zenith`. Known gaps: Plugins list hard-coded (no installed state); a welcome tab open when the setting is toggled off only switches after reopening.
 
 ## Goal
 

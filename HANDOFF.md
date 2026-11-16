@@ -43,6 +43,7 @@ Xcode notes from the work machine:
 | Plan 01 | ✅ run, tests, upstream merge; `script/bundle-mac -i` → `/Applications/Zenith Dev.app` opens (home machine, 2026-11-16) |
 | Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
+| Plan 32 welcome | 🟨 `feat/welcome` @ `6f77bb386a` pushed; tests + clippy green; awaiting visual check + merge |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
@@ -75,7 +76,7 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Run lead-engineer on plan/32-welcome-screen.md (welcome screen brief; plan not written yet), review, then build.
+0. Plan 32 welcome screen: built on fork `feat/welcome` (`6f77bb386a`), tests + clippy green, installed as Zenith Dev.app. Owner: visual check, remove README notice; then merge `feat/welcome` into `zenith`.
 1. ✅ 2026-11-16: notice removed, `feat/branding` merged into `zenith` (`76f912fa08`), pushed.
 2. Commit-prefix decision (§3.1), then close plan 02.
 3. Plan 17: sccache, nextest, bacon, line-tables-only debug; record times in `plan/build-log.md`.
