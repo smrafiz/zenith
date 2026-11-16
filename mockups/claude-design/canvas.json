@@ -1,0 +1,106 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-16T18:30:33Z"
+ },
+ "title": "Zenith — IDE mockups",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1600,
+   "h": 1000,
+   "title": "1 · Editing"
+  },
+  "Debugging.dc.html": {
+   "x": 1680,
+   "y": 0,
+   "w": 1600,
+   "h": 1000,
+   "title": "2 · Debugging"
+  },
+  "AgentReview.dc.html": {
+   "x": 3360,
+   "y": 0,
+   "w": 1600,
+   "h": 1340,
+   "title": "3 · Agent review"
+  },
+  "AgentPopover.dc.html": {
+   "x": 0,
+   "y": 1460,
+   "w": 1600,
+   "h": 1000,
+   "title": "4 · Agent popover"
+  },
+  "SearchEverywhere.dc.html": {
+   "x": 1680,
+   "y": 1460,
+   "w": 1600,
+   "h": 1260,
+   "title": "5 · Search Everywhere"
+  },
+  "InlineAgentEdit.dc.html": {
+   "x": 3360,
+   "y": 1460,
+   "w": 1600,
+   "h": 1000,
+   "title": "6 · Inline agent edit"
+  },
+  "HookHover.dc.html": {
+   "x": 0,
+   "y": 2840,
+   "w": 1600,
+   "h": 1180,
+   "title": "7 · Hook hover"
+  },
+  "Run.dc.html": {
+   "x": 1680,
+   "y": 2840,
+   "w": 1600,
+   "h": 1000,
+   "title": "8 · Run"
+  },
+  "ToolWindows.dc.html": {
+   "x": 0,
+   "y": 4140,
+   "w": 1680,
+   "h": 1880,
+   "title": "9 · Tool windows sheet"
+  },
+  "Narrow.dc.html": {
+   "x": 3360,
+   "y": 2840,
+   "w": 1500,
+   "h": 1010,
+   "title": "10 · Narrow"
+  },
+  "Components.dc.html": {
+   "x": 1760,
+   "y": 4140,
+   "w": 1640,
+   "h": 1560,
+   "title": "11 · Component sheet"
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Debugging.dc.html",
+  "AgentReview.dc.html",
+  "AgentPopover.dc.html",
+  "SearchEverywhere.dc.html",
+  "InlineAgentEdit.dc.html",
+  "HookHover.dc.html",
+  "Run.dc.html",
+  "ToolWindows.dc.html",
+  "Narrow.dc.html",
+  "Components.dc.html"
+ ],
+ "notes": {},
+ "designSystems": []
+}
