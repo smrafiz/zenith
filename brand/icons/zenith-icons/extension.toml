@@ -1,7 +1,0 @@
-id = "zenith-icons"
-name = "Zenith Icons"
-version = "0.1.0"
-schema_version = 1
-description = "Original file and folder icons for Zenith, in the Atom Material style."
-authors = ["Zenith contributors"]
-repository = "https://github.com/wp-sigmadevs/zenith"

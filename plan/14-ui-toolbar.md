@@ -58,6 +58,7 @@ Left stripe: Project, Git, Tests, Local History, Scratches. Right stripe: Databa
   ```
 - **Icons**: use Zed's existing icon set (Lucide-based) + new SVGs in our own `assets/icons/zenith/`. **Don't copy JetBrains icons** until their licence is confirmed (IntelliJ Community is Apache-2.0, but verify icon assets and "New UI" icons specifically; keep attribution if used).
 - **Theme**: ship a "Zenith Light/Dark" theme approximating Islands/New UI colours (theme JSON, no code).
+- **Default look (decided 2026-11-17)**: bundle the owner's Archipelago extensions (`wp-sigmadevs/archipelago`) and default to theme **Driftwood** + icon theme **Archipelago Icons** (Atom Material Icons, MIT, © Elior Boukhobza — ship `LICENSE-ICONS` with the bundle). Settings-only, no code. Check brand-logo icons (WordPress, Laravel, Docker…) against their usage rules before a public release. Rejected: a generated in-house icon pack (108 types vs ~11k names covered, hand upkeep). Target look: `mockups/zenith-v2.html`.
 
 ## Milestones
 
