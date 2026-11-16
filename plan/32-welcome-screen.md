@@ -25,7 +25,7 @@ One PhpStorm-style screen that **replaces both** upstream Zed first-run screens:
 2. Projects: searchable, keyboard-navigable recent projects (name, path, git branch, last opened); actions New Project / Open / Clone from VCS. WordPress/Laravel/Node templates may be a later phase.
 3. Customize absorbs onboarding: theme, base keymap, import VS Code/Cursor settings, vim mode, trust-all. Reuse upstream components/logic, don't copy. "Finish setup / Skip" lives here; returning users never land on setup. Keep upstream's first-run "onboarding seen" flag semantics.
 4. Telemetry: **no** "Help improve / fix Zed" toggles on this screen (Zenith ships telemetry and crash upload off). Settings stay.
-5. Agent setup: Claude Agent and Codex first; Zed Agent sign-in moves into Customize.
+5. Agent setup: Claude Agent and Codex first. ~~Zed Agent sign-in moves into Customize.~~ Removed 2026-11-16 (owner): no Zed branding or zed.dev sign-in on the welcome screen; keymap shown as "Zenith (default)" (fork `8083776638`, `73c2c17416`). Zenith's own sign-in is plan 33.
 6. Recent projects show a framework badge (WordPress / Laravel / Node) from cheap file-presence detection, off the main thread and cached; decide `zenith_core::detect` (plan 15) vs the welcome crate.
 7. Logo (`VectorName::ZedLogo` → `assets/images/zed_logo.svg`, now the Zenith glyph): bolder small-size variant — sun r 5.4→8, inner peak opacity 0.45→0.7, main stroke 7.5→9. Asset-only, first chunk.
 

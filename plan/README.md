@@ -43,6 +43,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 29 | [Zenith settings UI](29-settings-ui.md) | Core | 1–2 wk | ⬜ |
 | 30 | [Xdebug profiler & code coverage](30-profiler-coverage.md) | Core | 3–4 wk | ⬜ |
 | 31 | [PhpStorm/WebStorm migration tool](31-phpstorm-migration.md) | Core/CLI | 1–2 wk | ⬜ |
+| 32 | [Welcome screen](32-welcome-screen.md) | UI | 1.5 wk | 🟨 |
+| 33 | [Zenith accounts](33-zenith-accounts.md) | Service | TBD | ⬜ |
 
 ## Build order & rationale
 
