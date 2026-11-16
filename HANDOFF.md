@@ -39,7 +39,7 @@ Xcode notes from the work machine:
 | Plan (32 docs) + GitHub (31 issues, 6 milestones) | ✅ `wp-sigmadevs/zenith` |
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
-| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`596dfdcf32` = upstream main) · `feat/branding` (`0214f9dbc5`: icon, full rebrand, logo, tagline — merged into `zenith` @ `76f912fa08`) · `feat/rebrand` (`8c4e083700`, now contained in feat/branding) |
+| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`76f912fa08`: upstream main + rebrand) · `feat/branding` (`0214f9dbc5`: icon, full rebrand, logo, tagline — merged into `zenith` @ `76f912fa08`) · `feat/rebrand` (`8c4e083700`, now contained in feat/branding) |
 | Plan 01 | ✅ run, tests, upstream merge; `script/bundle-mac -i` → `/Applications/Zenith Dev.app` opens (home machine, 2026-11-16) |
 | Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
