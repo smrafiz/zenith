@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zenith IDE Mockup v1</title>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* Layout: JetBrains Islands — chrome ground, rounded tool-window islands, One Dark editor island. Colours: Archipelago Driftwood, the zed-config default profile. */
+:root{
+  --backdrop:#131416; --bg0:#2b2d30; --bg1:#2b2d30; --bg2:#282c34; --bg3:#2f3238;
+  --line:#393b40; --line2:#3b4048; --hover:rgba(255,255,255,.09); --sel:#2a4371; --tab-on:#233558;
+  --fg:#dfe1e5; --fg-dim:#b4b7be; --fg-mute:#8c8f96; --code:#abb2bf; --lnum:#495162;
+  --accent:#538af9; --accent2:#71a1fe; --violet:#c678dd;
+  --ok:#6db083; --warn:#ff8c00; --err:#f44747; --info:#61afef;
+  --exec:#2d3f60; --add-bg:#2d4134; --del-bg:rgba(224,108,117,.13); --warn-bg:#44321d; --inlay-bg:#363c44;
+  --vc-mod:#80cbc4; --vc-add:#c3e887;
+  --k:#c88da2; --f:#4fb3be; --fb:#61afef; --s:#98c379; --v:#ffb98b; --vb:#d4886a; --c:#6b7280; --n:#d19a66; --t:#649fc4; --ns:#63b7c0; --pr:#34848d;
+  --ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 30px 80px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+html{height:100%;box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+body{height:100%;margin:0;background:var(--backdrop);color:var(--fg);font:13px/1.4 var(--ui);
+  padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-radius:4px}
+.ic{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ic.fill{fill:currentColor;stroke:none}
+.dim{color:var(--fg-dim)} .mute{color:var(--fg-mute)} .mono{font-family:var(--mono)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* window */
+.app{height:100%;min-height:560px;display:grid;grid-template-rows:42px minmax(0,1fr) 26px;background:var(--bg0);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+
+/* title bar */
+.tb{display:flex;align-items:center;gap:4px;padding:0 10px;border-bottom:1px solid var(--line);min-width:0}
+.lights{display:flex;gap:7px;margin-right:10px}
+.lights i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.lights i:nth-child(2){background:#febc2e}.lights i:nth-child(3){background:#28c840}
+.w{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 8px;border-radius:6px;white-space:nowrap;color:var(--fg)}
+.w:hover{background:var(--hover)}
+.w .ic.chev{width:12px;height:12px;color:var(--fg-mute)}
+.proj-badge{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font:600 10px var(--ui);color:#fff;background:linear-gradient(135deg,#5b45d6,#ff7a3d)}
+.sep{width:1px;height:18px;background:var(--line);margin:0 4px}
+.spacer{flex:1}
+.ib{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:6px;color:var(--fg-dim)}
+.ib:hover{background:var(--hover);color:var(--fg)}
+.ib.play{color:var(--ok)} .ib.dbg{color:var(--ok);background:var(--add-bg)} .ib.stop{color:var(--err)}
+.runcfg{border:1px solid var(--line)}
+.search-btn{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--line);color:var(--fg-mute);min-width:180px}
+.search-btn:hover{border-color:var(--fg-mute);color:var(--fg-dim)}
+.search-btn kbd{margin-left:auto}
+kbd{font:500 10.5px var(--mono);color:var(--fg-mute);border:1px solid var(--line);border-radius:4px;padding:0 4px;background:var(--bg1)}
+.pill{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:11px;font-size:11.5px;font-weight:500;white-space:nowrap}
+.pill.review{background:rgba(255,122,61,.14);color:var(--accent)}
+.pill.ok{background:var(--add-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.err{background:var(--del-bg);color:var(--err)}
+.pill.run{background:rgba(127,200,255,.12);color:var(--info)}
+.pill.mute{background:var(--bg3);color:var(--fg-dim)}
+
+/* main grid */
+.main{display:grid;grid-template-columns:40px auto minmax(0,1fr) auto 40px;min-height:0;position:relative}
+.stripe{display:flex;flex-direction:column;gap:2px;align-items:center;padding:8px 0;background:var(--bg0)}
+.stripe.l{border-right:1px solid var(--line)} .stripe.r{border-left:1px solid var(--line)}
+.stripe .gap{flex:1}
+.sb{position:relative;width:30px;height:30px;display:grid;place-items:center;border-radius:7px;color:var(--fg-dim)}
+.sb .ic{width:17px;height:17px}
+.sb:hover{background:var(--hover);color:var(--fg)}
+.sb[aria-pressed="true"]{background:var(--sel);color:var(--fg)}
+.sb .dot{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--accent);border:1.5px solid var(--bg0)}
+.sb .dot.run{background:var(--info)}
+.sb .num{position:absolute;top:1px;right:0;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--accent);color:#fff;font:600 9.5px/15px var(--ui);text-align:center}
+
+/* panels */
+.panel{width:280px;background:var(--bg1);display:flex;flex-direction:column;min-height:0;min-width:0}
+.panel.l{border-right:1px solid var(--line)} .panel.r{width:340px;border-left:1px solid var(--line)}
+.ph{display:flex;align-items:center;gap:6px;height:34px;padding:0 6px 0 12px;border-bottom:1px solid var(--line);flex:none}
+.ph h2{font-size:12px;font-weight:600;margin:0;letter-spacing:.02em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph .ib{width:24px;height:24px}
+.pb{overflow:auto;flex:1;min-height:0;padding:6px 0 12px}
+.sec{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-mute);padding:10px 12px 4px;display:flex;align-items:center;gap:6px}
+.sec .cnt{letter-spacing:0;font-weight:500}
+.row{display:flex;align-items:center;gap:7px;padding:0 10px;min-height:24px;white-space:nowrap;cursor:default}
+.row:hover{background:var(--hover)}
+.row.on{background:var(--sel)}
+.row .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.row .meta{font-size:11.5px;color:var(--fg-mute)}
+.tw{width:12px;height:12px;color:var(--fg-mute);flex:none}
+.t-php{color:var(--violet)} .t-js{color:var(--accent2)} .t-json{color:var(--accent)} .t-xml{color:var(--ok)} .t-txt,.t-md{color:var(--fg-dim)} .t-dir{color:var(--fg-dim)} .t-lib{color:var(--info)} .t-sql{color:var(--info)} .t-http{color:var(--ok)}
+.st-M{color:var(--info)} .st-A{color:var(--ok)} .st-U{color:var(--fg-mute)}
+.st{font:500 11px var(--mono);width:12px;text-align:center}
+.card{margin:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);overflow:hidden}
+.card-h{display:flex;align-items:center;gap:8px;padding:8px 10px}
+.card-b{padding:0 10px 10px;font-size:12px;color:var(--fg-dim)}
+.btns{display:flex;gap:6px;flex-wrap:wrap;padding:6px 10px}
+.btn{height:24px;padding:0 9px;border-radius:5px;border:1px solid var(--line);font-size:11.5px;font-weight:500;background:var(--bg2);display:inline-flex;align-items:center;gap:5px}
+.btn:hover{border-color:var(--fg-mute)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ok{color:var(--ok)} .btn.bad{color:var(--err)}
+textarea.commit{display:block;width:calc(100% - 20px);margin:6px 10px;min-height:72px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg2);color:var(--fg);font:12px/1.5 var(--ui);padding:6px 8px}
+.chk{display:flex;align-items:center;gap:6px;padding:2px 12px;font-size:12px;color:var(--fg-dim)}
+.chk input{accent-color:var(--accent);margin:0}
+.minicode{font:11.5px/18px var(--mono);margin:0;padding:6px 0;background:var(--bg0);border-top:1px solid var(--line);overflow-x:auto;white-space:pre}
+.minicode div{padding:0 10px}
+.minicode .a{background:var(--add-bg);color:var(--ok)} .minicode .d{background:var(--del-bg);color:var(--err)}
+table.grid{border-collapse:collapse;font:11.5px var(--mono);width:100%}
+table.grid th,table.grid td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:left;white-space:nowrap}
+table.grid th{font:600 10.5px var(--ui);color:var(--fg-mute);background:var(--bg1);letter-spacing:.04em}
+.tl{display:grid;grid-template-columns:44px 12px minmax(0,1fr);gap:0 8px;align-items:start;padding:5px 12px}
+.tl:hover{background:var(--hover)}
+.tl .when{font:11.5px var(--mono);color:var(--fg-mute);padding-top:1px}
+.tl .node{width:9px;height:9px;border-radius:50%;margin-top:4px;border:2px solid var(--fg-mute)}
+.tl .node.agent{border-color:var(--accent);background:var(--accent)}
+.tl .node.label{border-color:var(--violet)}
+.tl .what{min-width:0}
+.tl .what small{display:block;color:var(--fg-mute);font-size:11px}
+.agent-row{padding:8px 10px;border-bottom:1px solid var(--line)}
+.agent-row:hover{background:var(--hover)}
+.agent-top{display:flex;align-items:center;gap:8px}
+.agent-top b{font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agent-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--fg-mute);margin:3px 0 0 18px}
+.agent-meta .mono{color:var(--fg-dim)}
+.sdot{width:9px;height:9px;border-radius:50%;flex:none}
+.sdot.run{background:var(--info);box-shadow:0 0 0 3px rgba(127,200,255,.18);animation:pulse 1.6s ease-in-out infinite}
+.sdot.wait{background:var(--accent)} .sdot.done{background:var(--ok)} .sdot.fail{background:var(--err)}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(127,200,255,0)}}
+.agent-actions{display:flex;gap:4px;margin:6px 0 0 18px;flex-wrap:wrap}
+.agent-actions .btn{height:22px;font-size:11px;padding:0 7px}
+
+/* center */
+.center{display:grid;grid-template-rows:34px 26px minmax(0,1fr) auto;min-width:0;min-height:0;background:var(--bg2)}
+.tabs{display:flex;align-items:stretch;background:var(--bg1);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tab{display:flex;align-items:center;gap:7px;padding:0 12px;border-right:1px solid var(--line);white-space:nowrap;color:var(--fg-dim);font-size:12.5px;position:relative}
+.tab:hover{color:var(--fg)}
+.tab.on{background:var(--bg2);color:var(--fg)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent)}
+.tab .x{width:12px;height:12px;opacity:0;color:var(--fg-mute)} .tab:hover .x,.tab.on .x{opacity:1}
+.tab .mod{width:6px;height:6px;border-radius:50%;background:var(--info)}
+.crumbs{display:flex;align-items:center;gap:4px;padding:0 12px;font-size:12px;color:var(--fg-dim);border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden}
+.crumbs .ic{width:11px;height:11px;color:var(--fg-mute)}
+.crumbs b{font-weight:500;color:var(--fg)}
+.crumbs .lens-r{margin-left:auto;display:flex;gap:6px}
+.edwrap{position:relative;min-height:0;min-width:0}
+.editor{position:absolute;inset:0;overflow:auto;font:12.5px/20px var(--mono);padding:6px 0 30px;tab-size:4}
+.ln{display:grid;grid-template-columns:46px 22px max-content;min-width:100%;white-space:pre}
+.ln .num{color:var(--fg-mute);text-align:right;padding-right:2px;user-select:none;font-variant-numeric:tabular-nums}
+.ln .mk{display:grid;place-items:center}
+.ln .code{padding-right:28px}
+.ln.exec{background:var(--exec)} .ln.exec .num{color:var(--accent)}
+.ln.agent{background:var(--add-bg)} .ln.agent .num{box-shadow:inset -2px 0 var(--ok)}
+.ln.del{background:var(--del-bg)} .ln.del .num{box-shadow:inset -2px 0 var(--err)} .ln.del .code{color:var(--fg-mute);text-decoration:line-through;text-decoration-color:var(--err)}
+.ln.lens{font:11.5px/22px var(--ui);color:var(--fg-mute)}
+.ln.lens .code{display:flex;align-items:center;gap:8px}
+.ln.lens a{color:var(--fg-dim);cursor:pointer;text-decoration:none} .ln.lens a:hover{color:var(--accent)}
+.lens-agent{color:var(--accent);font-weight:500}
+.bp{width:11px;height:11px;border-radius:50%;background:var(--err);position:relative}
+.bp::after{content:"";position:absolute;left:3px;top:2px;border-left:6px solid #fff;border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;opacity:.9}
+.mk .ic{width:13px;height:13px}
+.mk .hk{color:var(--accent);cursor:pointer} .mk .bm{color:var(--violet)}
+.k{color:var(--k);font-style:italic} .f{color:var(--f)} .fb{color:var(--fb)} .s{color:var(--s)} .v{color:var(--v)} .vb{color:var(--vb)} .c{color:var(--c)} .n,.C{color:var(--n)} .t{color:var(--t)} .ns{color:var(--ns)} .pr{color:var(--pr);font-style:italic}
+.hook{text-decoration:underline dotted var(--accent);text-underline-offset:4px;cursor:pointer}
+.inlay{font:500 10.5px/16px var(--ui);padding:0 4px;border-radius:4px;background:var(--inlay-bg);color:var(--fg-mute);margin-right:4px;display:inline-block;vertical-align:1px}
+.ival{margin-left:22px;color:var(--accent2);font-style:italic;font-size:11.5px}
+.dg{margin-left:22px;font:11.5px var(--ui);color:var(--warn);background:var(--warn-bg);padding:1px 7px;border-radius:4px}
+.wv{text-decoration:underline wavy var(--warn);text-underline-offset:4px;text-decoration-thickness:1px}
+.hover{position:absolute;z-index:20;width:min(380px,calc(100% - 24px));background:var(--bg1);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 40px rgba(0,0,0,.35);font-size:12px}
+.hover header{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.hover header b{font:500 12.5px var(--mono)}
+.hover .row{padding:3px 10px}
+.hover footer{padding:6px 10px;color:var(--fg-mute);font-size:11px;border-top:1px solid var(--line)}
+
+/* bottom tool window */
+.bottom{height:230px;border-top:1px solid var(--line);display:grid;grid-template-rows:32px minmax(0,1fr);background:var(--bg1);min-height:0}
+.btabs{display:flex;align-items:center;gap:2px;padding:0 6px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.bt{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;color:var(--fg-dim);font-size:12px;white-space:nowrap}
+.bt:hover{background:var(--hover);color:var(--fg)}
+.bt[aria-selected="true"]{background:var(--sel);color:var(--fg)}
+.bt .ic{width:13px;height:13px}
+.bbody{overflow:auto;min-height:0}
+.dbg{display:grid;grid-template-columns:minmax(220px,1fr) minmax(240px,1.2fr) minmax(220px,1fr);min-height:100%}
+.dbg>div{border-right:1px solid var(--line);min-width:0} .dbg>div:last-child{border-right:0}
+.dbgbar{display:flex;gap:2px;align-items:center;margin-left:auto}
+.dbgbar .ib{width:24px;height:24px}
+.frame{display:flex;gap:6px;padding:3px 10px;font:12px var(--mono);white-space:nowrap}
+.frame:hover{background:var(--hover)} .frame.on{background:var(--sel)}
+.frame span:last-child{color:var(--fg-mute);margin-left:auto;padding-left:12px}
+.var{display:flex;gap:6px;padding:3px 10px;font:12px var(--mono);white-space:nowrap}
+.var .vn{color:var(--v)} .var .vt{color:var(--fg-mute)} .var .vv{color:var(--s)} .var .vi{color:var(--n)}
+.term{font:12px/19px var(--mono);padding:8px 12px;white-space:pre;color:var(--fg-dim)}
+.term .p{color:var(--ok)} .term .h{color:var(--fg)} .term .e{color:var(--err)} .term .o{color:var(--ok)} .term .w{color:var(--warn)}
+.prob{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:8px;align-items:center;padding:4px 12px;font-size:12px}
+.prob:hover{background:var(--hover)}
+.prob .src{color:var(--fg-mute);font-size:11px;white-space:nowrap}
+.prob .msg{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* status bar */
+.status{display:flex;align-items:center;gap:2px;padding:0 6px;border-top:1px solid var(--line);font-size:11.5px;color:var(--fg-dim);white-space:nowrap;overflow:hidden;min-width:0}
+.si{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 6px;border-radius:4px}
+.si:hover{background:var(--hover);color:var(--fg)}
+.si .ic{width:12px;height:12px}
+.si.err{color:var(--err)} .si.warn{color:var(--warn)} .si.ok{color:var(--ok)} .si.acc{color:var(--accent)}
+
+/* search everywhere */
+.scrim{position:fixed;inset:0;background:rgba(5,3,15,.45);z-index:50;display:flex;justify-content:center;align-items:flex-start;
+  padding:calc(70px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.se{width:min(640px,100%);background:var(--bg1);border:1px solid var(--line);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+.se-tabs{display:flex;gap:2px;padding:8px 8px 0;overflow-x:auto;scrollbar-width:none}
+.se-tabs button{height:26px;padding:0 10px;border-radius:6px;font-size:12px;color:var(--fg-dim);white-space:nowrap}
+.se-tabs button[aria-selected="true"]{background:var(--sel);color:var(--fg)}
+.se-in{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.se-in input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--fg);font:14px var(--ui)}
+.se-list{max-height:min(380px,55vh);overflow:auto;padding:4px 0}
+.se-item{display:flex;align-items:center;gap:10px;padding:6px 14px;cursor:pointer}
+.se-item:hover,.se-item.on{background:var(--sel)}
+.se-item b{font-weight:500}
+.se-item .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.se-item .kind{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-mute)}
+.se-foot{display:flex;gap:14px;padding:7px 14px;border-top:1px solid var(--line);font-size:11px;color:var(--fg-mute);flex-wrap:wrap}
+
+
+/* Islands */
+.app{border-color:#1d1e21}
+.tb,.status{border:0}
+.main{gap:5px}
+.stripe{background:transparent}.stripe.l,.stripe.r{border:0}
+.panel,.panel.l,.panel.r{border:0;border-radius:10px;overflow:hidden}
+.center{background:transparent;grid-template-rows:minmax(0,1fr) auto;gap:5px}
+.island.ed{display:grid;grid-template-rows:34px 26px minmax(0,1fr);background:var(--bg2);border-radius:10px;overflow:hidden;min-height:0;min-width:0}
+.bottom{border:0;border-radius:10px;overflow:hidden}
+.tabs{background:var(--bg2);border-bottom:1px solid var(--line2)}
+.tab{border-right:0}.tab.on{background:var(--tab-on)}
+.crumbs{border:0;background:var(--bg2)}
+.editor{font:13px/21px var(--mono);color:var(--code)}
+.ln .num{color:var(--lnum)}
+.ph{border-bottom:0}
+.fi{width:16px;height:16px;flex:none}
+.st-M{color:var(--vc-mod)}.st-A{color:var(--vc-add)}
+.pill.review{background:rgba(83,138,249,.16);color:var(--accent2)}
+.inlay{color:var(--code)}
+.ival{color:var(--fg-dim)}
+.btn.pri{background:#3574f0;border-color:#3574f0}
+.app{border-color:#1e1f22}
+.panel,.panel.l,.panel.r,.bottom,.island.ed{box-shadow:0 0 0 1px #1e1f22}
+.inlay{color:#7f8794}
+.editor{font:13.5px/24px var(--mono);right:78px}
+.ln{grid-template-columns:50px 22px max-content}
+.ig{display:inline-block;width:4ch;height:24px;vertical-align:top;box-shadow:inset 1px 0 #3b4048}
+.ig1{background:rgba(216,184,96,.035)}.ig2{background:rgba(108,180,99,.035)}.ig3{background:rgba(80,168,255,.035)}
+.ln.exec .ig,.ln.agent .ig,.ln.del .ig{background:none}
+.ig.on{box-shadow:inset 1px 0 #606368}
+.b0{color:#d8b860}.b1{color:#6cb463}.b2{color:#50a8ff}.b3{color:#e2a5b8}
+[hidden]{display:none!important}
+.dbg{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dbg>div{overflow:auto}
+.frame span:first-child{overflow:hidden;text-overflow:ellipsis}
+.var{overflow:hidden;text-overflow:ellipsis}
+.minimap{position:absolute;top:0;right:0;bottom:0;width:78px;padding:8px 8px 0 10px;background:var(--bg2);box-shadow:inset 1px 0 #2f333b;overflow:hidden}
+.minimap i{display:block;height:2px;margin-bottom:2px;border-radius:1px;background:#5c6370;opacity:.55}
+.minimap i.c{background:var(--c)} .minimap i.x{background:var(--warn);opacity:.9} .minimap i.a{background:#98c379;opacity:.9}
+.minimap .view{position:absolute;left:0;right:0;top:4px;height:96px;background:rgba(255,255,255,.06)}
+@media (max-width: 900px){.minimap{display:none}.editor{right:0}}
+@media (max-width: 900px){.panel{box-shadow:0 10px 40px rgba(0,0,0,.5)}}
+@media (max-width: 1100px){ .hide-l{display:none!important} .search-btn{min-width:0} .search-btn .lbl{display:none} }
+@media (max-width: 900px){
+  .panel{position:absolute;top:0;bottom:0;z-index:10;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+  .panel.l{left:40px;width:min(280px,calc(100% - 80px))} .panel.r{right:40px;width:min(340px,calc(100% - 80px))}
+  .hide-m{display:none!important}
+  .bottom{height:180px}
+}
+@media (max-width: 560px){ .hide-s{display:none!important} .tb{gap:2px;padding:0 6px} .lights{margin-right:4px} }
+@media (prefers-reduced-motion: reduce){ .sdot.run{animation:none} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M18 9c0 5-6 4-11.5 8.5"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M7.5 14h9"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></symbol>
+  <symbol id="i-scratch" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 17l1-3 4-4 2 2-4 4z"/></symbol>
+  <symbol id="i-todo" viewBox="0 0 24 24"><path d="M4 6l1.5 1.5L8 5M4 12l1.5 1.5L8 11M4 18l1.5 1.5L8 17M11 6h9M11 12h9M11 18h9"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-hook" viewBox="0 0 24 24"><path d="M9 3v11a4 4 0 0 0 8 0v-3"/><path d="M14 9l3-3 3 3"/><circle cx="9" cy="3" r="1"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13v2M15 13v2"/><circle cx="12" cy="3" r="1"/></symbol>
+  <symbol id="i-review" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5l12 7.5-12 7.5z"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M12 11v9M4 13h3M17 13h3M5 7l3 2M19 7l-3 2M5 19l2.5-2M19 19l-2.5-2M9 5l1.5 2M15 5l-1.5 2"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-rerun" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7L20 8.5"/><path d="M20 3.5v5h-5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.01"/></symbol>
+  <symbol id="i-xcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-over" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 15-3.5"/><path d="M20 4v6h-6"/><circle cx="12" cy="19" r="1.6"/></symbol>
+  <symbol id="i-into" viewBox="0 0 24 24"><path d="M12 3v11M7 9.5l5 5 5-5"/><circle cx="12" cy="20" r="1.6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M12 16V4M7 8.5l5-5 5 5"/><circle cx="12" cy="20" r="1.6"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></symbol>
+  <symbol id="i-docker" viewBox="0 0 24 24"><path d="M3 12h16c1.5 0 2-1.5 2-2.5-1 .3-2 .2-2.6-.6C17.6 14.5 13 18 8 18c-3 0-4.6-2.3-5-6z"/><path d="M6 12V9h3v3M9 12V9h3v3M12 12V9h3v3M9 9V6h3v3"/></symbol>
+</svg>
+
+<div class="app" id="app">
+  <header class="tb">
+    <div class="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+    <svg viewBox="100 100 824 824" width="22" height="22" aria-label="Zenith" role="img" style="flex:none;border-radius:5px">
+      <defs><linearGradient id="zbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1446"/><stop offset=".6" stop-color="#2a1d6b"/><stop offset="1" stop-color="#ff7a3d"/></linearGradient></defs>
+      <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#zbg)"/>
+      <path d="M190 800 L512 400 L834 800" fill="none" stroke="#fff" stroke-width="64" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M330 800 L512 574 L694 800" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="40" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="512" cy="282" r="46" fill="#fff4d6"/>
+    </svg>
+    <button class="w" title="Switch project (recent projects)"><span class="proj-badge">LG</span><b style="font-weight:600">lumen-gallery</b><svg class="ic chev"><use href="#i-chev"/></svg></button>
+    <button class="w hide-s" title="Git branch: feat/column-override"><svg class="ic"><use href="#i-branch"/></svg><span class="hide-m">feat/column-override</span><svg class="ic chev"><use href="#i-chev"/></svg></button>
+    <span class="hide-m" style="display:inline-flex">
+      <button class="ib" title="Update project (pull)" aria-label="Update project"><svg class="ic"><use href="#i-down"/></svg></button>
+      <button class="ib" title="Commit… (⌘K)" aria-label="Commit" data-open-left="git"><svg class="ic"><use href="#i-check"/></svg></button>
+      <button class="ib" title="Push… (⇧⌘K)" aria-label="Push"><svg class="ic"><use href="#i-up"/></svg></button>
+    </span>
+    <div class="spacer"></div>
+    <button class="search-btn hide-s" id="openSearch" aria-label="Search Everywhere"><svg class="ic"><use href="#i-search"/></svg><span class="lbl">Search everywhere</span><kbd>⇧⇧</kbd></button>
+    <div class="spacer"></div>
+    <button class="w runcfg hide-m" title="Run configuration"><img class="fi" data-fi="phpunit" alt=""><span>AssetsTest::test_columns_override</span><svg class="ic chev"><use href="#i-chev"/></svg></button>
+    <button class="ib play hide-s" title="Run (⌃R)" aria-label="Run"><svg class="ic fill"><use href="#i-play"/></svg></button>
+    <button class="ib dbg" title="Debugging — Xdebug session active" aria-label="Debug (active)"><svg class="ic"><use href="#i-bug"/></svg></button>
+    <button class="ib stop" title="Stop (⌘F2)" aria-label="Stop"><svg class="ic fill"><use href="#i-stop"/></svg></button>
+    <button class="ib hide-s" title="Rerun" aria-label="Rerun"><svg class="ic"><use href="#i-rerun"/></svg></button>
+    <span class="sep hide-s"></span>
+    <button class="pill review" data-open-right="review" title="Agent changes waiting for review"><svg class="ic" style="width:13px;height:13px"><use href="#i-review"/></svg>3<span class="hide-m">&nbsp;to review</span></button>
+    <button class="ib hide-s" title="Search everywhere" aria-label="Search" id="openSearch2" style="display:none"><svg class="ic"><use href="#i-search"/></svg></button>
+    <button class="ib" title="Settings (⌘,)" aria-label="Settings"><svg class="ic"><use href="#i-gear"/></svg></button>
+  </header>
+
+  <div class="main">
+    <nav class="stripe l" id="stripeL" aria-label="Left tool windows"></nav>
+    <aside class="panel l" id="panelL" aria-label="Left tool window"></aside>
+
+    <section class="center">
+      <div class="island ed">
+      <div class="tabs" role="tablist" aria-label="Open files">
+        <div class="tab on" role="tab" aria-selected="true"><img class="fi" data-fi="php" alt="">Assets.php<span class="mod" title="Modified"></span></div>
+        <div class="tab" role="tab"><img class="fi" data-fi="php" alt="">AssetsTest.php<svg class="ic x"><use href="#i-x"/></svg></div>
+        <div class="tab" role="tab"><img class="fi" data-fi="php" alt="">Rest.php<svg class="ic x"><use href="#i-x"/></svg></div>
+        <div class="tab" role="tab"><img class="fi" data-fi="js" alt="">edit.js<svg class="ic x"><use href="#i-x"/></svg></div>
+        <div class="tab" role="tab"><img class="fi" data-fi="http" alt="">rest.http<svg class="ic x"><use href="#i-x"/></svg></div>
+      </div>
+      <div class="crumbs">
+        lumen-gallery<svg class="ic"><use href="#i-right"/></svg>includes<svg class="ic"><use href="#i-right"/></svg>Core<svg class="ic"><use href="#i-right"/></svg>Assets.php<svg class="ic"><use href="#i-right"/></svg><span class="t">Assets</span><svg class="ic"><use href="#i-right"/></svg><b>columns()</b>
+        <span class="lens-r hide-m"><span class="pill warn">⚠ 1</span><span class="pill ok">✓ PHPStan L6</span></span>
+      </div>
+      <div class="edwrap"><div class="editor" id="editor" aria-label="Editor: Assets.php"></div><div class="minimap" id="minimap" aria-hidden="true"></div><div class="hover" id="hover" hidden></div></div>
+      </div>
+      <div class="bottom" id="bottom">
+        <div class="btabs" role="tablist" aria-label="Bottom tool windows" id="btabs"></div>
+        <div class="bbody" id="bbody"></div>
+      </div>
+    </section>
+
+    <aside class="panel r" id="panelR" aria-label="Right tool window"></aside>
+    <nav class="stripe r" id="stripeR" aria-label="Right tool windows"></nav>
+  </div>
+
+  <footer class="status">
+    <span class="si err" title="Errors"><svg class="ic"><use href="#i-xcircle"/></svg>1</span>
+    <span class="si warn" title="Warnings"><svg class="ic"><use href="#i-alert"/></svg>2</span>
+    <span class="si hide-s"><svg class="ic" style="color:var(--info)"><use href="#i-bot"/></svg>1 agent running · 1 waiting</span>
+    <span class="si acc hide-m"><svg class="ic"><use href="#i-bug"/></svg>Xdebug 3.4 · paused at Assets.php:30</span>
+    <span class="spacer"></span>
+    <span class="si hide-m"><svg class="ic"><use href="#i-docker"/></svg>PHP 8.5 · docker: app</span>
+    <span class="si hide-l">WPCS 3.1</span>
+    <span class="si ok hide-l"><svg class="ic"><use href="#i-check"/></svg>Intelephense</span>
+    <span class="si hide-l">env: local</span>
+    <span class="si tnum">30:12</span>
+    <span class="si hide-s">UTF-8</span>
+    <span class="si hide-s">LF</span>
+    <span class="si hide-m">Tab 4</span>
+    <span class="si tnum hide-s" title="Last frame render time (GPU, native Rust)"><svg class="ic"><use href="#i-cpu"/></svg>1.9 ms</span>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="se" role="dialog" aria-modal="true" aria-label="Search everywhere">
+    <div class="se-tabs" role="tablist" id="seTabs"></div>
+    <div class="se-in"><svg class="ic mute"><use href="#i-search"/></svg><input id="seInput" type="text" placeholder="Classes, files, symbols, WordPress hooks, actions" autocomplete="off" aria-label="Search everywhere"><kbd>esc</kbd></div>
+    <div class="se-list" id="seList" role="listbox"></div>
+    <div class="se-foot"><span>↑↓ move</span><span>↵ open</span><span>⇧⇧ or ⌘K opens this anywhere</span><span>Indexed by native Rust LS · 4,812 symbols</span></div>
+  </div>
+</div>
+
+<script>
+const AI={"php": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjYmI4MGIzIiBkPSJNNS4zMjMgMTAuMzIzYTEuMiAxLjIgMCAwIDAtLjc4Mi0xLjAzOWMtLjE5Ni0uMDcyLS4zNjUtLjIwNC0uNTU5LS4yODRhNC41IDQuNSAwIDAgMC0uNjc0LS4yNDQuNDEuNDEgMCAwIDAtLjQ0Mi4xNzkuMzEuMzEgMCAwIDAgLjA1NS4zODZjLjA5My4xMzEuMi4yNTYuMy4zNzguMTcyLjIuMzU1LjQuNTIzLjYwN2EuOTYuOTYgMCAwIDEgLjI3NC42NzkgMi4xNCAyLjE0IDAgMCAxLS43NTcgMS40MzcuMy4zIDAgMCAxLS4xOTQuMDY2IDEuMjUgMS4yNSAwIDAgMS0uNzMzLS4zMTcuMzUxLjM1MSAwIDAgMSAuMDgyLS42MjIgMiAyIDAgMCAwIC4yLS4xMTcuNC40IDAgMCAwIC4xMzUtLjUxOC44LjggMCAwIDAtLjE2Ny0uMjQ4Yy0uMzU3LS4zMTMtLjcwOC0uNjM3LTEuMDktLjkyMkEzLjU0IDMuNTQgMCAwIDEgLjAxNCA3LjAyIDUuNTQgNS41NCAwIDAgMSAuOSAzLjU4MiAyLjM3IDIuMzcgMCAwIDEgMS45MTYgMi42YTYuNSA2LjUgMCAwIDEgLjk4NC0uMjkxIDYuOCA2LjggMCAwIDEgMi44LS4yNTEgMS45OCAxLjk4IDAgMCAxIDEuNyAxLjMxNyAzLjUgMy41IDAgMCAxIC4xNjggMS41NzJBMi43MSAyLjcxIDAgMCAxIDUuNTgyIDcuMjNhLjc4Ljc4IDAgMCAxLS45ODItLjMxNGMtLjItLjI2NS0uMzY0LS41NTMtLjU0Mi0uODMyLS4wMjYtLjA0MS0uMDQ1LS4wODktLjA2Ny0uMTM0cy0uMDQ1LS4wODYtLjA2OC0uMTNhMy4xIDMuMSAwIDAgMCAuNDM3IDEuMjkzLjc5Ljc5IDAgMCAwIC42LjQgMi42NiAyLjY2IDAgMCAwIDIuNDcyLTEuMDE5IDMuNTUgMy41NSAwIDAgMCAuNjMxLTIuOTQ0Yy0uMDM4LS4yMS0uMTAzLS40MTUtLjE0OS0uNjIzYS4yMi4yMiAwIDAgMSAuMTYyLS4yODFBMiAyIDAgMCAxIDguMjcgMi42YTguMyA4LjMgMCAwIDEgMi41MDYtLjE0NiA2IDYgMCAwIDEgMi42Ny44NTcgNS44MiA1LjgyIDAgMCAxIDIuNDc4IDMuMzI2IDIuNCAyLjQgMCAwIDEgLjA3Ni42MjZjMCAuMTQxLS4wOS4xNzgtLjIuMDg5YTMgMyAwIDAgMS0uMzQxLS4zMjFjLS4xLS4xMDctLjE3Ny0uMjMtLjI3My0uMzQzLS4wNzQtLjA4OC0uMTM5LS4wNzUtLjE3NC4wMzVsLS4wNjIuMmE0LjggNC44IDAgMCAxLTEuMTM1IDIuMDM4LjU3LjU3IDAgMCAwLS4xNTguMzEyIDUgNSAwIDAgMC0uMDEyLjljLjA2Mi42NDIuMTU4IDEuMjgxLjIzMyAxLjkyMmEuNTc2LjU3NiAwIDAgMS0uNDMyLjcgMyAzIDAgMCAxLS43NzcuMTdjLS40MTguMDI4LS44NC4wMDgtMS4yNi4wMDhhMS4xMSAxLjExIDAgMCAwLS40MDktMS4xM2MuMDg1LS4zMzUuMTg0LS42NTMuMjQzLS45NzhhLjg2Ljg2IDAgMCAwLS4xODktLjc1Ny40ODYuNDg2IDAgMCAwLS42MjgtLjE0NiAyLjMyIDIuMzIgMCAwIDEtMS45NzguMTI1LjUyLjUyIDAgMCAwLS43LjIyNiAxLjYgMS42IDAgMCAwLS4yNDIuOTU2Yy4wMjYuNDIuMS44MzUuMTYgMS4yNTMuMDMyLjIzNCAwIC4yOTQtLjIzNi4zNTRhNS4xIDUuMSAwIDAgMS0xLjYyNy4xIDEgMSAwIDAgMS0uMDc3LS4wMTkgMS4wMyAxLjAzIDAgMCAwLS41MjYtMS4xMjMgMi40MiAyLjQyIDAgMCAwIC4xMjUtMS41MDdaTTIuMDg3IDguNmEuNi42IDAgMCAwIC4xNjYtLjI4OS43LjcgMCAwIDAtLjM4MS0uNzA1LjI2LjI2IDAgMCAwLS4zMjIuMDYycS0uMzIxLjM1Ni0uNjM3LjcxM2EuNy43IDAgMCAwLS4wOTMuMTM2LjE5MS4xOTEgMCAwIDAgLjE0NS4zMTJjLjEwOS4wMjcuMjIyLjAzMi4zMzUuMDQ4YTEuMyAxLjMgMCAwIDAgLjc4OC0uMjcxWk0yLjExMSA2YS4zNTQuMzU0IDAgMCAwLS4zNTItLjM0Mi4zNi4zNiAwIDAgMC0uMzU4LjM1NC4zNTUuMzU1IDAgMCAwIC4zNjMuMzMzLjM0Ny4zNDcgMCAwIDAgLjM0OS0uMzQ0WiIgZGF0YS1pY29uQ29sb3I9IlBIUCIvPjwvc3ZnPg==", "js": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjZmZjYjZiIiBkPSJNMyAzaDE4djE4SDN6bTQuNzMgMTUuMDRjLjQuODUgMS4xOSAxLjU1IDIuNTQgMS41NSAxLjUgMCAyLjUzLS44IDIuNTMtMi41NXYtNS43OGgtMS43VjE3YzAgLjg2LS4zNSAxLjA4LS45IDEuMDgtLjU4IDAtLjgyLS40LTEuMDktLjg3em01Ljk4LS4xOGMuNS45OCAxLjUxIDEuNzMgMy4wOSAxLjczIDEuNiAwIDIuOC0uODMgMi44LTIuMzYgMC0xLjQxLS44MS0yLjA0LTIuMjUtMi42NmwtLjQyLS4xOGMtLjczLS4zMS0xLjA0LS41Mi0xLjA0LTEuMDIgMC0uNDEuMzEtLjczLjgxLS43My40OCAwIC44LjIxIDEuMDkuNzNsMS4zMS0uODdjLS41NS0uOTYtMS4zMy0xLjMzLTIuNC0xLjMzLTEuNTEgMC0yLjQ4Ljk2LTIuNDggMi4yMyAwIDEuMzguODEgMi4wMyAyLjAzIDIuNTVsLjQyLjE4Yy43OC4zNCAxLjI0LjU1IDEuMjQgMS4xMyAwIC40OC0uNDUuODMtMS4xNS44My0uODMgMC0xLjMxLS40My0xLjY3LTEuMDN6IiBkYXRhLWljb25Db2xvcj0iSmF2YXNjcmlwdCIvPjwvc3ZnPg==", "json": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjOTJhYTVkIiBkPSJNNSAzaDJ2Mkg1djVhMiAyIDAgMCAxLTIgMiAyIDIgMCAwIDEgMiAydjVoMnYySDVjLTEuMDctLjI3LTItLjktMi0ydi00YTIgMiAwIDAgMC0yLTJIMHYtMmgxYTIgMiAwIDAgMCAyLTJWNWEyIDIgMCAwIDEgMi0ybTE0IDBhMiAyIDAgMCAxIDIgMnY0YTIgMiAwIDAgMCAyIDJoMXYyaC0xYTIgMiAwIDAgMC0yIDJ2NGEyIDIgMCAwIDEtMiAyaC0ydi0yaDJ2LTVhMiAyIDAgMCAxIDItMiAyIDIgMCAwIDEtMi0yVjVoLTJWM3ptLTcgMTJhMSAxIDAgMCAxIDEgMSAxIDEgMCAwIDEtMSAxIDEgMSAwIDAgMS0xLTEgMSAxIDAgMCAxIDEtMW0tNCAwYTEgMSAwIDAgMSAxIDEgMSAxIDAgMCAxLTEgMSAxIDEgMCAwIDEtMS0xIDEgMSAwIDAgMSAxLTFtOCAwYTEgMSAwIDAgMSAxIDEgMSAxIDAgMCAxLTEgMSAxIDEgMCAwIDEtMS0xIDEgMSAwIDAgMSAxLTEiIGRhdGEtaWNvbkNvbG9yPSJKU09OIi8+PC9zdmc+", "xml": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjYzc5MmVhIiBkPSJtMTIuODkgMyAxLjk2LjRMMTEuMTEgMjFsLTEuOTYtLjR6bTYuNyA5TDE2IDguNDFWNS41OEwyMi40MiAxMiAxNiAxOC40MXYtMi44M3pNMS41OCAxMiA4IDUuNTh2Mi44M0w0LjQxIDEyIDggMTUuNTh2Mi44M3oiIGRhdGEtaWNvbkNvbG9yPSJYTUwiLz48L3N2Zz4=", "md": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZWE3MTMwIiBkPSJNMTQuODUgM0gxLjE1QTEuMTU3IDEuMTU3IDAgMCAwIDAgNC4xNXY3LjY5QTEuMTYgMS4xNiAwIDAgMCAxLjE1IDEzaDEzLjY5YTEuMTUgMS4xNSAwIDAgMCAxLjE1LTEuMTV2LTcuN0ExLjE0IDEuMTQgMCAwIDAgMTQuODUgM005IDExSDdWOEw1LjUgOS45MiA0IDh2M0gyVjVoMmwxLjUgMkw3IDVoMnptMi45OS41TDkuNSA4SDExVjVoMnYzaDEuNVoiIGRhdGEtaWNvbkNvbG9yPSJNYXJrZG93biIvPjwvc3ZnPg==", "txt": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjOTBhNGFlIiBkPSJNMTMgOWg1LjVMMTMgMy41ek02IDJoOGw2IDZ2MTJhMiAyIDAgMCAxLTIgMkg2YTIgMiAwIDAgMS0yLTJWNGMwLTEuMTEuODktMiAyLTJtOSAxNnYtMkg2djJ6bTMtNHYtMkg2djJ6IiBkYXRhLWljb25Db2xvcj0iVGV4dCIvPjwvc3ZnPg==", "http": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxnIGZpbGw9IiMyOWI2ZjYiIGRhdGEtaWNvbkNvbG9yPSJIVFRQIj48cGF0aCBkPSJNNDY3IDczLjU2SDQ1Yy0yNC44MTMgMC00NSAyMC4xODctNDUgNDV2Mjc0Ljg4MWMwIDI0LjgxMyAyMC4xODcgNDUgNDUgNDVoNDIyYzI0LjgxMyAwIDQ1LTIwLjE4NyA0NS00NVYxMTguNTZjMC0yNC44MTQtMjAuMTg3LTQ1LTQ1LTQ1bTE1IDMxOS44ODFjMCA4LjI3MS02LjcyOSAxNS0xNSAxNUg0NWMtOC4yNzEgMC0xNS02LjcyOS0xNS0xNVYxNzcuOTY1aDQ1MnptMC0yNDUuNDc2SDMwVjExOC41NmMwLTguMjcxIDYuNzI5LTE1IDE1LTE1aDQyMmM4LjI3MSAwIDE1IDYuNzI5IDE1IDE1eiIvPjxwYXRoIGQ9Ik0xNzEuNzQxIDIxNy4yNjRjLTI2Ljc0OSAwLTQ4LjUxMiAyMS43NjMtNDguNTEyIDQ4LjUxMnY2NS40NjFjMCA4LjI4NCA2LjcxNiAxNSAxNSAxNXMxNS02LjcxNiAxNS0xNXYtMjguNDM1aDM3LjAyM3YyOC40MzVjMCA4LjI4NCA2LjcxNiAxNSAxNSAxNXMxNS02LjcxNiAxNS0xNXYtNjUuNDYxYy4wMDEtMjYuNzQ5LTIxLjc2Mi00OC41MTItNDguNTExLTQ4LjUxMm0xOC41MTIgNTUuNTM5SDE1My4yM3YtNy4wMjZoLS4wMDFjMC0xMC4yMDggOC4zMDUtMTguNTEyIDE4LjUxMi0xOC41MTJzMTguNTEyIDguMzA0IDE4LjUxMiAxOC41MTJ6TTI5NS4yNTUgMjE3LjI2NEgyNTZjLTguMjg0IDAtMTUgNi43MTYtMTUgMTV2OTguOTczYzAgOC4yODQgNi43MTYgMTUgMTUgMTVzMTUtNi43MTYgMTUtMTV2LTI4LjQzNWgyNC4yNTVjMjMuNTgzIDAgNDIuNzctMTkuMTg3IDQyLjc3LTQyLjc3IDAtMjMuNTgyLTE5LjE4Ny00Mi43NjgtNDIuNzctNDIuNzY4bTAgNTUuNTM5SDI3MXYtMjUuNTM4aDI0LjI1NWM3LjA0MSAwIDEyLjc3IDUuNzI5IDEyLjc3IDEyLjc3IDAgNy4wNDItNS43MjkgMTIuNzY4LTEyLjc3IDEyLjc2OE0zNzMuNzcxIDIxNy4yNjRjLTguMjg0IDAtMTUgNi43MTYtMTUgMTV2OTguOTczYzAgOC4yODQgNi43MTYgMTUgMTUgMTVzMTUtNi43MTYgMTUtMTV2LTk4Ljk3M2MwLTguMjg0LTYuNzE2LTE1LTE1LTE1Ii8+PC9nPjwvc3ZnPg==", "sql": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDQ4NiA1MTIiPjxwYXRoIGZpbGw9IiMzOWFkYjUiIGQ9Ik0xMzYuMjEyIDI3My4yMDhjLTQuODc1IDguMTI0LTEyLjA1NyAxNC42OTItMTUuODI4IDI0LjI4NS03Ljg3NyAxNi45ODktNC44MyA1My43NjctOS43OTggNTMuODMtNS44IDIuNzgyLTE0Ljk0Mi0xMy45MjEtMTguODQtMjMuODc3LTkuODctMjUuMTgtMTEuNzAyLTY1LjcyNy0zLjAyLTk0LjcxQzEwMC43NSAxOTQuNSAxMDEuNSAxOTYuNSA4NC45NiAxNzguNDk3Yy0xNS4yOTMtMjIuMzItMjIuNTctNTguNTI5LTMyLjQwOS04NC4xODRDMzcuNDcgNjAuNzYyIDEuOTE3IDMyLjU2NSAyMC44OTYgMTkuODQ1YzYuODI4LTUuNzIyIDI5Ljc2IDUuNjIxIDQ2LjgwOCAxNi44NjMgMTIuMDQ0IDcuOTQxIDE5LjkyIDE2LjM3IDIyLjUzIDE2LjMyNkMxMTkgNTIuMjUgMTMwLjI1IDUzLjUgMTc2LjkxIDgxLjM2NmM0My40NDIgMjkuNDYgNzguOTYxIDcxLjM5NiAxMDMuMjU4IDEyMS40MjIgNi4wMzUgMjAuOTU3IDM1LjE2NiA4OS4yMTIgNTUuMDE3IDEyMy44NSA1LjEyNyA3LjM1MyAyNC45MjEgMTEuMjk3IDMzLjkxNyAxNS4zNzkgMjEuNDc2IDcuMjE0IDI1LjY0OSAxMC43MzMgNTUuNzc2IDM0IDUuMzQ5IDQuMDQ2IDIxLjc5MiAxMi45MTcgMjIuNjExIDIwLjIzLTI2LjUwNi0uNzcxLTQ2Ljc1IDEuODcyLTY0LjA2IDkuNzEyLTQuOTE5IDIuMjI4LTEyLjc2MiAyLjI4Ni0xMy41NjUgOC45MDcgNC4yNjIgNC42MzQuMzg3IDExLjM4NCAyMi42MDggMzMuMTg4QzQxNS4wNzggNDY4LjMzMiA0MjYgNDcwIDQ1My41MjIgNDg2LjFjMjYuMzcyIDE4LjI3NCAyNi43MTYgMjMuOTUgMzIuNDA2IDI1Ljl2LS44MDhjLTUuNjAxLTEzLjIxNy01LjI3NS0xMS4zMzQtMTUuMDczLTIxLjg1Ny0zNS41MjItNDcuNjY4LTYxLjU5Ny00NC40LTcyLjM1My02Ny4xODQgMjguODY2LTExLjExIDQzLjgzMS03LjE1MSA3MC44NDktMTd2LTMuMjM4Yy0xOC4zMzEtMjkuMDc4LTcwLjY4NC03Mi4yNDYtMTE3LjY0Ny04Ny42MS0zMC4wMjEtNTcuMjY2LTQyLjU4Ny05Ny45OTMtNTcuOTcyLTEzMC45NDNDMjYxLjQgMTI0LjcyNSAxNzYgMjggOTguNTI1IDM0LjQxNWMtNS4wNi0yLjI3Mi0xMC4zMjUtOC45MjItMTUuMDczLTEyLjE0MkM2NC41NDcgOS40NDcgMTYuMDU4LTE4LjQ1MiAyLjA1NiAxOC4yMjdjLTguODQxIDIzLjE1MiAxMy4yMTMgNDUuNzQ1IDIxLjEgNTcuNDcyIDUuNTM3IDguMjMgMTIuNjI1IDE3LjQ1NyAxNi41OCAyNi43MTIgMy44NzMgMTAuMDMxIDIuNzY0IDE3LjQ2NCAyMi42MTIgNjYuMzc3IDE0LjY3MyAzMS43MjkgMTcuNDExIDIyLjQxOSAyMC4zNDggMzMuOTk4LTQuNjU0IDYuOTk1LTQuOTE5IDE3Ljg1Mi03LjUzNSAyNi43MTNDNTQgMzAwIDg3LjIgMzgzLjMwOSAxMTkuNjI4IDM2OS41MzljMTYuNjE4LTcuMjMxIDExLjAzMS0zNS4yMSAxNy44NDYtNTMuODY0IDkuNjkzIDE4LjE1OCAxMi42OTMgNDEuNjU4IDU2Ljc3IDc3LjM0IDcuODMxIDYuMzUxIDE2LjIyMyAxNy45MTMgMjYuMjI4IDIxLjU2Mi0xMC4zNTgtNy4xOC0xOS4yNTgtMTguMDA0LTI3LjczNS0yOS42NTgtMTMuNzMzLTIwLjAyNS0yNS44NzEtNDEuOTQ0LTM2LjkyOS02NC43Ni0xOC4xMTgtMzYuMTIyLTE0LjI2LTQyLjk3MS0xOS41OTYtNDYuOTUxbS0yNS4wNzUtMTY1LjI0QzEwNiA5NS44MzIgMTA0LjAzIDk4LjYyMSA5OC41OSA5Mi42MzhjLTUuNDYzLS4xMDgtOS40MzguNzY5LTEzLjUyMyAxLjcyNi0uMjI0LjE0NC0uMTY4LjQzOC4wMTcuODAyIDIuNjA1IDUuNzUgNy45MzQgOS40NDggMTEuMTU3IDE0LjQwMWw3LjQ1IDE2Ljc5OGM1LjUzMS0zLjk2NCA3LjUwMi0xMC40NjIgNy40NDctMTguMzk5IiBkYXRhLWljb25Db2xvcj0iU1FMIi8+PC9zdmc+", "composer": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZWE3MTMwIiBkPSJNMTEuODE1IDExLjc5NGExLjcgMS43IDAgMCAxIC4xNS0uNzQyIDIuMyAyLjMgMCAwIDAgLjE1NS0uNTM4IDguNCA4LjQgMCAwIDEgLjQ2NC0xLjc4MyAxLjk1IDEuOTUgMCAwIDAgLjM1NC0xLjI0Ni45LjkgMCAwIDEtLjAyNy0uMzQzLjU0LjU0IDAgMCAwLS4wMTctLjI0Mi4xNi4xNiAwIDAgMSAwLS4xNzRjLjA0LS4wNTIuMDEzLS4xMDktLjEzNy0uMjgyYTEuMiAxLjIgMCAwIDEtLjE3My0uMjI1IDIgMiAwIDAgMSAuMTczLS4wNzhsLjE1NS0uMDcuMDQ0LS41OTRjLjAzMS0uMzIyLjA0NC0uNTg3LjA0NC0uNTg3cy0uMi4wNTYtLjQzNy4xMy0uNDU1LjEzLS40ODYuMTNhMS4wNSAxLjA1IDAgMCAxLS4zMDktLjYzMyAxLjIgMS4yIDAgMCAxLS4xMjQtLjY1MSA0LjUgNC41IDAgMCAwLS4yMTItMS4zNzUgNC4yIDQuMiAwIDAgMC0uNzM5LTEuNDQzLjIyLjIyIDAgMCAwLS4zMjIuMDQzYy0uMDU4LjEwOS0uMDUzLjEyMi4xNTUuNTk0bC4xNTguMzY1LS4yNzQtLjIxMmE0IDQgMCAwIDAtMS41NDItLjgyNWMtLjIxMy0uMDI2LS4yMjEtLjAyMi0uMjY4LjEwOWEuMjYuMjYgMCAwIDEtLjEzMy4xNTJjLS4wNTguMDE3LS4wOC4wNjUtLjA4LjE4NmEuODUuODUgMCAwIDAgLjQ1NS41OSAzIDMgMCAwIDEgLjQxNS40MjUgMi42IDIuNiAwIDAgMS0uMzc2LS4yMjUuOTQuOTQgMCAwIDAtLjUzNS0uMjNjLS4zNzEgMC0uMzYyLjI1Mi4wMTguNTE3YTUuNSA1LjUgMCAwIDEgLjU4NC41MTdsLjM0NC4zNDYtLjMwOS4wNTJhMS4xNyAxLjE3IDAgMCAwLS43MjkuMjQzYy0uMDkzLjE2OS0uMDM1LjIxNy40NzcuMzgyYTMgMyAwIDAgMSAuNi4yNTIgMS44IDEuOCAwIDAgMCAuNjQyLjM2Ny40Ni40NiAwIDAgMSAuMjgzLjE3NC4zNS4zNSAwIDAgMCAuMTUxLjE0OC40MS40MSAwIDAgMSAuMTc3LjI4Ni43LjcgMCAwIDEgLjA0OS4yNjkgNCA0IDAgMCAxLS40LjEzNWwtLjM4LjExNy4zMjMuNTY0Yy4zLjUyNS4zMjcuNTY0LjQ0Mi41NTEuMTQ2LS4wMTMuMTQ2LS4wMTMuMDIyLjE5MWwtLjEuMTYxLjEuMTgyYS40Mi40MiAwIDAgMSAuMDcxLjI4MmMtLjAyNy4wODMtLjA0NC4wNy0uMTMzLS4xMTdhMy4xIDMuMSAwIDAgMC0uNjE5LS44IDEuMTQgMS4xNCAwIDAgMC0uODg4LS4zMTdMOC42NyA2LjUxbC0uMjA3LS4yQTIuMSAyLjEgMCAwIDAgOCA1Ljk5NGExLjM2IDEuMzYgMCAwIDAtLjgwOS0uMTI2aC0uNTQ5bC0uNDIuMjE3YTMuOSAzLjkgMCAwIDAtMS40NDUgMS4zODggMS43IDEuNyAwIDAgMS0uMjM0LjM0M2MwLS4wMjItLjAyMi0uMTIyLS4wNC0uMjIxLS4wMzUtLjE3OC0uMDM1LS4xODIuMS0uMnMuMTM3LS4wMjYuMjMtLjRjLjA1My0uMjE3LjExMS0uNDM0LjEyOC0uNDgyLjAyNy0uMDg3IDAtLjEtLjM3MS0uMTkxYS41LjUgMCAwIDEtLjQtLjE2OSAxLjggMS44IDAgMCAxIC4xOS0uNjA3LjQuNCAwIDAgMCAuMDg0LS4xNTYuNDUuNDUgMCAwIDEgLjIxNi0uMiAxLjI3IDEuMjcgMCAwIDAgLjY0OS0uOCAzLjQgMy40IDAgMCAxIC42MTQtLjkgMyAzIDAgMCAwIC4zMjMtLjM3My40Ny40NyAwIDAgMC0uMjQ4LS4yNjdsMS43MzctMS4yMDgtLjE5NC0uMjI2UzUuMDgyIDMuMTEgNS4wNjggMy4xMWExLjIgMS4yIDAgMCAxLS4xMTktLjI4NmwtLjA5My0uMjgyLjMtLjI4MmMuMzIzLS4zLjM5My0uNDE3LjMwOS0uNTE3LS4wMzUtLjA0My0uMTE0LS4wMjYtLjQ1LjEzNWE3IDcgMCAwIDEtLjc3My4zMDhjLS4zNC4xLS4zNzEuMS0uNDQ2LjAzOS0uMTg3LS4xNjUtLjMwNi0uMDY1LS43NjYuNjM0YTEuMSAxLjEgMCAwIDEtLjIuMjUyIDEuNyAxLjcgMCAwIDEtLjI1LS4zODMgNSA1IDAgMCAwLS4zLS40NzdjLS4xMTktLjEyNi0uMjM0LS4xMjItLjI2OS4wMDlhNy4yIDcuMiAwIDAgMCAuNDczIDEuOTI3Yy4xLjMuMTA2LjMxNy4wMzEuMzU2cy0uMDguMDU3LS4wMzYuMTczYy4wMzUuMS4wNzEuMTIyLjEyOC4xcy4xMDYuMDMuMjA3LjI1NmEuNTMuNTMgMCAwIDEgLjA1Ny41MzRjLS4wMzkuMTQ3LS4wNzEuMjY0LS4wNzEuMjY5YTIgMiAwIDAgMS0uMjQzLS4wNTJjLS40LS4xLS4zNzYtLjEzNS0uNDMzLjUwOC0uMDMxLjMxNy0uMDUzLjYwNy0uMDUzLjY0NnMuMDU4LjA4My4yLjFsLjIuMDI2LS4wMzEuMjZhLjM3LjM3IDAgMCAwIC4wNC4zMzggOC41IDguNSAwIDAgMSAuMTExIDIuMjQ4di42MTJsLjE2OC4wNTJhLjM2LjM2IDAgMCAxIC4zMTguMjc3LjM4LjM4IDAgMCAwIC4xOS4yMjFjLjEuMDcuNDkxLjM0Ny44NTcuNjE2YTQgNCAwIDAgMSAuNjE4LjQ4NWMuODc0LjYgMi43NDEgMS42NTkgMi43NDEgMS42NTlsLS4wNzUuMTYxYTMuNyAzLjcgMCAwIDAtLjI4Ljk2OGwxLjkxNy0xLjE2NVoiIGRhdGEtaWNvbkNvbG9yPSJDb21wb3NlciIvPjwvc3ZnPg==", "npm": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjZDE0NzQ4IiBkPSJNMyAzdjE4aDE4VjN6bTMgM2gxMnYxMmgtM1Y5aC0zdjlINnoiIGRhdGEtaWNvbkNvbG9yPSJOUE0iLz48L3N2Zz4=", "phpcs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bWFzayBpZD0iYSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgzMnYzMkgweiIvPjxwYXRoIGQ9Ik0yMC4zMjIgMTEuNTIzYTEuNSAxLjUgMCAxIDEtLjQzOS0xLjA2MSAxLjUgMS41IDAgMCAxIC40MzkgMS4wNjFNMTcuMDQ3IDExLjUyM2ExLjUgMS41IDAgMSAxLS40MzktMS4wNjEgMS41IDEuNSAwIDAgMSAuNDM5IDEuMDYxIi8+PC9tYXNrPjwvZGVmcz48ZyBmaWxsPSIjYWE4MjZhIiBkYXRhLWljb25Db2xvcj0iUEhQIENTIFhNTCIgbWFzaz0idXJsKCcjYScpIj48cGF0aCBkPSJNMTkuNjU5IDIwLjc0N2MuMDEtLjAxOCAyLjI3LTMuNDc0IDEuMzI4LTQuOTM0LjEzLjI1Ni0zLjI0IDIuMjM1LTQuMzUxIDIuNzg0LjA4NS0uMDQyIDQuOTQ2LTIuOSA0LjUxMi0zLjY4YTE4LjcgMTguNyAwIDAgMC00LjEzNCAyLjAxNGgtLjAyYTExLjggMTEuOCAwIDAgMSAzLjc3NS0yLjAzMWMxLjQyNC0xLjI4MyAyLjgxNy01Ljc2NiAyLjE3Mi02Ljk2NWE1LjkgNS45IDAgMCAxLTIuNi45OTNjLjg4Ni0uMzU2IDIuNzU5LS45MjggMi40MjUtMi4wOTQgMCAwLTEuNTE5IDEtMi4yNjMuODcxIDIuNTg4LTEuMTQ3IDIuMjgtMS4zIDIuMjU2LTEuODQyLS4wNjMtMS4zOTMtMS4zLTQuNC0yLjcyMS0zLjc4MS0yLjc0NyAxLjE5Mi00LjQ2OSAzLjIxOC0yLjI5MiA0LjI2Mi0xLjMzMS0uMjE5LTEuNzA1LS43NDktMS42MTYtLjg4NS0xLjg1MyAyLjA4Mi0zLjM4OSAyLjM0NS0uNDc1IDMuODUzYTIuOTcgMi45NyAwIDAgMS0xLjk0Ni0uOXMtNS44MTUgNC45NTctLjc3NyA3LjQ1N2E1LjIgNS4yIDAgMCAxLTIuMS0xLjQ2MSAzLjUgMy41IDAgMCAwLTEuMzU2IDEuMzQxYy4zOC40My4zOTEuNzk1IDEuMTQzIDEuMzY3bC0uMDIuMDA4QTIuOTQgMi45NCAwIDAgMSA5LjQgMTUuOThjLS4xMi41Ni4xNTggMS4yMjIgMS4yIDIuMDIyYTEuOTMgMS45MyAwIDAgMS0xLjMtLjcgNS4yIDUuMiAwIDAgMC0uNCAyLjIxOCAxMS40IDExLjQgMCAwIDEgMS4xNzUgMS4yNy40OC40OCAwIDAgMCAuMjI3LjI2MWwtLjAxOS4wMDhhLjYuNiAwIDAgMS0uMjkxLS4yNTJjLS4yLS4yODgtLjc2My0uNi0xLjA2OC0uOTkzYTMuOTQgMy45NCAwIDAgMCAxLjQxMyAyLjYzMS45Ni45NiAwIDAgMS0uNzE5LS4xNDEgMi40IDIuNCAwIDAgMCAyLjM5IDIuMDc0aC4xMjZjLS4xNjggMS4zLS4zNjcgNC41OTQuOTUyIDUuNTguMTMyLjEuNTg3LjAxNS41MjEtLjEtLjY3NC0xLjE4NS0uODU3LTIuMDEtLjY4LTUuNTE4LjE0LS4wMS4xNzEtLjAxNC4yNzgtLjAyOCA0LjM2NS0xLjA2NSA2LjAzNS0yLjc5MSA2LjQ1NC0zLjU2NW0tMy44MjQgMS44MDctLjAxNy0uMDA2YzEuODQ3LTEuMDY0IDIuNDcyLTEuNjcxIDMuMy0yLjE0NmguMDJhMTQuMiAxNC4yIDAgMCAxLTMuMzAzIDIuMTUybTQuODMyLTQuNzU0LjAxOC4wMDZhMTggMTggMCAwIDEtMi45NDkgMS44OTRsLS4wMTctLjAwNmMxLjQwMi0uODI2IDEuOTgxLTEuNDUzIDIuOTQ4LTEuODk0bS0xLjc1OSAyLjI2NC4wMTcuMDA2YTExLjUgMTEuNSAwIDAgMS0zLjQ0MiAxLjgzbC0uMDExLS4wMDljMS44MDgtLjY0OSAyLjE0Ny0xLjMwNCAzLjQzNi0xLjgyN20tOC4xNi01LjA0MmguMDIzYy40NzMuNDE1LjU3My45NTcgMS44NDcgMS40NTJsLS4wMTcuMDFjLTEuMjA4LS4zNjMtMS44NDYtLjk2OS0xLjg1NC0xLjQ2MlptLTEuMzI3IDUuNzE0czAtLjAwNy4wMTEtLjAwOGEuMDMuMDMgMCAwIDEgLjAxNyAwaC4wMDZsLjAxMS4wMjhhNS41IDUuNSAwIDAgMCAxLjU4MiAxLjcxNWwtLjAxOS4wMDlhMi43IDIuNyAwIDAgMS0xLjYwOC0xLjc0NG0xLjkgMy4xNjlzLS4wNDMtLjAxMS0uMTE0LS4wMzNhMS43NSAxLjc1IDAgMCAxLTEuMjMyLTEuMjQyaC4wMjRjLjMyLjYwNy42MzcuNzE1IDEuMjc0IDEuMjE1cS4wNjUuMDUzLjA2NS4wNTVaIi8+PHBhdGggZD0iTTIwLjMyMiAxMS41MjNhMS41IDEuNSAwIDEgMS0uNDM5LTEuMDYxIDEuNSAxLjUgMCAwIDEgLjQzOSAxLjA2MU0xNy4wNDcgMTEuNTIzYTEuNSAxLjUgMCAxIDEtLjQzOS0xLjA2MSAxLjUgMS41IDAgMCAxIC40MzkgMS4wNjEiIHN0eWxlPSJmaWxsOiNmZmYiLz48L2c+PC9zdmc+", "readme": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00IDlIM1Y4aDF6bTAtM0gzdjFoMXptMC0ySDN2MWgxem0wLTJIM3YxaDF6bTgtMXYxMmMwIC41NS0uNDUgMS0xIDFINnYybC0xLjUtMS41TDMgMTZ2LTJIMWMtLjU1IDAtMS0uNDUtMS0xVjFjMC0uNTUuNDUtMSAxLTFoMTBjLjU1IDAgMSAuNDUgMSAxbS0xIDEwSDF2Mmgydi0xaDN2MWg1em0wLTEwSDJ2OWg5eiIgZGF0YS1pY29uQ29sb3I9IlJFQURNRSIvPjwvc3ZnPg==", "phpunit": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxwYXRoIGZpbGw9IiNjNzkyZWEiIGQ9Ik00OTguMDc4IDIwNi45OTZjLTUuNzI2IDE1LjEwMi0yNS45MDQgMjEuNzA3LTM5LjQ1IDYuODgtNDIuNjk1LTQ5LjI4LTEyNi4zNjUtNDkuNzgtMTQ5LjYyMyAyNC42NjItMTcuNzczIDUzLjU1OSAyNi41MDggMTA5LjU2MiAxMDQuNzg1IDEwMi40NzcgMTcuMTc1LTEuMzU2IDI5LjMxNSAxNC4wMjggMjMuOTE5IDMwLjk3bC0zOC45MzUgMTA2LjQwN2MtOS44NyAyNi4xNzgtMzUuMjI3IDQwLjI5LTY1LjIxMiAzMC40OEwzNS4zMTQgNDAwLjE1N2MtMjYuODU1LTkuNDgyLTQxLjU3LTM4Ljc0My0zMi43NTktNjUuMDM0bDExMC40NjQtMzAxLjlDMTI0LjkzIDYuMjkgMTQ1LjQ4Ny01Ljg4OSAxNzguMjMgMi43NDFsMjk4LjIxIDEwOC43MDJjMjYuOTE2IDkuNTM3IDQxLjYwMSAzOC43NzQgMzIuNzk4IDY1LjA0OHpNNDQxLjE1NyAyNjAuMWMwLTQwLjIyMy00My44NDMtNjUuNS03OC43MjktNDUuMzg4cy0zNC44ODUgNzAuNjY0IDAgOTAuNzc2IDc4LjcyOS01LjE2NCA3OC43MjktNDUuMzg4IiBkYXRhLWljb25Db2xvcj0iUEhQVW5pdCIvPjwvc3ZnPg==", "docker": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMWU5Y2VmIiBkPSJNMi4yIDkuNzZoMi4yNHYyLjE4SDIuMnptMi43NSAwSDcuMnYyLjE4SDQuOTV6bTAtMi44SDcuMnYyLjE4SDQuOTV6bTIuNzYgMi44aDIuMjR2Mi4xOEg3Ljcxem0wLTIuOGgyLjI0djIuMThINy43MXptMi43NSAyLjhoMi4yNXYyLjE4aC0yLjI1em0wLTIuOGgyLjI1djIuMThoLTIuMjV6bTIuNzYgMi44aDIuMjR2Mi4xOGgtMi4yNHptLTIuNzYtNS42aDIuMjV2Mi4xOGgtMi4yNXpNNS4zMyAxNS4wOWMuMzUgMCAuNjMuMjcuNjMuNjEgMCAuMzMtLjI4LjYxLS42My42MS0uMzMgMC0uNjItLjI4LS42Mi0uNjEgMC0uMzQuMjktLjYxLjYyLS42MW0xNy4zNi00LjIuMzEuMTctLjE2LjMxYy0uNjQgMS4yMS0xLjk3IDEuNTgtMy4yNyAxLjUyLTEuOTUgNC43MS02LjIgNi45NS0xMS4zNCA2Ljk1LTIuNjYgMC01LjEtLjk3LTYuNDktMy4yNmwtLjAyLS4wNC0uMjItLjRhNi4zMyA2LjMzIDAgMCAxLS41LTMuMjJsLjAzLS4zM0gxNS44Yy41MyAwIDEuMDctLjA5IDEuNTYtLjI1bC43Ni0uMzRjLS4zMS0uNC0uNDgtLjkxLS41Mi0xLjQxLS4wNy0uNjguMDctMS41OS41NS0yLjA5bC4yNC0uMjguMjguMjJjLjcxLjU2IDEuMyAxLjMzIDEuNDEgMi4yMS44NS0uMjQgMS44Ni0uMTkgMi42MS4yNE01LjM0IDE2Ljg1Yy42NiAwIDEuMTYtLjUyIDEuMTYtMS4xNSAwLS42NC0uNS0xLjE2LTEuMTctMS4xNi0uNjUgMC0xLjE4LjUyLTEuMTggMS4xNnMuNTMgMS4xNSAxLjE5IDEuMTUiIGRhdGEtaWNvbkNvbG9yPSJEb2NrZXIiLz48L3N2Zz4=", "dir": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNjA3ZDhiIiBkPSJNMTAgNEg0Yy0xLjEgMC0yIC45LTIgMnYxMmEyIDIgMCAwIDAgMiAyaDE2YTIgMiAwIDAgMCAyLTJWOGEyIDIgMCAwIDAtMi0yaC04eiIvPjxyZWN0IHg9IjUiIHk9IjciIHdpZHRoPSIxNCIgaGVpZ2h0PSI3IiByeD0iMSIgZmlsbD0iI2NmZDhkYyIvPjxwYXRoIGZpbGw9IiM3ODkwOWMiIGQ9Ik0yIDExaDIwdjdhMiAyIDAgMCAxLTIgMkg0YTIgMiAwIDAgMS0yLTJ6Ii8+PC9zdmc+Cg==", "dirOpen": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNzg5MDljIiBkPSJNMjAgMThINFY4aDE2bTAtMmgtOGwtMi0ySDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJhMiAyIDAgMCAwIDIgMmgxNmEyIDIgMCAwIDAgMi0yVjhhMiAyIDAgMCAwLTItMiIgZGF0YS10aGVtZWQ9InRydWUiLz48L3N2Zz4=", "includesOpen": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDM5YmU1IiBkPSJNMjAgMThINFY4aDE2bTAtMmgtOGwtMi0ySDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJhMiAyIDAgMCAwIDIgMmgxNmEyIDIgMCAwIDAgMi0yVjhhMiAyIDAgMCAwLTItMiIgZGF0YS1mb2xkZXJDb2xvcj0iSW5jbHVkZSIvPjxwYXRoIGZpbGw9IiNiM2U1ZmMiIGQ9Ik0yMC43ODggMTUuOTgxaC0yLjQzNHYyLjQzNGgtMS4yMTdWMTUuOThoLTIuNDM0di0xLjIxN2gyLjQzNFYxMi4zM2gxLjIxN3YyLjQzNGgyLjQzNG0tMy4wNDItNS40NzZhNi4wODUgNi4wODUgMCAwIDAtNi4wODUgNi4wODQgNi4wODUgNi4wODUgMCAwIDAgNi4wODUgNi4wODUgNi4wODUgNi4wODUgMCAwIDAgNi4wODQtNi4wODUgNi4wODUgNi4wODUgMCAwIDAtNi4wODQtNi4wODQiIGRhdGEtZm9sZGVySWNvbkNvbG9yPSJJbmNsdWRlIi8+PC9zdmc+", "coreOpen": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNGRiNmFjIiBkPSJNMjAgMThINFY4aDE2bTAtMmgtOGwtMi0ySDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJhMiAyIDAgMCAwIDIgMmgxNmEyIDIgMCAwIDAgMi0yVjhhMiAyIDAgMCAwLTItMiIgZGF0YS1mb2xkZXJDb2xvcj0iQ29yZSIvPjxwYXRoIGZpbGw9IiNlMGYyZjEiIGQ9Ik0xNi41IDE1Ljc1YS43NS43NSAwIDAgMSAuNzUuNzUuNzUuNzUgMCAwIDEtLjc1Ljc1Ljc1Ljc1IDAgMCAxLS43NS0uNzUuNzUuNzUgMCAwIDEgLjc1LS43NW0tNS44MzUtNS4wODVjMS4wNzMtMS4wNzIgMy4zOTgtLjU5MiA1LjgzNSAxLjAwNSAyLjQzOC0xLjU5OCA0Ljc2My0yLjA3NyA1LjgzNS0xLjAwNXMuNTkzIDMuMzk4LTEuMDA1IDUuODM1YzEuNTk4IDIuNDM4IDIuMDc4IDQuNzYzIDEuMDA1IDUuODM1cy0zLjM5OC41OTMtNS44MzUtMS4wMDVjLTIuNDM3IDEuNTk4LTQuNzYyIDIuMDc4LTUuODM1IDEuMDA1LTEuMDcyLTEuMDcyLS41OTItMy4zOTggMS4wMDUtNS44MzUtMS41OTgtMi40MzctMi4wNzctNC43NjItMS4wMDUtNS44MzVtOC40OSAzLjE4Yy40NTcuNDY1Ljg3Ny45MzggMS4yNjcgMS40MSAxLjAzNS0xLjU5OCAxLjQxLTIuOTcuODQ4LTMuNTI1LS41NTUtLjU2Mi0xLjkyNy0uMTg3LTMuNTI1Ljg0OHEuNzExLjU4MyAxLjQxIDEuMjY3bS01LjMxIDUuMzFhMjIgMjIgMCAwIDEtMS4yNjctMS40MWMtMS4wMzUgMS41OTgtMS40MSAyLjk3LS44NDggMy41MjUuNTU1LjU2MyAxLjkyOC4xODggMy41MjUtLjg0OHEtLjcxMS0uNTgzLTEuNDEtMS4yNjdNMTEuNzMgMTEuNzNjLS41NjIuNTU1LS4xODcgMS45MjguODQ4IDMuNTI1cS41ODMtLjcxMSAxLjI2Ny0xLjQxYy40NjUtLjQ1OC45MzgtLjg3NyAxLjQxLTEuMjY3LTEuNTk4LTEuMDM1LTIuOTctMS40MS0zLjUyNS0uODQ4bTMuMTggNi4zNmEyMSAyMSAwIDAgMCAxLjU5IDEuNDMzIDIxIDIxIDAgMCAwIDEuNTktMS40MzMgMjEgMjEgMCAwIDAgMS40MzMtMS41OSAyMSAyMSAwIDAgMC0xLjQzMy0xLjU5IDIxIDIxIDAgMCAwLTEuNTktMS40MzNjLS41MjUuNDI4LTEuMDY1LjkwOC0xLjU5IDEuNDMzYTIxIDIxIDAgMCAwLTEuNDMzIDEuNTljLjQyOC41MjUuOTA4IDEuMDY1IDEuNDMzIDEuNTltNi4zNiAzLjE4Yy41NjMtLjU1NS4xODgtMS45MjctLjg0OC0zLjUyNXEtLjU4My43MTEtMS4yNjcgMS40MS0uNjk5LjY4NC0xLjQxIDEuMjY3YzEuNTk4IDEuMDM1IDIuOTcgMS40MSAzLjUyNS44NDgiIGRhdGEtZm9sZGVySWNvbkNvbG9yPSJDb3JlIi8+PC9zdmc+", "admin": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjMDBhZDlmIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik02LjY3IDIuNjdoLTRjLS43MyAwLTEuMzMuNi0xLjMzIDEuMzN2OGMwIC43My42IDEuMzMgMS4zMyAxLjMzaDEwLjY2Yy43MyAwIDEuMzMtLjYgMS4zMy0xLjMzVjUuMzNjMC0uNzMtLjYtMS4zMy0xLjMzLTEuMzNIOHoiIGRhdGEtZm9sZGVyQ29sb3I9Ik5ldGxpZnkiLz48cGF0aCBmaWxsPSIjYjNlNmUyIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Im0xNS45MSA5LjU0LS4xNC0uMTQtMy43OC0zLjc4LS4xNC0uMTQtLjE2LS4wNmgtLjc1bC0uMTYuMDYtLjE0LjE0TDYuODcgOS40bC0uMTQuMTQtLjA2LjE2di43NWwuMDYuMTYuMTQuMTQgMy43OCAzLjc4LjE0LjE0LjE2LjA2aC43NWwuMTYtLjA2LjE0LS4xNCAzLjc4LTMuNzguMTQtLjE0LjA2LS4xNlY5LjdsLS4wNi0uMTZabS00LjkzLTMuMjUuMDUtLjA1aC41OGwuMDUuMDVWOC4xbC0uMDUuMDVoLS41OGwtLjA1LS4wNXptLTMuNjQgNC4wNnYtLjU4bC4wNS0uMDVoMi4wNGwuMDUuMDV2LjU4bC0uMDUuMDVINy4zOXptMi42NSAxLjYyLS41My41M2gtLjA4bC0uMzktLjM5di0uMDhsLjUzLS41M2guNDJsLjA2LjA2di40MlptMC0zLjM3LS4wNi4wNmgtLjQybC0uNTMtLjUzdi0uMDhsLjM5LS4zOWguMDhsLjUzLjUzdi40MlptMS42NiA1LjI1LS4wNS4wNWgtLjU4bC0uMDUtLjA1di0xLjgxbC4wNS0uMDVoLjU4bC4wNS4wNXptLjgtMi42MS0uMDUuMDVoLS41OGwtLjA1LS4wNVY5Ljg5YzAtLjI0LS4wOS0uNDItLjM4LS40M2gtLjVsLS4wMy4wM3YxLjc1bC0uMDUuMDVoLS41OGwtLjA1LS4wNVY4LjkzbC4wNS0uMDVoMS4zYy41MSAwIC45MS40MS45MS45MXYxLjQ0Wm0yLjg1LS44Ny0uMDUuMDVoLTIuMDRsLS4wNS0uMDV2LS41OGwuMDUtLjA1aDIuMDRsLjA1LjA1eiIgZGF0YS1mb2xkZXJJY29uQ29sb3I9Ik5ldGxpZnkiLz48L3N2Zz4=", "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNWM2YmMwIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMCA0SDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJjMCAxLjA5Ny45MDMgMiAyIDJoMTZjMS4wOTcgMCAyLS45MDMgMi0yVjhhMiAyIDAgMCAwLTItMmgtOHoiIGRhdGEtZm9sZGVyQ29sb3I9IlNvdXJjZXMiLz48ZyBmaWxsPSIjODlkZGZmIiBkYXRhLWZvbGRlckljb25Db2xvcj0iU291cmNlcyI+PHBhdGggZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMTUuNTk3IDIxLjY3OGEuNi42IDAgMCAxLS4xNDctLjAxOC43NC43NCAwIDAgMS0uNTEzLS44NTdsMS45MTUtMTAuMmEuNzMuNzMgMCAwIDEgLjMxNC0uNDgyLjYzLjYzIDAgMCAxIC40OTUtLjA4Ny43NC43NCAwIDAgMSAuNTEzLjg1OGwtMS45MiAxMC4yYS43My43MyAwIDAgMS0uMzEyLjQ4MS42My42MyAwIDAgMS0uMzQ1LjEwNU0xOS40MzYgMjAuMjMzaC0uMDQ4YS42Ni42NiAwIDAgMS0uNDcyLS4yNjcuNzguNzggMCAwIDEgLjA3LTEuMDAzbDMuMjkzLTMuMjE4TDE5IDEyLjc1YS43OC43OCAwIDAgMS0uMS0xIC42Ni42NiAwIDAgMSAuNDY3LS4yODMuNjQuNjQgMCAwIDEgLjUwMS4xNjdsMy44NjYgMy41MzRhLjc4Ljc4IDAgMCAxIC4xMDIgMSAuNy43IDAgMCAxLS4xLjExNmwtMy44NSAzLjc2M2EuNjUuNjUgMCAwIDEtLjQ1MS4xODdNMTMuNjcyIDIwLjIzNWEuNjUuNjUgMCAwIDEtLjQ1MS0uMTg5bC0zLjg1NC0zLjc2NWEuNzc1Ljc3NSAwIDAgMSAuMDA2LTEuMTA4bDMuODY3LTMuNTMzYS42Mi42MiAwIDAgMSAuNDk1LS4xNjljLjE5LjAyMi4zNjEuMTI1LjQ3LjI4M2EuNzguNzggMCAwIDEtLjA5OSAxLjAwMmwtMy4yNzcgMi45OTMgMy4yOTMgMy4yMTZjLjI2Ni4yNy4yOTcuNjk5LjA3IDEuMDAzYS42Ni42NiAwIDAgMS0uNDcyLjI2N3oiLz48L2c+PC9zdmc+", "build": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjZTU3MzczIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMCA0SDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJjMCAxLjA5Ny45MDMgMiAyIDJoMTZjMS4wOTcgMCAyLS45MDMgMi0yVjhhMiAyIDAgMCAwLTItMmgtOHoiIGRhdGEtZm9sZGVyQ29sb3I9IkRpc3QiLz48cGF0aCBmaWxsPSIjZmZjZGQyIiBkPSJNMTguNTc1IDExLjExM2gtMi41NzZWOS44MjVoMi41NzZtMy44NjQgMS4yODhoLTIuNTc2VjkuODI1bC0xLjI4OC0xLjI4OGgtMi41NzZMMTQuNzEgOS44MjV2MS4yODhoLTIuNTc3Yy0uNzE1IDAtMS4yODguNTczLTEuMjg4IDEuMjg4djcuMDg1YTEuMjkgMS4yOSAwIDAgMCAxLjI4OCAxLjI4OEgyMi40NGExLjI5IDEuMjkgMCAwIDAgMS4yODgtMS4yODhWMTIuNGMwLS43MTUtLjU4LTEuMjg4LTEuMjg4LTEuMjg4IiBkYXRhLWZvbGRlckljb25Db2xvcj0iRGlzdCIvPjwvc3ZnPg==", "testsOpen": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMWRlOWI2IiBkPSJNMjAgMThINFY4aDE2bTAtMmgtOGwtMi0ySDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJhMiAyIDAgMCAwIDIgMmgxNmEyIDIgMCAwIDAgMi0yVjhhMiAyIDAgMCAwLTItMiIgZGF0YS1mb2xkZXJDb2xvcj0iVGVzdHMiLz48cGF0aCBmaWxsPSIjMDA4OTdiIiBkPSJNMTQgOC4wOTd2MS4zOWguNjk1djkuNzMyQTIuNzk0IDIuNzk0IDAgMCAwIDE3LjQ3NSAyMmEyLjc5NCAyLjc5NCAwIDAgMCAyLjc4MS0yLjc4VjkuNDg2aC42OTV2LTEuMzl6bTIuNzggOS43MzJjLS40MTcgMC0uNjk1LS4yNzgtLjY5NS0uNjk1cy4yNzgtLjY5NS42OTYtLjY5NS42OTUuMjc4LjY5NS42OTUtLjI3OC42OTUtLjY5NS42OTVtMS4zOS0yLjc4Yy0uNDE3IDAtLjY5NS0uMjc4LS42OTUtLjY5NnMuMjc4LS42OTUuNjk1LS42OTUuNjk1LjI3OC42OTUuNjk1YzAgLjQxOC0uMjc4LjY5Ni0uNjk1LjY5Nm0uNjk1LTMuNDc2aC0yLjc4VjkuNDg3aDIuNzh6IiBkYXRhLWZvbGRlckljb25Db2xvcj0iVGVzdHMiLz48L3N2Zz4=", "lib": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNmNhYzIzIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMCA0SDRjLTEuMTEgMC0yIC44OS0yIDJ2MTJjMCAxLjA5Ny45MDMgMiAyIDJoMTZjMS4wOTcgMCAyLS45MDMgMi0yVjhhMiAyIDAgMCAwLTItMmgtOHoiIGRhdGEtZm9sZGVyQ29sb3I9IlZlbmRvcnMiLz48cGF0aCBmaWxsPSIjYTVkNmE3IiBkPSJNMTcuMzkgMTIuNTQ0YTIuMDUgMi4wNSAwIDAgMCAyLjA1LTIuMDUgMi4wNSAyLjA1IDAgMCAwLTIuMDUtMi4wNTIgMi4wNSAyLjA1IDAgMCAwLTIuMDUgMi4wNTEgMi4wNSAyLjA1IDAgMCAwIDIuMDUgMi4wNTFtMCAyLjQyYTkgOSAwIDAgMC02LjE1Mi0yLjQydjcuNTJjMi4zOTIgMCA0LjUzOS45MjMgNi4xNTIgMi40MmE5IDkgMCAwIDEgNi4xNTMtMi40MnYtNy41MmMtMi4zOTMgMC00LjU0LjkyMy02LjE1MyAyLjQyIiBkYXRhLWZvbGRlckljb25Db2xvcj0iVmVuZG9ycyIvPjwvc3ZnPg=="};
+const fi=k=>`<img class="fi" src="${AI[k]}" alt="">`;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const ic = (n, c='') => `<svg class="ic ${c}"><use href="#i-${n}"/></svg>`;
+
+/* ---------- editor ---------- */
+const HOOKS = {
+  wp_enqueue_scripts:{kind:'action',list:[['Assets::enqueue()','includes/Core/Assets.php:17'],['Rest::scripts()','includes/Core/Rest.php:22'],['flux_assets()','themes/flux/functions.php:42']],foot:'Fired by WordPress core while printing scripts. 3 listeners in this site.'},
+  lumen_gallery_columns:{kind:'filter',list:[['Assets::columns()','includes/Core/Assets.php:28']],foot:'Applied in Gallery::render() — includes/Front/Gallery.php:58. Defined by this plugin.'}
+};
+const KW='public|private|protected|function|final|class|namespace|return|void|int|string|bool|true|false|echo|new|use|static';
+const RX=new RegExp(String.raw`(\/\*\*.*|^\s*\*.*)|('[^']*')|(\$\w+)|\b(${KW})\b|\b([A-Z][A-Z0-9_]{2,})\b|(\\?(?:[A-Z]\w*\\)+[A-Z]\w*|\\?\b[A-Z]\w*[a-z]\w*\b)|\b(\w+)(?=\s*\()|\b(\d+)\b`,'g');
+function hl(src){
+  if(src.startsWith('<?php')) return '<span class="k">&lt;?php</span>';
+  return esc(src).replace(RX,(m,c,s,v,k,C,t,f,n)=>{
+    if(c) return `<span class="c">${m}</span>`;
+    if(s){const h=s.slice(1,-1);return HOOKS[h]?`<span class="s hook" data-hook="${h}" tabindex="0">${m}</span>`:`<span class="s">${m}</span>`;}
+    if(v) return `<span class="${m==='$this'?'vb':'v'}">${m}</span>`;
+    if(k) return `<span class="k">${m}</span>`;
+    if(C) return `<span class="C">${m}</span>`;
+    if(t) return `<span class="${m.includes('\\')&&!m.startsWith('\\')?'ns':'t'}">${m}</span>`;
+    if(f) return `<span class="fb">${m}</span>`;
+    return `<span class="n">${m}</span>`;
+  }).replace(/(<span class="k">function<\/span> )<span class="fb">/g,'$1<span class="f">')
+    .replace(/-&gt;(\w+)/g,'-&gt;<span class="pr">$1</span>').replace(/«(.*?)»/g,'<span class="inlay">$1</span>').replace(/‹(.*?)›/g,'<span class="wv">$1</span>');
+}
+const SRC=[
+ ['<?php'],['/**'],[' * Front-end assets and gallery filters.'],[' *'],[' * @package LumenGallery'],[' */'],[''],
+ ['namespace LumenGallery\\Core;'],[''],['final class Assets {'],[''],
+ ['\tpublic function register(): void {'],
+ ["\t\tadd_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ] );",{g:'hook',h:'wp_enqueue_scripts'}],
+ ["\t\tadd_filter( 'lumen_gallery_columns', [ $this, 'columns' ], «priority:»10, «accepted_args:»2 );",{g:'hook',h:'lumen_gallery_columns'}],
+ ['\t}'],[''],
+ ['\tpublic function enqueue(): void {'],
+ ['\t\t$ver = LUMEN_GALLERY_VERSION;'],[''],
+ ["\t\twp_enqueue_style( 'lumen-gallery', plugins_url( 'build/gallery.css', LUMEN_FILE ), [], $ver );"],
+ ["\t\twp_enqueue_script( 'lumen-gallery', plugins_url( 'build/gallery.js', LUMEN_FILE ), [ 'wp-element' ], $ver, ‹true› );",{dg:"WP 6.3+: pass [ 'strategy' => 'defer' ] instead of $in_footer"}],
+ ['\t}'],[''],
+ ['\tpublic function heading( string $title ): void {'],
+ ["\t\techo '<h2 class=\"lumen-title\">' . esc_html( $title ) . '</h2>';",{agent:true,lens:true,del:"\t\techo '<h2 class=\"lumen-title\">' . $title . '</h2>';"}],
+ ['\t}'],[''],
+ ['\tpublic function columns( int $columns, \\WP_Post $post ): int {',{g:'bm'}],
+ ["\t\t$override = get_post_meta( $post->ID, '_lumen_columns', true );",{iv:'$override: "4"'}],
+ ['\t\treturn $override ? absint( $override ) : $columns;',{g:'bp',exec:true,iv:'$columns: 3'}],
+ ['\t}'],['}'],
+];
+/* zed-config profile: indent-aware guides + colorized brackets */
+let bd=0;
+function line(src){
+  const tabs=src.match(/^\t*/)[0].length;
+  const guides=Array.from({length:tabs},(_,i)=>`<span class="ig ig${i+1}"></span>`).join('');
+  const html=hl(src.slice(tabs)).split(/(<[^>]+>)/).map(part=>part.startsWith('<')?part:part.replace(/[()[\]{}]/g,ch=>{
+    if('([{'.includes(ch)) return `<span class="b${(bd++)%4}">${ch}</span>`;
+    bd=Math.max(0,bd-1); return `<span class="b${bd%4}">${ch}</span>`;
+  })).join('');
+  return guides+html;
+}
+function renderEditor(){
+  let out=''; bd=0;
+  SRC.forEach(([src,m={}],i)=>{
+    const n=i+1;
+    if(m.lens) out+=`<div class="ln lens"><span></span><span></span><span class="code">${'\t\t'}<span class="lens-agent">${ic('bot','')} Claude Code · turn 3</span><span>escaped heading output (WPCS EscapeOutput)</span><a data-act="accept">Accept ⌘↵</a><a data-act="reject">Reject</a><a data-open-right="review">Open in review</a></span></div>`;
+    if(m.del) out+=`<div class="ln del"><span class="num"></span><span class="mk"></span><span class="code">${line(m.del)}</span></div>`;
+    let mk='';
+    if(m.g==='bp') mk='<span class="bp" title="Breakpoint — execution paused here"></span>';
+    if(m.g==='bm') mk=`<span class="bm" title="Bookmark 1">${ic('bookmark','fill')}</span>`;
+    if(m.g==='hook') mk=`<span class="hk" data-hook="${m.h}" tabindex="0" title="Show hook listeners">${ic('hook')}</span>`;
+    const cls=['ln',m.exec&&'exec',m.agent&&'agent'].filter(Boolean).join(' ');
+    let code=line(src);
+    if(m.iv) code+=`<span class="ival">${esc(m.iv)}</span>`;
+    if(m.dg) code+=`<span class="dg">⚠ ${esc(m.dg)}</span>`;
+    out+=`<div class="${cls}"><span class="num">${n}</span><span class="mk">${mk}</span><span class="code">${code}</span></div>`;
+  });
+  $('#editor').innerHTML=out;
+  $('#minimap').innerHTML='<div class="view"></div>'+SRC.map(([s,m={}])=>{
+    const ind=(s.match(/^\t*/)[0].length)*4, len=s.replace(/^\t*/,'').length;
+    const cls=m.dg?'x':m.agent?'a':/^\s*(\/\*\*|\*)/.test(s)?'c':'';
+    return `<i class="${cls}" style="margin-left:${ind*0.9}px;width:${Math.min(len*0.55,56-ind*0.9)}px"></i>`;
+  }).join('');
+}
+renderEditor();
+
+/* hook hover card (wp-hooks language server) */
+let hideT;
+function showHook(el){
+  clearTimeout(hideT);
+  const h=HOOKS[el.dataset.hook]; if(!h) return;
+  const card=$('#hover');
+  card.innerHTML=`<header>${ic('hook','')}<b>${el.dataset.hook}</b><span class="pill ${h.kind==='action'?'run':'mute'}">${h.kind}</span><span class="mute" style="margin-left:auto;font-size:11px">${h.list.length} listener${h.list.length>1?'s':''}</span></header>`+
+    h.list.map(([a,b])=>`<div class="row"><span class="f mono">${a}</span><span class="grow meta" style="text-align:right">${b}</span></div>`).join('')+
+    `<footer>${h.foot} · ⌥⏎ go to listeners</footer>`;
+  const wrap=$('.edwrap').getBoundingClientRect(), r=el.getBoundingClientRect();
+  card.hidden=false;
+  const left=Math.max(8,Math.min(r.left-wrap.left,wrap.width-card.offsetWidth-8));
+  card.style.left=left+'px'; card.style.top=(r.bottom-wrap.top+6)+'px';
+}
+function hideHook(){hideT=setTimeout(()=>$('#hover').hidden=true,180)}
+$('#editor').addEventListener('mouseover',e=>{const el=e.target.closest('[data-hook]'); if(el) showHook(el)});
+$('#editor').addEventListener('mouseout',e=>{if(e.target.closest('[data-hook]')) hideHook()});
+$('#editor').addEventListener('focusin',e=>{const el=e.target.closest('[data-hook]'); if(el) showHook(el)});
+$('#editor').addEventListener('focusout',hideHook);
+$('#hover').addEventListener('mouseenter',()=>clearTimeout(hideT));
+$('#hover').addEventListener('mouseleave',hideHook);
+$('#editor').addEventListener('scroll',()=>$('#hover').hidden=true);
+
+/* ---------- tool windows ---------- */
+const TREE=[
+ [0,'dirOpen','lumen-gallery',{dir:1,open:1,meta:'~/Sites/flux/wp-content/plugins'}],
+ [1,'includesOpen','includes',{dir:1,open:1}],[2,'coreOpen','Core',{dir:1,open:1}],
+ [3,'php','Assets.php',{on:1,st:'M'}],[3,'php','Plugin.php'],[3,'php','Rest.php',{st:'M'}],
+ [2,'admin','Admin',{dir:1}],[2,'dir','Front',{dir:1}],
+ [1,'src','src',{dir:1}],[1,'build','build',{dir:1,mute:1}],[1,'testsOpen','tests',{dir:1,open:1}],
+ [2,'php','AssetsTest.php',{st:'A'}],[2,'php','RestTest.php'],
+ [1,'composer','composer.json'],[1,'npm','package.json'],[1,'php','lumen-gallery.php'],[1,'phpcs','phpcs.xml.dist'],[1,'phpunit','phpunit.xml.dist'],[1,'readme','readme.txt'],
+ [0,'lib','External Libraries',{dir:1}],[1,'lib','WordPress 6.9 stubs',{dir:1}],[1,'lib','PHP 8.5 runtime',{dir:1}],[1,'lib','Composer vendor',{dir:1}],
+ [0,'scratch','Scratches and Consoles',{dir:1}],
+];
+const fileRow=(t,name,meta='',st='')=>`<div class="row">${AI[t]?fi(t):ic('file')}<span class="grow">${name}</span>${meta?`<span class="meta">${meta}</span>`:''}${st?`<span class="st st-${st}">${st}</span>`:''}</div>`;
+
+const PANELS={
+ project:{t:'Project',i:'folder',side:'L',k:'⌘1',body:()=>TREE.map(([d,t,n,o={}])=>{
+   const isDir=o.dir;
+   const icon=t==='scratch'?ic('scratch','t-md'):fi(t);
+   return `<div class="row${o.on?' on':''}" style="padding-left:${10+d*14}px${o.mute?';opacity:.55':''}">${isDir?ic(o.open?'chev':'right','tw'):'<span class="tw"></span>'}${icon}<span class="grow ${o.st?'st-'+o.st:''}">${n}</span>${o.meta?`<span class="meta hide-l">${o.meta}</span>`:''}</div>`;}).join('')},
+ git:{t:'Commit',i:'branch',side:'L',k:'⌘0',body:()=>`
+   <div class="sec">Changes <span class="cnt">3</span></div>
+   ${fileRow('php','Assets.php','includes/Core','M')}${fileRow('php','Rest.php','includes/Core','M')}${fileRow('php','AssetsTest.php','tests','A')}
+   <div class="sec">Unversioned <span class="cnt">1</span></div>${fileRow('http','rest.http','scratches','U')}
+   <textarea class="commit" id="commitMsg" aria-label="Commit message">fix: escape gallery heading output
+
+WPCS EscapeOutput.OutputNotEscaped in Assets::heading().</textarea>
+   <label class="chk"><input type="checkbox" id="c1" checked> Run PHPCS (WPCS) before commit</label>
+   <label class="chk"><input type="checkbox" id="c2" checked> Run PHPUnit before commit</label>
+   <label class="chk"><input type="checkbox" id="c3"> Amend</label>
+   <div class="btns"><button class="btn pri">Commit</button><button class="btn">Commit and Push…</button></div>
+   <div class="sec">Log</div>
+   <div class="tl"><span class="when">2h</span><span class="node"></span><span class="what"><span class="mono">a41c9e2</span> feat: per-gallery column override</span></div>
+   <div class="tl"><span class="when">1d</span><span class="node"></span><span class="what"><span class="mono">7d03b11</span> chore: bump @wordpress/scripts</span></div>
+   <div class="tl"><span class="when">2d</span><span class="node label"></span><span class="what"><span class="mono">c90e4f8</span> release: 1.4.0 <span class="pill mute">tag</span></span></div>`},
+ tests:{t:'Tests',i:'flask',side:'L',body:()=>`
+   <div class="btns"><span class="pill ok">14 passed</span><span class="pill err">1 failed</span><span class="pill warn">1 paused</span></div>
+   <div class="sec">PHPUnit 11.5 · docker: app</div>
+   <div class="row">${ic('chev','tw')}${fi('phpunit')}<span class="grow">AssetsTest</span><span class="meta tnum">41 ms</span></div>
+   <div class="row" style="padding-left:38px">${ic('check','st-A')}<span class="grow">test_registers_hooks</span><span class="meta tnum">12 ms</span></div>
+   <div class="row" style="padding-left:38px">${ic('check','st-A')}<span class="grow">test_enqueue_is_versioned</span><span class="meta tnum">8 ms</span></div>
+   <div class="row on" style="padding-left:38px">${ic('bug','')}<span class="grow" style="color:var(--warn)">test_columns_override</span><span class="meta">paused</span></div>
+   <div class="row">${ic('chev','tw')}${fi('phpunit')}<span class="grow">RestTest</span><span class="meta tnum">96 ms</span></div>
+   <div class="row" style="padding-left:38px">${ic('x','')}<span class="grow" style="color:var(--err)">test_requires_nonce</span><span class="meta tnum">31 ms</span></div>
+   <div class="row" style="padding-left:38px">${ic('check','st-A')}<span class="grow">test_lists_galleries</span><span class="meta tnum">44 ms</span></div>
+   <div class="row" style="padding-left:38px">${ic('check','st-A')}<span class="grow">test_rejects_bad_id</span><span class="meta tnum">21 ms</span></div>
+   <div class="sec">Jest · @wordpress/scripts</div>
+   <div class="row">${ic('right','tw')}${ic('flask','t-js')}<span class="grow">gallery/edit.test.js</span><span class="meta">9 ✓</span></div>
+   <div class="row">${ic('right','tw')}${ic('flask','t-js')}<span class="grow">gallery/save.test.js</span><span class="meta">2 ✓</span></div>`},
+ history:{t:'Local History',i:'history',side:'L',body:()=>`
+   <div class="sec">Assets.php · Today</div>
+   <div class="tl"><span class="when">16:42</span><span class="node agent"></span><span class="what">Claude Code · turn 3<small>+1 −1 · agent checkpoint</small></span></div>
+   <div class="tl"><span class="when">16:31</span><span class="node"></span><span class="what">Saved<small>+3 −0</small></span></div>
+   <div class="tl"><span class="when">16:20</span><span class="node label"></span><span class="what">Before checkout feat/column-override<small>label · automatic</small></span></div>
+   <div class="tl"><span class="when">15:58</span><span class="node"></span><span class="what">phpcbf (WPCS)<small>+6 −6 · formatter</small></span></div>
+   <div class="tl"><span class="when">15:40</span><span class="node"></span><span class="what">Saved<small>+12 −2</small></span></div>
+   <div class="sec">Yesterday</div>
+   <div class="tl"><span class="when">18:05</span><span class="node"></span><span class="what">Saved<small>+2 −9</small></span></div>
+   <div class="tl"><span class="when">17:12</span><span class="node label"></span><span class="what">Before git pull<small>label · automatic</small></span></div>
+   <div class="btns"><button class="btn">Compare with current</button><button class="btn">Revert to here…</button></div>
+   <div class="row meta" style="white-space:normal;padding:6px 12px">Kept 30 days outside git, in a compressed local store.</div>`},
+ scratches:{t:'Scratches',i:'scratch',side:'L',body:()=>`
+   <div class="btns"><button class="btn">${ic('plus','')}New scratch</button></div>
+   ${fileRow('php','scratch_meta.php','2m · run in docker: app')}${fileRow('sql','postmeta.sql','wp_local')}${fileRow('http','rest.http','env: local')}${fileRow('md','release-notes.md','yesterday')}${fileRow('js','tinker.js','node 22')}`},
+ todo:{t:'TODO',i:'todo',side:'L',body:()=>`
+   <div class="btns"><span class="pill mute">TODO 4</span><span class="pill warn">FIXME 1</span></div>
+   <div class="sec">Rest.php</div>
+   <div class="row"><span class="pill warn">FIXME</span><span class="grow">nonce check runs after capability check</span><span class="meta">:31</span></div>
+   <div class="row"><span class="pill mute">TODO</span><span class="grow">cache gallery query per request</span><span class="meta">:58</span></div>
+   <div class="sec">src/blocks/gallery/edit.js</div>
+   <div class="row"><span class="pill mute">TODO</span><span class="grow">lazy-load lightbox</span><span class="meta">:40</span></div>
+   <div class="row"><span class="pill mute">TODO</span><span class="grow">drop apiVersion 2 fallback</span><span class="meta">:12</span></div>
+   <div class="sec">readme.txt</div>
+   <div class="row"><span class="pill mute">TODO</span><span class="grow">update “Tested up to”</span><span class="meta">:6</span></div>`},
+ bookmarks:{t:'Bookmarks',i:'bookmark',side:'L',body:()=>`
+   <div class="row on">${ic('bookmark','fill t-php')}<span class="mono">1</span><span class="grow">Assets.php:28 — columns override</span></div>
+   <div class="row">${ic('bookmark','fill t-php')}<span class="mono">2</span><span class="grow">Rest.php:14 — register_routes</span></div>
+   <div class="row">${ic('bookmark','fill t-js')}<span class="mono">A</span><span class="grow">edit.js:40 — lightbox</span></div>`},
+ wordpress:{t:'WordPress',i:'hook',side:'L',body:()=>`
+   <div class="sec">Hooks in this plugin</div>
+   <div class="row">${ic('hook','t-json')}<span class="grow mono">wp_enqueue_scripts</span><span class="meta">action · 3</span></div>
+   <div class="row">${ic('hook','t-json')}<span class="grow mono">rest_api_init</span><span class="meta">action · 1</span></div>
+   <div class="row">${ic('hook','t-php')}<span class="grow mono">lumen_gallery_columns</span><span class="meta">filter · defined</span></div>
+   <div class="row">${ic('hook','t-php')}<span class="grow mono">lumen_gallery_item_html</span><span class="meta">filter · 0 ⚠</span></div>
+   <div class="sec">Enqueued handles</div>
+   <div class="row">${fi('js')}<span class="grow mono">lumen-gallery</span><span class="meta">js · deps wp-element</span></div>
+   <div class="row">${ic('file','t-md')}<span class="grow mono">lumen-gallery</span><span class="meta">css</span></div>
+   <div class="sec">Template hierarchy · single lumen_gallery</div>
+   <div class="row"><span class="grow mono">single-lumen_gallery.php</span><span class="meta">missing</span></div>
+   <div class="row"><span class="grow mono">single.php</span><span class="meta st-A">theme ✓ used</span></div>
+   <div class="row"><span class="grow mono mute">index.php</span></div>
+   <div class="sec">wp-cli · docker: app</div>
+   <div class="btns"><button class="btn">plugin list</button><button class="btn">cache flush</button><button class="btn">cron event list</button></div>`},
+ packages:{t:'Composer & npm',i:'package',side:'L',body:()=>`
+   <div class="sec">Composer</div>
+   <div class="row"><span class="grow mono">wp-coding-standards/wpcs</span><span class="meta tnum">3.1.0</span><span class="pill warn">3.2.0</span></div>
+   <div class="row"><span class="grow mono">phpunit/phpunit</span><span class="meta tnum">11.5.2</span></div>
+   <div class="row"><span class="grow mono">yoast/phpunit-polyfills</span><span class="meta tnum">3.0.0</span></div>
+   <div class="row"><span class="grow mono">phpstan/phpstan</span><span class="meta tnum">2.1.4</span></div>
+   <div class="sec">npm</div>
+   <div class="row"><span class="grow mono">@wordpress/scripts</span><span class="meta tnum">30.6.0</span><span class="pill warn">31.0.0</span></div>
+   <div class="row"><span class="grow mono">@wordpress/element</span><span class="meta tnum">6.12.0</span></div>
+   <div class="sec">Scripts</div>
+   <div class="row">${ic('play','fill st-A')}<span class="grow mono">composer test</span></div>
+   <div class="row">${ic('play','fill st-A')}<span class="grow mono">composer lint</span></div>
+   <div class="row">${ic('play','fill st-A')}<span class="grow mono">npm run build</span></div>
+   <div class="row">${ic('play','fill st-A')}<span class="grow mono">npm run start</span></div>`},
+
+ agents:{t:'Agents',i:'bot',side:'R',body:()=>`
+   <div class="btns"><button class="btn pri">${ic('plus','')}New task in worktree</button><button class="btn">Claude Code ▾</button></div>
+   <div class="agent-row">
+     <div class="agent-top"><span class="sdot wait"></span><b>Escape gallery output (WPCS)</b><span class="pill review">review</span></div>
+     <div class="agent-meta"><span>Claude Code</span><span class="mono">agent/escape-output</span><span>Δ 2 files +6 −2</span><span>4m</span></div>
+     <div class="agent-actions"><button class="btn" data-open-right="review">Review</button><button class="btn">Diff</button><button class="btn">Test</button><button class="btn ok">Merge</button><button class="btn bad">Discard</button></div>
+   </div>
+   <div class="agent-row">
+     <div class="agent-top"><span class="sdot run"></span><b>Add REST nonce test</b><span class="pill run">running</span></div>
+     <div class="agent-meta"><span>Codex</span><span class="mono">agent/rest-nonce</span><span>step 7</span><span>2m</span></div>
+     <div class="agent-actions"><button class="btn">Terminal</button><button class="btn">Open worktree</button><button class="btn bad">Stop</button></div>
+   </div>
+   <div class="agent-row">
+     <div class="agent-top"><span class="sdot done"></span><b>Gallery block → apiVersion 3</b><span class="pill ok">tests 18/18</span></div>
+     <div class="agent-meta"><span>Gemini CLI</span><span class="mono">agent/block-v3</span><span>Δ 5 files +41 −37</span><span>12m</span></div>
+     <div class="agent-actions"><button class="btn">Diff</button><button class="btn ok">Merge</button><button class="btn bad">Discard</button></div>
+   </div>
+   <div class="sec">Codex · agent/rest-nonce</div>
+   <div class="minicode"><div class="mute">$ codex "add a failing test for missing nonce"</div><div>› reading tests/RestTest.php</div><div>› editing tests/RestTest.php (+14)</div><div>› running composer test -- --filter nonce</div><div class="d">✗ Failed asserting that 401 is identical to 403.</div><div>› editing includes/Core/Rest.php …</div></div>
+   <div class="row meta" style="white-space:normal;padding:8px 12px">Each task runs in its own git worktree. Edits land in Agent Review before they touch your branch.</div>`},
+ review:{t:'Agent Review',i:'review',side:'R',badge:3,body:()=>`
+   <div class="btns"><button class="btn ok">${ic('check','')}Accept all</button><button class="btn bad">Revert turn</button></div>
+   <div class="sec">Claude Code · session 2 · turn 3</div>
+   <div class="card"><div class="card-h">${fi('php')}<b style="font-weight:500;flex:1">Assets.php</b><span class="st-A mono">+1</span><span class="mono" style="color:var(--err)">−1</span></div>
+     <div class="minicode"><div class="mute">@@ heading() :25</div><div class="d">-  echo '…' . $title . '…';</div><div class="a">+  echo '…' . esc_html( $title ) . '…';</div></div>
+     <div class="btns"><button class="btn ok">Accept</button><button class="btn bad">Reject</button><button class="btn">Open</button></div></div>
+   <div class="card"><div class="card-h">${fi('php')}<b style="font-weight:500;flex:1">Rest.php</b><span class="st-A mono">+3</span><span class="mono" style="color:var(--err)">−1</span></div>
+     <div class="minicode"><div class="mute">@@ permission() :31</div><div class="d">-  return current_user_can( 'edit_posts' );</div><div class="a">+  if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {</div><div class="a">+      return false;</div><div class="a">+  }</div></div>
+     <div class="btns"><button class="btn ok">Accept</button><button class="btn bad">Reject</button><button class="btn">Open</button></div></div>
+   <div class="card"><div class="card-h">${fi('php')}<b style="font-weight:500;flex:1">AssetsTest.php</b><span class="pill mute">new file</span><span class="st-A mono">+38</span></div>
+     <div class="btns"><button class="btn ok">Accept</button><button class="btn bad">Reject</button><button class="btn">Open</button></div></div>
+   <div class="row meta" style="white-space:normal;padding:8px 12px">Every agent edit is a local-history checkpoint, so any turn can be reverted.</div>`},
+ database:{t:'Database',i:'db',side:'R',body:()=>`
+   <div class="sec">wp_local · MySQL 8.4 · docker: db</div>
+   <div class="row">${ic('chev','tw')}${ic('db','t-sql')}<span class="grow">wordpress</span><span class="meta">12 tables</span></div>
+   <div class="row" style="padding-left:38px"><span class="grow mono">wp_posts</span><span class="meta tnum">1,284</span></div>
+   <div class="row on" style="padding-left:38px"><span class="grow mono">wp_postmeta</span><span class="meta tnum">9,731</span></div>
+   <div class="row" style="padding-left:38px"><span class="grow mono">wp_options</span><span class="meta tnum">412</span></div>
+   <div class="sec">Console</div>
+   <div class="minicode"><div><span class="k">SELECT</span> post_id, meta_value</div><div><span class="k">FROM</span> wp_postmeta</div><div><span class="k">WHERE</span> meta_key = <span class="s">'_lumen_columns'</span>;</div></div>
+   <div class="btns"><button class="btn pri">${ic('play','fill')}Run ⌘↵</button><span class="meta" style="align-self:center">3 rows · 4 ms</span></div>
+   <div style="overflow-x:auto;margin:0 10px;border:1px solid var(--line);border-radius:6px"><table class="grid"><thead><tr><th>post_id</th><th>meta_value</th></tr></thead><tbody><tr><td class="n">42</td><td class="s">4</td></tr><tr><td class="n">57</td><td class="s">2</td></tr><tr><td class="n">63</td><td class="s">6</td></tr></tbody></table></div>`},
+ http:{t:'HTTP Client',i:'globe',side:'R',body:()=>`
+   <div class="btns"><span class="pill mute">rest.http</span><span class="pill ok">env: local</span></div>
+   <div class="minicode"><div><span class="k">GET</span> {{root}}/lumen/v1/galleries/42</div><div><span class="t">X-WP-Nonce</span>: {{nonce}}</div><div><span class="t">Accept</span>: application/json</div></div>
+   <div class="btns"><button class="btn pri">${ic('send','')}Send</button><span class="meta" style="align-self:center">200 OK · 38 ms · 412 B</span></div>
+   <div class="minicode"><div>{</div><div>  <span class="v">"id"</span>: <span class="n">42</span>,</div><div>  <span class="v">"title"</span>: <span class="s">"Autumn Market"</span>,</div><div>  <span class="v">"columns"</span>: <span class="n">4</span>,</div><div>  <span class="v">"images"</span>: [ <span class="mute">… 18 items</span> ]</div><div>}</div></div>
+   <div class="sec">History</div>
+   <div class="row"><span class="pill ok">200</span><span class="grow mono">GET /galleries/42</span><span class="meta">now</span></div>
+   <div class="row"><span class="pill err">401</span><span class="grow mono">POST /galleries</span><span class="meta">3m</span></div>`},
+};
+const ORDER_L=['project','git','tests','history','scratches','|','todo','bookmarks','wordpress','packages'];
+const ORDER_R=['agents','review','database','http'];
+const state={L:'project',R:'agents',B:'debug'};
+
+function stripe(order,side){
+  return order.map(id=>{
+    if(id==='|') return '<div class="gap"></div>';
+    const p=PANELS[id];
+    const extra=id==='review'?'<span class="num">3</span>':id==='agents'?'<span class="dot run"></span>':'';
+    return `<button class="sb" data-panel="${id}" data-side="${side}" aria-pressed="${state[side]===id}" aria-label="${p.t}" title="${p.t}${p.k?' ('+p.k+')':''}">${ic(p.i)}${extra}</button>`;
+  }).join('');
+}
+function renderSide(side){
+  const el=$('#panel'+side), id=state[side];
+  $('#stripe'+side).innerHTML=stripe(side==='L'?ORDER_L:ORDER_R,side);
+  if(!id){el.hidden=true;return}
+  const p=PANELS[id]; el.hidden=false;
+  el.innerHTML=`<div class="ph"><h2>${p.t}</h2><button class="ib" aria-label="Options" title="Options">${ic('gear')}</button><button class="ib" data-close="${side}" aria-label="Hide ${p.t}" title="Hide">${ic('x')}</button></div><div class="pb">${p.body()}</div>`;
+}
+function toggle(side,id,force){state[side]=(state[side]===id&&!force)?null:id;renderSide(side)}
+
+/* bottom */
+const BOTTOM={
+ debug:{t:'Debug',i:'bug',body:()=>`<div class="dbg">
+   <div><div class="sec">Frames<span class="dbgbar">
+     <button class="ib" title="Resume (F9)" aria-label="Resume">${ic('play','fill st-A')}</button>
+     <button class="ib" title="Step over (F8)" aria-label="Step over">${ic('over')}</button>
+     <button class="ib" title="Step into (F7)" aria-label="Step into">${ic('into')}</button>
+     <button class="ib" title="Step out (⇧F8)" aria-label="Step out">${ic('out')}</button>
+     <button class="ib stop" title="Stop" aria-label="Stop">${ic('stop','fill')}</button></span></div>
+     <div class="frame on"><span>Assets-&gt;columns()</span><span>Assets.php:30</span></div>
+     <div class="frame"><span>apply_filters()</span><span>plugin.php:205</span></div>
+     <div class="frame"><span>Gallery-&gt;render()</span><span>Gallery.php:58</span></div>
+     <div class="frame"><span>AssetsTest-&gt;test_columns_override()</span><span>AssetsTest.php:41</span></div>
+     <div class="frame mute"><span>PHPUnit\\Framework\\TestCase-&gt;runTest()</span><span>vendor</span></div></div>
+   <div><div class="sec">Variables</div>
+     <div class="var"><span class="vn">$columns</span><span class="vt">int</span><span class="vi">3</span></div>
+     <div class="var"><span class="vn">$override</span><span class="vt">string</span><span class="vv">"4"</span></div>
+     <div class="var">${ic('right','tw')}<span class="vn">$post</span><span class="vt">WP_Post</span><span class="mute">{ID: 42, post_type: "lumen_gallery", …}</span></div>
+     <div class="var">${ic('right','tw')}<span class="vn">$this</span><span class="vt">Assets</span></div>
+     <div class="sec">Watches</div>
+     <div class="var"><span class="vn">absint( $override )</span><span class="vt">int</span><span class="vi">4</span></div></div>
+   <div><div class="sec">Debug console</div><div class="term" style="padding-top:2px"><span class="p">›</span> <span class="h">get_post_type( $post )</span>
+<span class="o">"lumen_gallery"</span>
+<span class="p">›</span> <span class="h">has_filter( 'lumen_gallery_columns' )</span>
+<span class="o">10</span>
+<span class="p">›</span> <span class="mute">▍</span></div></div></div>`},
+ problems:{t:'Problems',i:'alert',n:4,body:()=>[
+   ['xcircle','var(--err)','RestTest.php:18','Failed asserting that 401 is identical to 403.','PHPUnit'],
+   ['alert','var(--warn)','Assets.php:21',"WP 6.3+: pass [ 'strategy' => 'defer' ] instead of $in_footer",'Zenith WordPress'],
+   ['alert','var(--warn)','Rest.php:31','Parameter $request of method permission() has no type.','PHPStan L6'],
+   ['info','var(--info)','edit.js:40',"'useMemo' is defined but never used.",'ESLint'],
+ ].map(([i,c,loc,msg,src])=>`<div class="prob"><svg class="ic" style="color:${c}"><use href="#i-${i}"/></svg><span class="msg"><span class="mono" style="color:var(--fg)">${loc}</span> &nbsp;${esc(msg)}</span><span class="src">${src}</span></div>`).join('')},
+ terminal:{t:'Terminal',i:'term',body:()=>`<div class="term"><span class="p">lumen-gallery</span> <span class="mute">feat/column-override*</span> <span class="h">› composer lint</span>
+<span class="mute">&gt; phpcs --standard=phpcs.xml.dist</span>
+<span class="w">FILE: includes/Core/Rest.php</span>
+<span class="w"> 31 | WARNING | Missing parameter type</span>
+<span class="o">Time: 412ms; Memory: 18MB</span>
+
+<span class="p">lumen-gallery</span> <span class="mute">feat/column-override*</span> <span class="h">› docker compose exec app wp plugin list --status=active</span>
+<span class="h">name            status  version</span>
+lumen-gallery   active  1.4.0
+query-monitor   active  3.17.0
+
+<span class="p">lumen-gallery</span> <span class="mute">feat/column-override*</span> <span class="h">› </span><span class="mute">▍</span></div>`},
+ run:{t:'Run',i:'play',body:()=>`<div class="term"><span class="mute">docker compose exec app vendor/bin/phpunit --filter RestTest</span>
+<span class="h">PHPUnit 11.5.2 by Sebastian Bergmann and contributors.</span>
+
+..<span class="e">F</span>                                                   3 / 3 (100%)
+
+<span class="e">1) RestTest::test_requires_nonce</span>
+Failed asserting that 401 is identical to 403.
+
+<span class="mute">tests/RestTest.php:18</span>
+
+<span class="e">FAILURES!</span>  Tests: 3, Assertions: 7, Failures: 1.</div>`},
+};
+function renderBottom(){
+  $('#btabs').innerHTML=Object.entries(BOTTOM).map(([id,b])=>`<button class="bt" role="tab" data-btab="${id}" aria-selected="${state.B===id}">${ic(b.i)}${b.t}${b.n?` <span class="pill mute" style="height:17px;padding:0 6px">${b.n}</span>`:''}</button>`).join('')+
+    `<span style="flex:1"></span><button class="ib" title="Hide bottom tool window" aria-label="Hide bottom tool window" id="hideBottom">${ic('chev')}</button>`;
+  $('#bbody').innerHTML=BOTTOM[state.B].body();
+}
+
+/* events */
+document.addEventListener('click',e=>{
+  const sb=e.target.closest('[data-panel]'); if(sb){toggle(sb.dataset.side,sb.dataset.panel);return}
+  const cl=e.target.closest('[data-close]'); if(cl){state[cl.dataset.close]=null;renderSide(cl.dataset.close);return}
+  const oR=e.target.closest('[data-open-right]'); if(oR){toggle('R',oR.dataset.openRight,true);return}
+  const oL=e.target.closest('[data-open-left]'); if(oL){toggle('L',oL.dataset.openLeft,true);return}
+  const bt=e.target.closest('[data-btab]'); if(bt){state.B=bt.dataset.btab;$('#bottom').style.height='';renderBottom();return}
+  if(e.target.closest('#hideBottom')){const b=$('#bottom');b.style.height=b.style.height==='32px'?'':'32px';return}
+  if(e.target.closest('#openSearch')){openSE();return}
+  const act=e.target.closest('[data-act]'); if(act){
+    const lens=act.closest('.ln'); const del=lens.nextElementSibling; const add=del.nextElementSibling;
+    if(act.dataset.act==='accept'){lens.remove();del.remove();add.classList.remove('agent')}
+    else{lens.remove();add.remove();del.classList.remove('del');del.querySelector('.code').style.cssText='';del.querySelector('.num').textContent='25'}
+  }
+});
+
+/* search everywhere */
+const SE=[
+ ['Classes','Assets','LumenGallery\\Core · includes/Core/Assets.php','file','t-php'],
+ ['Classes','Rest','LumenGallery\\Core · includes/Core/Rest.php','file','t-php'],
+ ['Classes','AssetsTest','tests/AssetsTest.php','flask','t-php'],
+ ['Files','edit.js','src/blocks/gallery','file','t-js'],
+ ['Files','phpcs.xml.dist','project root','file','t-xml'],
+ ['Files','lumen-gallery.php','plugin main file','file','t-php'],
+ ['Symbols','Assets::columns()','includes/Core/Assets.php:28','right','t-php'],
+ ['Symbols','Rest::register_routes()','includes/Core/Rest.php:14','right','t-php'],
+ ['Hooks','lumen_gallery_columns','filter · 1 listener · defined here','hook','t-php'],
+ ['Hooks','wp_enqueue_scripts','action · 3 listeners','hook','t-json'],
+ ['Hooks','rest_api_init','action · 1 listener','hook','t-json'],
+ ['Actions','New Scratch File','⌥⇧⌘N','scratch','t-md'],
+ ['Actions','Show Local History','⌥⇧H','history','t-md'],
+ ['Actions','New Agent Task in Worktree','','bot','t-lib'],
+ ['Actions','Run PHPCS on Project','','check','st-A'],
+ ['Actions','Import Settings from PhpStorm','','package','t-md'],
+];
+const SE_TABS=['All','Classes','Files','Symbols','Hooks','Actions'];
+let seTab='All', seIdx=0, lastFocus=null;
+function renderSE(){
+  $('#seTabs').innerHTML=SE_TABS.map(t=>`<button role="tab" aria-selected="${t===seTab}" data-setab="${t}">${t}</button>`).join('');
+  const q=$('#seInput').value.toLowerCase();
+  const items=SE.filter(([k,n,d])=>(seTab==='All'||k===seTab)&&(n+' '+d).toLowerCase().includes(q));
+  seIdx=Math.min(seIdx,Math.max(0,items.length-1));
+  $('#seList').innerHTML=items.length?items.map(([k,n,d,i,c],j)=>`<div class="se-item${j===seIdx?' on':''}" role="option" aria-selected="${j===seIdx}">${k==='Classes'?fi(i==='flask'?'phpunit':'php'):k==='Files'?fi({'edit.js':'js','phpcs.xml.dist':'phpcs'}[n]||'php'):ic(i,c)}<span class="grow"><b>${esc(n)}</b> <span class="mute">${esc(d)}</span></span><span class="kind">${k.replace(/s$/,'')}</span></div>`).join('')
+    :`<div class="se-item mute">Nothing matches “${esc(q)}”. Try a hook name or a file.</div>`;
+}
+function openSE(){lastFocus=document.activeElement;$('#scrim').hidden=false;$('#seInput').value='';seIdx=0;renderSE();$('#seInput').focus()}
+function closeSE(){$('#scrim').hidden=true;lastFocus&&lastFocus.focus&&lastFocus.focus()}
+$('#seInput').addEventListener('input',()=>{seIdx=0;renderSE()});
+$('#seTabs').addEventListener('click',e=>{const b=e.target.closest('[data-setab]');if(b){seTab=b.dataset.setab;seIdx=0;renderSE();$('#seInput').focus()}});
+$('#scrim').addEventListener('click',e=>{if(e.target.id==='scrim')closeSE()});
+let lastShift=0;
+document.addEventListener('keydown',e=>{
+  if(!$('#scrim').hidden){
+    if(e.key==='Escape'){e.preventDefault();closeSE()}
+    else if(e.key==='ArrowDown'){e.preventDefault();seIdx++;renderSE()}
+    else if(e.key==='ArrowUp'){e.preventDefault();seIdx=Math.max(0,seIdx-1);renderSE()}
+    else if(e.key==='Tab'){e.preventDefault();seTab=SE_TABS[(SE_TABS.indexOf(seTab)+(e.shiftKey?SE_TABS.length-1:1))%SE_TABS.length];seIdx=0;renderSE()}
+    else if(e.key==='Enter'){e.preventDefault();closeSE()}
+    return;
+  }
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSE();return}
+  if((e.metaKey||e.ctrlKey)&&e.key==='1'){e.preventDefault();toggle('L','project');return}
+  if(e.key==='Shift'&&!e.repeat){const t=Date.now();if(t-lastShift<350){openSE();lastShift=0}else lastShift=t}
+});
+
+/* init */
+document.querySelectorAll('img[data-fi]').forEach(i=>i.src=AI[i.dataset.fi]);
+if(matchMedia('(max-width: 900px)').matches){state.L=null;state.R=null}
+renderSide('L');renderSide('R');renderBottom();
+</script>
+
+</body>
+</html>

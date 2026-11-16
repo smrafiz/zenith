@@ -39,22 +39,24 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 
 15 subagents in `.claude/agents/` — roster, routing per phase, setup and sources in `.claude/agents/README.md`. `lead-engineer` plans anything new (crates, upstream hooks, LS-vs-fork); one implementer per planned chunk; `code-reviewer` (+ security/performance/accessibility as relevant) before merge; `debugger` for a red gate. Read-only agents can't write; agents never push. Guard hooks live in `.claude/hooks/` (read-only-bash, guard-push, writer-gate).
 
-## Status (2026-11-16)
+## Status (2026-11-17)
 
 | Item | State |
 |---|---|
 | Plan docs 01–31 | ✅ written |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
-| Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). Branches zenith (= upstream), feat/branding (`0214f9dbc5`, full rebrand, pushed, not merged) — HANDOFF.md §2b |
+| Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). `zenith` @ `0cb9e7432e` = upstream + rebrand + `.zenith` dir, pushed — HANDOFF.md §2b |
 
 Installed on machine: `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence. Home machine: Xcode 26.5 + Metal Toolchain, cmake.
 
-| Rebrand (02) | ✅ code done, compiled, 785 tests pass; telemetry/auto-update off; logo + tagline replaced. Owner: remove fork README notice, merge into zenith |
+| Rebrand (02) | ✅ merged into `zenith` (`76f912fa08`); telemetry/auto-update off; logo + tagline replaced |
+| `.zenith` project dir | ✅ `feat/zenith-dir` merged into `zenith` (`0cb9e7432e`), pushed. New settings/tasks/debug go to `.zenith/`; `.zed/` still read (settings merged, `.zenith` wins). Not yet checked in running app |
 | Icon | ✅ `brand/` |
-| Welcome (32) | 🟨 fork `feat/welcome` @ `bffc425d7b` pushed; tests + full clippy green; installed. Owner: visual check (nav left-align not yet seen), remove README notice, merge into `zenith` |
+| Welcome (32) | 🟨 fork `feat/welcome` @ `bffc425d7b` pushed; tests + full clippy green. **Not in installed app** (2026-11-16 23:50 bundle is from `zenith`). Owner: visual check (nav left-align not yet seen), remove README notice, merge into `zenith` |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
+| UI mockups / default look (14) | 🟨 branch `docs/ui-mockups` (`523a095`, not pushed): `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only). Default look decided: Driftwood + Archipelago Icons (plan 14). Not yet bundled in fork |
 
 ## Findings worth keeping
 
@@ -75,6 +77,13 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.
 - Intelephense `stubs` setting replaces defaults — templates list defaults + `wordpress`.
 - phpcbf exit codes: 0 none, 1 fixed, 2 fixed+remaining, 3 error (wrapper treats ≤2 as success).
+
+- `.zenith` project dir (fork `823272e9d0`): choke point `crates/paths/src/paths.rs` (`local_settings_folder_name` = `.zenith`; `legacy_*` = `.zed`; `is_local_settings_folder_name`). Settings for both folders share one key (parent dir) in `SettingsStore`, so `project_settings.rs::load_merged_local_settings` loads both and merges (`util::merge_json_value_into`, `.zenith` wins). Tasks/debug key by the folder itself ⇒ both listed. Other touch points: worktree always-scan, `agent/src/tools/tool_permissions.rs::is_local_settings_component` (security: both folders prompt), task_inventory `.vscode` hiding, debugger new_process_modal, json_schema_store, security/alert modal text. ~10 upstream files — expect merge conflicts there.
+- Agent sensitive-path tests (`edit_file_tool.rs` `expect_authorization().await`) **hang forever** instead of failing when the prompt doesn't fire — kill after a few minutes, a hang = fail.
+- Disk (home, 2026-11-16): target/ grew 93 → ~120 GiB from one session of per-crate `cargo test` + clippy + one release bundle; disk hit 0 mid-run (ENOSPC breaks Bash/Edit entirely). `cargo clean` freed 135.8 GiB. Check `df -h ~` before test/bundle runs; keep ≥ 30 GiB.
+- Look sources live outside this repo: `~/GithubProjects/archipelago` (Driftwood theme + Archipelago Icons = Atom Material, MIT) and `~/GithubProjects/zed-config` (owner's default profile). Islands geometry (rounded, gapped docks) can't be a Zed theme — needs `workspace` dock rendering (plan 14 risk). Zed icon themes match exact names/suffixes only (`blade.php`, `test.ts` ok; `*Test.php`, `*Controller.php` impossible).
+- Mockup checks: headless Chrome (`--headless=new --screenshot` / `--dump-dom`) has a 500 px minimum window; click-test by injecting a script that clicks, then `--dump-dom` and grep PASS/FAIL. Repo mockups are full HTML docs; artifact copies omit doctype/head (the Artifact tool adds them).
+- Per-crate gates are cheap after a warm build: `cargo check` 8 crates ≈ 52 s; `cargo test -p project --test integration <filter>` ≈ 1 min; incremental release bundle 12 min.
 
 ## Open issues
 

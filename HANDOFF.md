@@ -1,6 +1,6 @@
 # Zenith — Handoff (work machine → home machine)
 
-Last updated: 2026-11-16 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
+Last updated: 2026-11-17 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
 
 ## 1. Set up the home machine
 
@@ -39,11 +39,13 @@ Xcode notes from the work machine:
 | Plan (32 docs) + GitHub (31 issues, 6 milestones) | ✅ `wp-sigmadevs/zenith` |
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 built and installed on the work machine; **not yet verified in a running Zed** |
-| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`76f912fa08`: upstream main + rebrand) · `feat/branding` (`0214f9dbc5`: icon, full rebrand, logo, tagline — merged into `zenith` @ `76f912fa08`) · `feat/rebrand` (`8c4e083700`, now contained in feat/branding) |
+| Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`0cb9e7432e`: upstream main + rebrand + `.zenith` project dir) · `feat/branding` (`0214f9dbc5`: icon, full rebrand, logo, tagline — merged into `zenith` @ `76f912fa08`) · `feat/rebrand` (`8c4e083700`, now contained in feat/branding) |
 | Plan 01 | ✅ run, tests, upstream merge; `script/bundle-mac -i` → `/Applications/Zenith Dev.app` opens (home machine, 2026-11-16) |
 | Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
-| Plan 32 welcome | 🟨 `feat/welcome` @ `6f77bb386a` pushed; tests + clippy green; awaiting visual check + merge |
+| Plan 32 welcome | 🟨 `feat/welcome` @ `bffc425d7b` pushed; tests + clippy green; awaiting merge into `zenith` + visual check. **Not in installed app** (2026-11-16 23:50 bundle is plain `zenith`) |
+| `.zenith` project dir | ✅ merged into `zenith` (`0cb9e7432e`); `.zed/` still read. Not yet checked in running app |
+| UI mockups | 🟨 `docs/ui-mockups` (pushed): `mockups/zenith-v2.html` = target look; default Driftwood + Archipelago Icons (plan 14) |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
@@ -76,7 +78,8 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Plan 32 welcome screen: fork `feat/welcome` @ `bffc425d7b` (pushed). Since last install: Sign In hidden, `zed:`→`zenith:` in palette, nav left-aligned — needs a rebuild (`script/bundle-mac -i`, ≈50 min) then owner visual check, README notice removal, merge into `zenith`.
+0. Plan 32 welcome screen: fork `feat/welcome` @ `bffc425d7b` (pushed). Owner decides: merge into `zenith`, then rebuild (`script/bundle-mac -i`; from clean ≈2 h — `target/` was cleaned 2026-11-17) **only when the owner asks**, then visual check.
+0b. Merge `docs/ui-mockups` into `main` (owner).
 0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
 1. ✅ 2026-11-16: notice removed, `feat/branding` merged into `zenith` (`76f912fa08`), pushed.
 2. Commit-prefix decision (§3.1), then close plan 02.
@@ -97,5 +100,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubRepos/zenith && claude
-> Read HANDOFF.md, CLAUDE.md and the newest .claude/handoff-*.md. Continue §4 step 0: rebuild ../zed feat/welcome, then the owner's visual check and the plan 31 JetBrains-import decision.
+> Read HANDOFF.md, CLAUDE.md and .claude/handoff-dc126032-d2a1-4224-94a3-3c87a57fbbae.md (the one current brief). Ask the owner about §4 steps 0/0b; never rebuild the app unless asked in that message.
 ```
