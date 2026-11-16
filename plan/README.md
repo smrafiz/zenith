@@ -80,6 +80,16 @@ Continuous            13 (maintenance), 16 (upstream PRs), 18 (A6 perf guard)
 
 ≈ 11 months total. Re-plan after Phase 1 using measured velocity.
 
+## Repository layout (decided 2026-11-16)
+
+Two repos until the first public release:
+- `wp-sigmadevs/zed` holds all Zenith code (Rust). Kept apart so the weekly upstream merge stays clean.
+- `wp-sigmadevs/zenith` (this repo) holds the plan, `zed-kit` (Shell) and agents/hooks (JS). No Rust here.
+
+Steps:
+1. Delete `zed-kit` once the fork covers what it configures in stock Zed.
+2. Before the first public release, in this order: rename this repo to `zenith-plan` (or move `plan/` and `.claude/` into the fork under `zenith/` and archive it), then rename `wp-sigmadevs/zed` to `wp-sigmadevs/zenith`. GitHub redirects old URLs.
+
 ## Kill criteria (re-evaluate fork)
 
 Stop and reconsider if any holds after feature 05:
