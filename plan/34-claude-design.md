@@ -36,7 +36,12 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 1. **Look** (board 11): bundle Driftwood + Archipelago Icons as defaults, theme overrides for warning hue and agent accent. Settings/assets only.
 2. **Title bar** (board 1, top): `zenith_title_bar` with badge, branch, Search box (opens existing finder until step 4), run config, agent chip (static until plan 22).
 3. **Editor** (boards 1, 7): `wp-hooks-ls` diagnostics + hover; turn on inline diagnostics and inlay hints by default; then decide the gutter-icon fork hook.
-4. **Search Everywhere** (board 5).
+4. **Search Everywhere** (board 5). New `zenith_search` crate: one modal, tab strip (All · Classes · Files · Symbols · Hooks · Actions), one `Picker` whose delegate fans out to sources; results carry a kind label. Upstream change: only the ⇧⇧ binding and the title bar box action.
+   - 4a: modal + tab strip + **Actions** source (available actions, fuzzy match, as the command palette). ⇧⇧ stays on the file finder.
+   - 4b: **Files** source (project path fuzzy match, as the file finder). Then move ⇧⇧ and the title bar box to Search Everywhere.
+   - 4c: **Symbols** (LSP workspace symbols) and **Classes** (the same, filtered to class/interface/trait/enum kinds).
+   - 4d: **All** tab: sources merged with kind labels; tab switching from the keyboard.
+   - 4e: **Hooks**, once `wp-hooks-ls` (plan 19) exists.
 5. **Agents** (boards 3, 4, 6): after plans 22/23.
 6. **Debug and Run** (boards 2, 8): layout defaults, then plan 07.
 7. **Stripes, Narrow, Islands** (boards 9, 10): only after measuring the upstream diff each needs; owner decides.
