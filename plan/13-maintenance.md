@@ -10,7 +10,8 @@
   git checkout zenith && git merge main
   cargo build && cargo test -p zenith -p zenith_*   # all zenith crates
   ```
-- Merge, don't rebase `zenith` (shared history, fewer repeated conflict resolutions). Enable `git rerere`.
+- Merge, don't rebase `zenith` (shared history, fewer repeated conflict resolutions).
+- Every clone that merges upstream runs once: `git config rerere.enabled true && git config rerere.autoupdate true` (local setting, not pushed; enabled in the main clone 2026-11-17). Resolutions live in `.git/rr-cache`, so a fresh clone starts with none.
 - Track time per merge in a log (`plan/sync-log.md`) → kill criteria in README.
 - Each upstream release: scan changelog for features overlapping ours → drop ours if equivalent.
 
