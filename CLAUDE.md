@@ -56,7 +56,7 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 | Icon | ✅ `brand/` |
 | Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). Not in installed app (no rebuild). Owner: visual check, remove README notice |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
-| Claude Design (34) | 🟨 fork `feat/look` @ `8c584c576e`: steps 1, 2, 3a, 4a, 4b, 4c, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4d All tab |
+| Claude Design (34) | 🟨 fork `feat/look` @ `1ce4504494` pushed: steps 1, 2, 3a, 4a, 4b, 4c, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4d All tab |
 | UI mockups / default look (14) | ✅ `docs/ui-mockups` merged into `main` (`219d2e7`), pushed: `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only), Claude Design export (`5e0d712`). Default look decided: Driftwood + Archipelago Icons (plan 14); being built in plan 34 |
 
 ## Findings worth keeping
@@ -81,6 +81,7 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 - Picker: `render_header` draws only when there are matches, below the query editor. For chrome above the search box wrap the picker and build it with `.embedded()`; the wrapper is the `ModalView`.
 - Upstream file edits that can't be one line: append a block at end of file (e.g. `command_palette.rs` shared-history fns) — modified upstream lines conflict on sync, an appended block rarely does.
 - Disk (work machine, 2026-11-17): `cargo test -p zed` ≈ +18 GiB; `target/debug/incremental` grows to ≈ 26 GiB (`rm -r` is safe when nothing builds); `./script/clippy` builds the release profile. After big test runs `cargo clean -p <crates>`. Keep ≥ 30 GiB free.
+- PHP symbol kinds (checked 2026-11-17 via workspace/symbol): Intelephense 1.18.5 trait = Module(2); PHPantom 0.11.1 trait = Class(5), names namespaced (`App\ZenTrait`). Both: class 5, interface 11, enum 10, function 12. Zed's PHP extension installs both under `~/Library/Application Support/Zed/extensions/work/php/`.
 - Flaky upstream test: `agent_ui` `test_migrate_thread_remote_connections_backfills_from_workspace_db` failed once under parallel load, passed 5 reruns. Suspect the shared test KVP DB; not ours.
 - Zed PHP extension: Phpactor is the default LS; Intelephense alternate; licence via `~/intelephense/licence.txt` or `lsp.intelephense.initialization_options.licenceKey`. Xdebug debug adapter built into the PHP extension.
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.
