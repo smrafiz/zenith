@@ -48,7 +48,7 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
 | Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). `zenith` @ `0cb9e7432e` = upstream + rebrand + `.zenith` dir, pushed — HANDOFF.md §2b |
 
-Installed on **work** machine (home has not run `zed-kit/install.sh`; home Zed settings = symlink to `~/GithubProjects/zed-config`, Phpactor off via `"!phpactor"` since its first commit): `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
+Installed on **work** machine (home ran `zed-kit/install.sh` 2026-11-17: zed-php-fmt link + phpactor.json; no WPCS, no Xdebug; home Zed settings = symlink to `~/GithubProjects/zed-config`, Phpactor off via `"!phpactor"` since its first commit): `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
 Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence. Home machine: Xcode 26.5 + Metal Toolchain, cmake.
 
 | Rebrand (02) | ✅ merged into `zenith` (`76f912fa08`); telemetry/auto-update off; logo + tagline replaced |
