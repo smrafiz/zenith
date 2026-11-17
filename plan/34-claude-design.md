@@ -57,7 +57,8 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 4a Search Everywhere | ✅ `zenith_search` crate: modal, tab strip (only Actions live), ⌘⇧A / Ctrl+Shift+A (PhpStorm Find Action), background fuzzy match, history shared with the command palette | `1cd9d84071` `898e214e14` `fae7a95a0c` |
 | 4b Files | ✅ Files tab: fuzzy project paths as the file finder, file icons, recent files on an empty query, `file:row:col` and `file:start-end` jumps, ⌘-Enter splits; honours `file_finder.file_icons` and `include_ignored`. ⇧⇧ and the title bar box open Search Everywhere (Files until 4d's All); ⌘⇧A = `zenith_search::FindAction`; the other shortcut switches tabs, the same one closes | `9bdf1df19b` `3f279d9829` |
 | 4c Symbols, Classes | ✅ Symbols: LSP workspace symbols as project symbols (server filter, fuzzy rank, in-project first, `path:line` shown); Classes: same, kinds class/interface/enum/struct, plus Module in `.php` (Intelephense 1.18.5 reports traits as Module, PHPantom 0.11.1 as Class; checked live). Queries debounced 100 ms. Enter jumps, ⌘-Enter opens in the adjacent pane | `8c584c576e` `1ce4504494` |
-| 4d–4e | ⬜ next: 4d All tab + keyboard tab switching | — |
+| 4d All | ✅ All tab: classes, files, other symbols, actions (8 each, kind label per row); files/actions show before the language server answers. ⇧⇧ opens All; Tab / Shift-Tab cycle ready tabs (`SearchEverywhere > Editor` in `zenith.json`, beats the picker's Tab by load order) | `65c87e35ba` |
+| 4e Hooks | ⬜ waits for `wp-hooks-ls` (plan 19) | — |
 | 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
 
 ## Per-board method

@@ -56,7 +56,7 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 | Icon | ✅ `brand/` |
 | Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). Not in installed app (no rebuild). Owner: visual check, remove README notice |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
-| Claude Design (34) | 🟨 fork `feat/look` @ `1ce4504494` pushed: steps 1, 2, 3a, 4a, 4b, 4c, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4d All tab |
+| Claude Design (34) | 🟨 fork `feat/look` @ `65c87e35ba`: steps 1, 2, 3a, 4a–4d, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4e waits on plan 19; owner picks next board (5 Agents after 22/23, 6 Debug/Run, 3b/3c) |
 | UI mockups / default look (14) | ✅ `docs/ui-mockups` merged into `main` (`219d2e7`), pushed: `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only), Claude Design export (`5e0d712`). Default look decided: Driftwood + Archipelago Icons (plan 14); being built in plan 34 |
 
 ## Findings worth keeping
