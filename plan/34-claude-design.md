@@ -36,7 +36,7 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 1. **Look** (board 11): bundle Driftwood + Archipelago Icons as defaults, theme overrides for warning hue and agent accent. Settings/assets only.
 2. **Title bar** (board 1, top): `zenith_title_bar` with badge, branch, Search box (opens existing finder until step 4), run config, agent chip (static until plan 22).
 3. **Editor** (boards 1, 7): `wp-hooks-ls` diagnostics + hover; turn on inline diagnostics and inlay hints by default; then decide the gutter-icon fork hook.
-4. **Search Everywhere** (board 5). New `zenith_search` crate: one modal, tab strip (All · Classes · Files · Symbols · Hooks · Actions), one `Picker` whose delegate fans out to sources; results carry a kind label. Upstream change: only the ⇧⇧ binding and the title bar box action.
+4. **Search Everywhere** (board 5). New `zenith_search` crate: one modal, tab strip (All · Classes · Files · Symbols · Hooks · Actions), one `Picker` whose delegate fans out to sources; results carry a kind label. Upstream change: the ⇧⇧ binding, the title bar box action, and a 28-line block appended to `command_palette.rs` (shared action history).
    - 4a: modal + tab strip + **Actions** source (available actions, fuzzy match, as the command palette). ⇧⇧ stays on the file finder.
    - 4b: **Files** source (project path fuzzy match, as the file finder). Then move ⇧⇧ and the title bar box to Search Everywhere.
    - 4c: **Symbols** (LSP workspace symbols) and **Classes** (the same, filtered to class/interface/trait/enum kinds).
@@ -45,6 +45,18 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 5. **Agents** (boards 3, 4, 6): after plans 22/23.
 6. **Debug and Run** (boards 2, 8): layout defaults, then plan 07.
 7. **Stripes, Narrow, Islands** (boards 9, 10): only after measuring the upstream diff each needs; owner decides.
+
+## Progress (fork `feat/look`, pushed; not yet merged into `zenith`, not in an installed app)
+
+| Step | State | Commits |
+|---|---|---|
+| 1 Look | ✅ Driftwood default dark, amber warnings, Archipelago Icons auto-installed | `9f80280cd7` `9d34458b99` `9162b7bf21` |
+| 2 Title bar | ✅ initials badge, Search box (opens file finder), ⇧⇧ in `assets/keymaps/zenith.json`, run config ▾ + ▶ + 🐞, agent chip. All in one title bar section (`zenith_title_bar::middle`) | `919e5f8be6` `100b4a55d1` `b2d94bee7e` `a8dd38e358` `315b12f9b1` |
+| 3a Editor defaults | ✅ inline diagnostics + inlay hints on | `3500e8d135` |
+| 3b/3c | ⬜ 3b waits for `wp-hooks-ls` (plan 19); 3c gutter hook = owner decision | — |
+| 4a Search Everywhere | ✅ `zenith_search` crate: modal, tab strip (only Actions live), ⌘⇧A / Ctrl+Shift+A (PhpStorm Find Action), background fuzzy match, history shared with the command palette | `1cd9d84071` `898e214e14` `fae7a95a0c` |
+| 4b–4e | ⬜ next: 4b Files | — |
+| 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
 
 ## Per-board method
 

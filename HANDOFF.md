@@ -44,6 +44,7 @@ Xcode notes from the work machine:
 | Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
 | Plan 32 welcome | 🟨 `feat/welcome` @ `bffc425d7b` pushed; tests + clippy green; awaiting merge into `zenith` + visual check. **Not in installed app** (2026-11-16 23:50 bundle is plain `zenith`) |
+| Plan 34 Claude Design | 🟨 fork `feat/look` @ `fae7a95a0c` pushed — steps 1, 2, 3a, 4a, 6a (plan 34 §Progress). Not merged, not in installed app |
 | `.zenith` project dir | ✅ merged into `zenith` (`0cb9e7432e`); `.zed/` still read. Not yet checked in running app |
 | UI mockups | 🟨 `docs/ui-mockups` (pushed): `mockups/zenith-v2.html` = target look; default Driftwood + Archipelago Icons (plan 14) |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
@@ -80,6 +81,7 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 0. Plan 32 welcome screen: fork `feat/welcome` @ `bffc425d7b` (pushed). Owner decides: merge into `zenith`, then rebuild (`script/bundle-mac -i`; from clean ≈2 h — `target/` was cleaned 2026-11-17) **only when the owner asks**, then visual check.
 0b. Merge `docs/ui-mockups` into `main` (owner).
+0c. Plan 34 step 4b: Files source in Search Everywhere, then move ⇧⇧ and the title bar box to it. Owner: when to merge `feat/look` + rebuild for a visual check.
 0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
 1. ✅ 2026-11-16: notice removed, `feat/branding` merged into `zenith` (`76f912fa08`), pushed.
 2. Commit-prefix decision (§3.1), then close plan 02.
@@ -100,5 +102,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubRepos/zenith && claude
-> Read HANDOFF.md, CLAUDE.md and .claude/handoff-dc126032-d2a1-4224-94a3-3c87a57fbbae.md (the one current brief). Ask the owner about §4 steps 0/0b; never rebuild the app unless asked in that message.
+> Read HANDOFF.md, CLAUDE.md and .claude/handoff-8bc5b35e-d2e2-44a9-808b-af7bdd1cc61c.md (the current brief). Ask the owner about §4 steps 0/0b; never rebuild the app unless asked in that message.
 ```

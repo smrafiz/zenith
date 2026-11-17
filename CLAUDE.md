@@ -56,7 +56,7 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 | Icon | ✅ `brand/` |
 | Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). Not in installed app (no rebuild). Owner: visual check, remove README notice |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
-| Claude Design (34) | ⬜ plan: 11 boards → owners, order, open questions |
+| Claude Design (34) | 🟨 fork `feat/look` @ `fae7a95a0c` pushed: steps 1, 2, 3a, 4a, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4b Files |
 | UI mockups / default look (14) | 🟨 branch `docs/ui-mockups` (`523a095`, not pushed): `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only). Default look decided: Driftwood + Archipelago Icons (plan 14). Not yet bundled in fork |
 
 ## Findings worth keeping
@@ -74,6 +74,14 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 - Disk/time (work machine, 2026-11-16): `target/` reached 73–80 GiB; `cargo clean` freed 80.1 GiB. Full release bundle from clean 115m 11s; full `./script/clippy` after it 8m 45s; incremental bundle after small UI edits ≈ 51m (35m + 16m). Never `cargo clean`/delete `target/` while a build or clippy runs — it killed clippy (`os error 2`).
 - Plinth (`~/GithubRepos/plinth`, Next.js + Prisma + better-auth multi-tenant CMS) fits the Zenith website (`zenith.plinthsites.com`), not accounts: users are CMS editors, no blob/licence/registry (plan 33).
 
+- Title bar (plan 34): upstream holds sections in `ArrayVec<_, 5>` (`crates/title_bar/src/title_bar.rs` ~257); a 6th push panics `CapacityError` when the onboarding banner shows. Add Zenith UI as ONE section (`zenith_title_bar::middle`).
+- Zenith keymap: `assets/keymaps/zenith.json` loads after the base keymap (`zed.rs` `load_default_keymap`, `settings::ZENITH_KEYMAP_PATH`), so it wins over JetBrains bindings. Loading `.unwrap()`s: every action named there must be linked into the app, and a test that loads it must link the action's crate (`KeymapFile::load_asset` fails on unknown actions). `"secondary-…"` = cmd on macOS, ctrl elsewhere. Don't edit upstream default keymaps.
+- Optional actions without a crate dependency: `cx.build_action("debugger::Start", None).ok()`.
+- Changing `assets/settings/default.json` breaks upstream tests that assume the old default; pin the old value inside those tests (done for project_panel `test_focus_follows_mouse_into_blank_area`, git_ui `test_history_tab_pane_navigation_focuses_rendered_panel`). Run the touched crates' tests after any default change.
+- Picker: `render_header` draws only when there are matches, below the query editor. For chrome above the search box wrap the picker and build it with `.embedded()`; the wrapper is the `ModalView`.
+- Upstream file edits that can't be one line: append a block at end of file (e.g. `command_palette.rs` shared-history fns) — modified upstream lines conflict on sync, an appended block rarely does.
+- Disk (work machine, 2026-11-17): `cargo test -p zed` ≈ +18 GiB; `target/debug/incremental` grows to ≈ 26 GiB (`rm -r` is safe when nothing builds); `./script/clippy` builds the release profile. After big test runs `cargo clean -p <crates>`. Keep ≥ 30 GiB free.
+- Flaky upstream test: `agent_ui` `test_migrate_thread_remote_connections_backfills_from_workspace_db` failed once under parallel load, passed 5 reruns. Suspect the shared test KVP DB; not ours.
 - Zed PHP extension: Phpactor is the default LS; Intelephense alternate; licence via `~/intelephense/licence.txt` or `lsp.intelephense.initialization_options.licenceKey`. Xdebug debug adapter built into the PHP extension.
 - Zed extensions exist: `laravel-official` (Official Laravel LSP — plan 25 builds on it), `laravel` (community), `http` (.http highlighting only), `twig`, `codebook`, `harper`. No PHPStan/WordPress extension.
 - Intelephense `stubs` setting replaces defaults — templates list defaults + `wordpress`.
