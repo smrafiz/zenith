@@ -14,7 +14,7 @@ Zenith = fork of Zed aiming at full PhpStorm/WebStorm parity (classic + agentic 
 ## Layout
 
 ```
-plan/        32 plan docs — start at plan/README.md (index, phases, timeline)
+plan/        35 plan docs — start at plan/README.md (index, phases, timeline)
 zed-kit/     plan 03 config layer for STOCK Zed (works today, no fork)
   bin/zed-php-fmt (+ test-zed-php-fmt.sh)   stdin→file→stdout adapter for pint/phpcbf/php-cs-fixer
   install.sh [--dry-run] [--with-xdebug]    idempotent, never overwrites
@@ -25,7 +25,7 @@ zed-kit/     plan 03 config layer for STOCK Zed (works today, no fork)
 .github/     issue templates (feature, bug), PR template
 ```
 
-GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), labels `layer:*`, `type:*`, `continuous`.
+GitHub tracking: 32 issues (one per plan doc 01–31, plus #32 for plan 35), 6 milestones (Phase 0–5), labels `layer:*`, `type:*`, `continuous`.
 
 ## Conventions
 
@@ -43,7 +43,7 @@ GitHub tracking: 31 issues (one per plan doc), 6 milestones (Phase 0–5), label
 
 | Item | State |
 |---|---|
-| Plan docs 01–31 | ✅ written |
+| Plan docs 01–31, 35 | ✅ written (35 PHP toolchain zero setup = issue #32, Phase 3, before 21) |
 | Repo setup (README, LICENSE, SECURITY, templates, issues, milestones) | ✅ |
 | 03 config layer | 🟨 zed-kit built + installed; user's Zed settings merged (Intelephense + Phpactor, extensions twig/dockerfile/make/http, Tailwind in PHP/Blade, telemetry off). **Not yet verified in running Zed.** |
 | Fork (01) | ✅ build/run/tests/upstream-merge/bundle (`Zenith Dev.app` opens). `zenith` @ `0cb9e7432e` = upstream + rebrand + `.zenith` dir, pushed — HANDOFF.md §2b |

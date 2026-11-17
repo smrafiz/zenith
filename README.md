@@ -15,7 +15,7 @@ Local layout: `~/GithubRepos/zenith` and `~/GithubRepos/zed`, side by side.
 
 ```
 zenith/
-  plan/           32 plan docs — start at plan/README.md
+  plan/           35 plan docs — start at plan/README.md
   zed-kit/        config layer for stock Zed (plan 03): install.sh, templates, zed-php-fmt
   .claude/agents/ 15 engineer agents + shared rules (README.md)
   .claude/hooks/  guard hooks (read-only bash, push guard, writer gate)
