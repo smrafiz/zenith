@@ -54,8 +54,9 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 | Rebrand (02) | ✅ merged into `zenith` (`76f912fa08`); telemetry/auto-update off; logo + tagline replaced |
 | `.zenith` project dir | ✅ `feat/zenith-dir` merged into `zenith` (`0cb9e7432e`), pushed. New settings/tasks/debug go to `.zenith/`; `.zed/` still read (settings merged, `.zenith` wins). Not yet checked in running app |
 | Icon | ✅ `brand/` |
-| Welcome (32) | 🟨 fork `feat/welcome` @ `bffc425d7b` pushed; tests + full clippy green. **Not in installed app** (2026-11-16 23:50 bundle is from `zenith`). Owner: visual check (nav left-align not yet seen), remove README notice, merge into `zenith` |
+| Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). Not in installed app (no rebuild). Owner: visual check, remove README notice |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
+| Claude Design (34) | ⬜ plan: 11 boards → owners, order, open questions |
 | UI mockups / default look (14) | 🟨 branch `docs/ui-mockups` (`523a095`, not pushed): `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only). Default look decided: Driftwood + Archipelago Icons (plan 14). Not yet bundled in fork |
 
 ## Findings worth keeping
