@@ -74,15 +74,15 @@ Continuous            13 (maintenance), 16 (upstream PRs), 18 (A6 perf guard)
 | 1 | 01, 02, 17, 15, 03, 18-A7, 04 |
 | 2 | 14, 05, 20, 27, 28 |
 | 3 | 06, 23, 22 |
-| 4 | 35, 21, 07, 19 |
-| 5 | 08, 24, start 09 |
-| 6 | 09, 10 |
-| 7 | 11, 25 |
-| 8 | 26, start 12 |
-| 9–10 | 12 |
-| 11 | 29, 31, 30 |
+| 4 | 35, 21, 07 |
+| 5 | 19, 08, 24 |
+| 6 | 09 (4–6 wk), start 10 |
+| 7 | 10, 11 |
+| 8 | 25, 26 |
+| 9–11 | 12 |
+| 12 | 29, 31, 30 |
 
-≈ 11 months total. Re-plan after Phase 1 using measured velocity.
+≈ 12 months total (plan 35 added 2–3 weeks to Phase 3). Re-plan after Phase 1 using measured velocity.
 
 ## Repository layout (decided 2026-11-16)
 

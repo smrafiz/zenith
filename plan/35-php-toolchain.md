@@ -40,7 +40,10 @@ Why now: every PHP feature in the plan (19 WordPress, 21 inspections, 25 Laravel
 - Resolution order per tool: project `vendor/bin` → Zenith managed → system `PATH` → missing.
 - Consumers ask `zenith_php_tools::resolve(project, Tool::Phpcs)`; nothing else hard-codes paths.
 - Composer runs with `COMPOSER_HOME` pointed into the managed folder so global config is untouched.
-- *verify*: how Zed exposes project trust to fork code; how to show a banner and a status-bar item from a crate (plan 14 status items).
+- Verified against fork `feat/look` @ `65c87e35ba` (2026-11-17):
+  - **Trust**: `crates/project/src/trusted_worktrees.rs`. `TrustedWorktrees::try_get_global(cx)` → `TrustedWorktreesStore::can_trust(worktree_store, worktree_id, cx)` (`&mut`; true when `session.trust_all_worktrees` is set); `TrustedWorktrees::has_restricted_worktrees(worktree_store, cx)`; subscribe to `TrustedWorktreesEvent::Trusted` to offer the install once the user trusts the project. Offer nothing while restricted.
+  - **Banner**: `Workspace::show_notification(NotificationId, cx, …)` with `workspace::notifications::simple_message_notification::MessageNotification` — `primary_message`/`primary_on_click` (Install), `secondary_message`/`secondary_on_click` (Not now), `more_info_message`/`more_info_url`. Only two action buttons: "Never" goes in settings (`profiles.<name>: "never"`) or as the secondary button.
+  - **Status bar**: `workspace.status_bar().update(cx, |bar, cx| bar.add_right_item(entity, window, cx))` with an entity implementing `workspace::StatusItemView`. Upstream adds its items in `crates/zed/src/zed.rs` (~line 636); `go_to_line` tests add one from inside a workspace update, so a `zenith_*` crate can do it from `cx.observe_new::<Workspace>` with no upstream hook. *verify* when built: the window is `Some` in that callback.
 
 ## Settings
 
