@@ -45,7 +45,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 31 | [PhpStorm/WebStorm migration tool](31-phpstorm-migration.md) | Core/CLI | 1–2 wk | ⬜ |
 | 32 | [Welcome screen](32-welcome-screen.md) | UI | 1.5 wk | 🟨 |
 | 33 | [Zenith accounts](33-zenith-accounts.md) | Service | TBD | ⬜ |
-| 34 | [Claude Design: target look](34-claude-design.md) | UI | per board | ⬜ |
+| 34 | [Claude Design: target look](34-claude-design.md) | UI | per board | 🟨 |
+| 35 | [PHP toolchain, zero setup](35-php-toolchain.md) | Core | 2–3 wk | ⬜ |
 
 ## Build order & rationale
 
@@ -53,7 +54,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 Phase 0  Foundation   01 → 02 → 17 → 15 ; 03 + 18(A7 LS tuning) in parallel (no fork needed)
 Phase 1  Quick wins   04 → 14 → 05 → 20 → 27 → 28
 Phase 2  Agentic      06 → 23 → 22
-Phase 3  Daily depth  21 → 07 → 19 → 08 → 24
+Phase 3  Daily depth  35 → 21 → 07 → 19 → 08 → 24
 Phase 4  Heavy        09 → 10 → 11 → 25 → 26
 Phase 5  Big/polish   12 → 29 → 31 → 30
 Continuous            13 (maintenance), 16 (upstream PRs), 18 (A6 perf guard)
@@ -62,7 +63,7 @@ Continuous            13 (maintenance), 16 (upstream PRs), 18 (A6 perf guard)
 - **Phase 0**: shared core + fast builds before any feature; 03 gives immediate value on stock Zed.
 - **Phase 1**: small panels prove fork workflow + measure merge cost (kill criteria). 14 early = entry points for later panels.
 - **Phase 2**: agent safety (history → review queue → parallel worktrees) — biggest agentic multiplier.
-- **Phase 3**: daily PHP/WP/JS depth.
+- **Phase 3**: daily PHP/WP/JS depth. 35 first: 21, 19 and 25 need the tools it installs.
 - **Phase 4–5**: largest, most coupled features; start only once merge cost is known.
 - LS-based parts (19, 25, 26, 27 highlight) follow 16's extension-first rule → usable in stock Zed too.
 
@@ -73,7 +74,7 @@ Continuous            13 (maintenance), 16 (upstream PRs), 18 (A6 perf guard)
 | 1 | 01, 02, 17, 15, 03, 18-A7, 04 |
 | 2 | 14, 05, 20, 27, 28 |
 | 3 | 06, 23, 22 |
-| 4 | 21, 07, 19 |
+| 4 | 35, 21, 07, 19 |
 | 5 | 08, 24, start 09 |
 | 6 | 09, 10 |
 | 7 | 11, 25 |

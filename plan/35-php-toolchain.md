@@ -1,0 +1,81 @@
+# 35 — PHP Toolchain, Zero Setup
+
+## Goal
+
+Open a WordPress, Laravel or plain PHP project and have PHPCS (with WPCS), PHPStan, Pint or PHP-CS-Fixer working without the user installing anything. PhpStorm ships its inspections; Zenith gets the same feel by detecting what a project already has and installing the rest into its own managed folder, once, after asking.
+
+Why now: every PHP feature in the plan (19 WordPress, 21 inspections, 25 Laravel, the `zed-php-fmt` formatter) assumes these tools exist. Setting them up by hand on the home machine (2026-11-17) took two phpcs copies, a WPCS that refuses PHP_CodeSniffer 4, a Composer downgrade and a `~/.zshrc` edit. Users should never see that.
+
+## Parity checklist
+
+- [ ] Detect the project type: WordPress (plugin/theme headers, `wp-config.php`, `style.css` theme header), Laravel (`artisan`, `laravel/framework` in `composer.json`), plain PHP (must)
+- [ ] Project tools first: use `vendor/bin/{phpcs,phpcbf,phpstan,pint,php-cs-fixer}` when present; never install over a project's own versions (must)
+- [ ] Managed tools: install the missing ones into `~/.local/share/zenith/tools/php/<profile>/` with Zenith's own `composer.json` + `composer.lock` (must)
+- [ ] Profiles with pinned, tested versions (must):
+  - WordPress: PHP_CodeSniffer 3.13.x, WPCS 3.x, PHPCompatibilityWP, PHPStan + `szepeviktor/phpstan-wordpress`
+  - Laravel: Pint, PHPStan + Larastan
+  - Plain PHP: PHPStan, PHP-CS-Fixer
+- [ ] Ask once per profile before downloading or running anything ("Install WordPress tools (≈ 15 MB)?"); remember the answer; never on a remote or untrusted project (must)
+- [ ] Background install with status-bar progress and a log; failures show the Composer error and a retry (must)
+- [ ] Never touch the user's global Composer, `PATH`, shell profile or Homebrew (must)
+- [ ] PHP detection: Herd, Valet, Homebrew, system `php`, project `.php-version`/`composer.json` `require.php`; report the version in use (must)
+- [ ] No PHP found: one-click guide (Herd / Homebrew links), no silent install (must)
+- [ ] Composer: use the user's if present, else download `composer.phar` into the managed folder and verify its published SHA-256 (must)
+- [ ] Hand the resolved tool paths to 21 inspections, the formatter (03 `zed-php-fmt`) and 19/25 (must)
+- [ ] Commands: "Zenith: PHP tools: status", "…: reinstall", "…: update", "…: remove" (must)
+- [ ] Updates only on request or a Zenith release that bumps the pinned set; never on its own (must)
+- [ ] Docker/remote interpreters (11): run tools inside the container instead of installing locally (later)
+- [ ] Xdebug ready without configuration; per-project PHP version switching (later, with 11/30)
+
+## UX
+
+- First PHP project: a non-modal banner — "Zenith can set up WordPress tools: PHPCS + WordPress standards, PHPStan. [Install] [Not now] [Never]".
+- Status bar while installing: "Installing PHP tools… 3/5"; click opens the log.
+- "PHP tools: status" lists each tool, version, source (project / Zenith / system) and path.
+
+## Architecture
+
+- Detection (project type, PHP binary, project `vendor/bin`) in `zenith_core::detect` (plan 15).
+- New crate `zenith_php_tools`: profiles (pinned `composer.json` + `composer.lock` checked into the Zenith repo as assets), install/update/remove through `zenith_core::process`, state in `zenith_core::store`, paths under `zenith_core::paths` data dir (`~/.local/share/zenith/`).
+- Resolution order per tool: project `vendor/bin` → Zenith managed → system `PATH` → missing.
+- Consumers ask `zenith_php_tools::resolve(project, Tool::Phpcs)`; nothing else hard-codes paths.
+- Composer runs with `COMPOSER_HOME` pointed into the managed folder so global config is untouched.
+- *verify*: how Zed exposes project trust to fork code; how to show a banner and a status-bar item from a crate (plan 14 status items).
+
+## Settings
+
+```json
+"zenith": {
+  "php_tools": {
+    "auto_offer": true,
+    "profiles": { "wordpress": "ask", "laravel": "ask", "php": "ask" },
+    "php_binary": null,
+    "prefer_project_tools": true
+  }
+}
+```
+
+## Milestones
+
+1. Detection (project type, PHP, project `vendor/bin`) + "PHP tools: status".
+2. WordPress profile: pinned set, consent, background install, resolve() used by the formatter.
+3. Laravel and plain PHP profiles.
+4. Wire into 21 inspections and 19/25; update/remove commands.
+5. Docker interpreters (11).
+
+## Tests
+
+- Detection fixtures per project type (WordPress plugin, theme, Laravel app, plain library).
+- Resolution order: project vendor beats managed beats system (temp dirs, fake binaries).
+- Profile lock files install cleanly on the supported PHP versions (CI job, network).
+- Consent: nothing downloads or runs before the user accepts (test with a fake process runner).
+
+## Risks
+
+- Pinned sets drift behind upstream (WPCS on PHP_CodeSniffer 3 today): bump in Zenith releases with the CI install job as the gate.
+- Running Composer = running code from Packagist: consent first, lock files with hashes, never for untrusted projects.
+- Disk: ~15–40 MB per profile; "remove" command and a size shown in status.
+
+## Effort
+
+2–3 weeks (after 15).
