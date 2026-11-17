@@ -55,7 +55,7 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 3a Editor defaults | ✅ inline diagnostics + inlay hints on | `3500e8d135` |
 | 3b/3c | ⬜ 3b waits for `wp-hooks-ls` (plan 19); 3c gutter hook = owner decision | — |
 | 4a Search Everywhere | ✅ `zenith_search` crate: modal, tab strip (only Actions live), ⌘⇧A / Ctrl+Shift+A (PhpStorm Find Action), background fuzzy match, history shared with the command palette | `1cd9d84071` `898e214e14` `fae7a95a0c` |
-| 4b Files | ✅ Files tab: fuzzy project paths as the file finder, file icons, recent files on an empty query, `file:row:col` jumps, ⌘-Enter splits. ⇧⇧ and the title bar box open Search Everywhere (Files until 4d's All); ⌘⇧A = `zenith_search::FindAction`; the other shortcut switches tabs, the same one closes | `9bdf1df19b` |
+| 4b Files | ✅ Files tab: fuzzy project paths as the file finder, file icons, recent files on an empty query, `file:row:col` and `file:start-end` jumps, ⌘-Enter splits; honours `file_finder.file_icons` and `include_ignored`. ⇧⇧ and the title bar box open Search Everywhere (Files until 4d's All); ⌘⇧A = `zenith_search::FindAction`; the other shortcut switches tabs, the same one closes | `9bdf1df19b` `3f279d9829` |
 | 4c–4e | ⬜ next: 4c Symbols/Classes | — |
 | 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
 
