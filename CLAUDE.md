@@ -39,7 +39,7 @@ GitHub tracking: 32 issues (one per plan doc 01–31, plus #32 for plan 35), 6 m
 
 15 subagents in `.claude/agents/` — roster, routing per phase, setup and sources in `.claude/agents/README.md`. `lead-engineer` plans anything new (crates, upstream hooks, LS-vs-fork); one implementer per planned chunk; `code-reviewer` (+ security/performance/accessibility as relevant) before merge; `debugger` for a red gate. Read-only agents can't write; agents never push. Guard hooks live in `.claude/hooks/` (read-only-bash, guard-push, writer-gate).
 
-## Status (2026-11-17)
+## Status (2026-11-18)
 
 | Item | State |
 |---|---|
@@ -54,9 +54,10 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 | Rebrand (02) | ✅ merged into `zenith` (`76f912fa08`); telemetry/auto-update off; logo + tagline replaced |
 | `.zenith` project dir | ✅ `feat/zenith-dir` merged into `zenith` (`0cb9e7432e`), pushed. New settings/tasks/debug go to `.zenith/`; `.zed/` still read (settings merged, `.zenith` wins). Not yet checked in running app |
 | Icon | ✅ `brand/` |
-| Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). In the `feat/look` rebuild started 2026-11-17 23:45 (see current handoff). Owner: visual check, remove README notice |
+| Welcome (32) | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). In the home app (`feat/look` @ `65c87e35ba`, installed 2026-11-18 00:05). Owner: visual check, remove README notice |
 | Accounts (33) | ⬜ brief only; Sign In hidden meanwhile |
-| Claude Design (34) | 🟨 fork `feat/look` @ `65c87e35ba`: steps 1, 2, 3a, 4a–4d, 6a done (table in plan 34 §Progress). Not merged into `zenith`, not in an installed app (no rebuild). Next: 4e waits on plan 19; owner picks next board (5 Agents after 22/23, 6 Debug/Run, 3b/3c) |
+| Claude Design (34) | 🟨 fork `feat/look` @ `65c87e35ba`: steps 1, 2, 3a, 4a–4d, 6a done (table in plan 34 §Progress). Not merged into `zenith`; installed on home only (2026-11-18 00:05), not visually checked. Next: 4e waits on plan 19; owner picks next board (5 Agents after 22/23, 6 Debug/Run, 3b/3c) |
+| Inspections (21) | 🟨 new crate `zenith_inspections`, fork `feat/look` @ `9c2cf04a91`: PHPCS/PHPStan on save, changed files, folder action, PHPCBF fix, settings (plan 21 §Progress); 25 tests. In no installed app yet (needs a bundle). Next: suppress actions |
 | UI mockups / default look (14) | ✅ `docs/ui-mockups` merged into `main` (`219d2e7`), pushed: `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` (target: Editing / Debugging / Agent review scenes, orange = agents only), Claude Design export (`5e0d712`). Default look decided: Driftwood + Archipelago Icons (plan 14); being built in plan 34 |
 
 ## Findings worth keeping
@@ -115,6 +116,4 @@ Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/ven
 
 ## Next steps
 
-1. User restarts Zed, applies a template to a real WP/Laravel project, runs `zed-kit/README.md` checklist → fix failures → mark 03 ✅ in plan/README.md and close its issue.
-2. User clears disk + installs Xcode + `brew install cmake`.
-3. Fork `zed-industries/zed` → `wp-sigmadevs/zed`, clone to `~/GithubRepos/zed`, branch `zenith`, `cargo run` (plan 01), then 17 → 15 → 18 → Phase 1 (04 scratches, 14 toolbar, 05 local history…).
+Current order lives in `HANDOFF.md` §4 and the latest `.claude/handoff-*.md` brief.

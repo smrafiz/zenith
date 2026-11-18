@@ -4,11 +4,11 @@
 - Plan 21 M1a, M1b-1, M1b-2a, M1b-2b, M3a in new crate `crates/zenith_inspections` (fork `feat/look`, pushed through `9c2cf04a91`). Commit list + notes: `plan/21-project-inspections.md` §Progress (zenith `main`, pushed through `95d3bd2`).
   - PHPCS/PHPStan on save → editor diagnostics; "inspect changed files" (git); "fix file with PHPCBF"; `zenith.inspections` settings; project panel folder → **Inspect PHP Files**.
 - Two independent reviews; all MUST/SHOULD findings fixed (`0de1f893e7`, `9efcff7fff`, `b362cc109d`). 25 crate tests, each regression test proven by mutation.
-- Engineering notes added to `CLAUDE.md` §Findings (diagnostics push path + test-support trap, ignored-folder scan, deps, PHPCS columns, bundle cost). Not committed yet.
+- Engineering notes added to `CLAUDE.md` §Findings (diagnostics push path + test-support trap, ignored-folder scan, deps, PHPCS columns, bundle cost). Committed + pushed (`146d106`).
 
 ### In Flight
-- Release bundle `./script/bundle-mac -i` started 17:16, still compiling at 18:26 (crate `project` > 53 min in release). Owner is shutting the Mac down, so it will be killed; the installed `Zenith Dev.app` stays the 2026-11-16 build. Backup: `~/Applications-backup/Zenith Dev-20261118-1716.app`.
-- `CLAUDE.md` + `HANDOFF.md` edits and this brief: uncommitted in `~/GithubRepos/zenith`.
+- none. Session ran on the **work** machine (`~/GithubRepos/`). Its release bundle (started 17:16) was killed by the shutdown; work app = 2026-11-16 build, backup `~/Applications-backup/Zenith Dev-20261118-1716.app`.
+- Home machine (`~/GithubProjects/`, checked 2026-11-18): zenith `main` and fork `feat/look` @ `9c2cf04a91` in sync with origin; installed app = `feat/look` @ `65c87e35ba` (2026-11-18 00:05), so no plan-21 feature on either machine yet; 114 GiB free.
 
 ### Decisions Made
 - Diagnostics via `LspStore::merge_lsp_diagnostics` + reserved server ids, no virtual LSP: works with no running server; `update_diagnostic_entries` is test-only.

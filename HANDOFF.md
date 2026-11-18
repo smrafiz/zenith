@@ -1,6 +1,6 @@
 # Zenith — Handoff (work machine → home machine)
 
-Last updated: 2026-11-17 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
+Last updated: 2026-11-18 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
 
 ## 1. Set up the home machine
 
@@ -80,7 +80,7 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Visual check of the `feat/look` bundle (welcome, `.zenith`, look, title bar, Search Everywhere ⇧⇧ / ⌘⇧A / Tab). If it failed, see CLAUDE.md finding on `LK_CUSTOM_WEBRTC`. Backup of the previous app: `~/Applications-backup/Zenith Dev-20261116-2350.app`.
+0. Visual check of the `feat/look` bundle (welcome, `.zenith`, look, title bar, Search Everywhere ⇧⇧ / ⌘⇧A / Tab). If it failed, see CLAUDE.md finding on `LK_CUSTOM_WEBRTC`. Backup of the previous app: `~/Applications-backup/Zenith Dev-20261116-2350.app`. The home app is `65c87e35ba` (no plan 21); plan 21 needs a new bundle of `9c2cf04a91` (only when the owner asks; ≈1 h incremental, `df -h ~` ≥ 30 GiB), then check it on a real WordPress project.
 0b. Owner: merge `feat/look` into `zenith` after the visual check; remove the fork README notice.
 0c. Owner picks the next plan 34 board: 6 Debug/Run layout, 3b (waits for plan 19) / 3c gutter-icon decision; 4e Hooks waits for `wp-hooks-ls`.
 0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
