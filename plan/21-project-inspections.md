@@ -65,7 +65,8 @@ Large projects: PHPStan full run slow → default scope "changed files", full ru
 | Step | State | Notes |
 |---|---|---|
 | M1a — PHPCS + PHPStan on save | ✅ fork `1ade746a4a` | Crate `zenith_inspections`. Saved `.php` file in a trusted local worktree → tools from `zenith_php_tools::resolve` (project → managed → PATH), PHP scripts run through the found PHP. Results pushed with `LspStore::update_diagnostic_entries` under reserved server ids (`usize::MAX-1` phpcs, `-2` phpstan): no virtual LSP needed. Gutter, inline diagnostics and ⌘⇧M project diagnostics show them. PHPCS: project ruleset, else `WordPress` / `PSR12`. PHPStan: only with a project config. Parsers tested on real output (PHP deprecation notices precede the JSON on stdout). A newer save of a file wins over a slower older run; PHPCS tab-expanded columns are mapped back to character columns (checked against real `--tab-width=0` output). |
-| M1b — Problems panel, scopes, settings | ⬜ | Directory / changed-files runs, toggle per analyzer, status counts. |
+| M1b-1 — changed files | ✅ fork `8d841e8633` | Command-palette action `zenith inspections: inspect changed files`: `git status --porcelain=v1 -z`, existing `.php` files (renames handled, deletes skipped), each run through the same path as on-save; works for unopened files. Status-bar error/warning counts come from the editor's own counter, since results are ordinary diagnostics (not yet seen). |
+| M1b-2 — directory scope, per-analyzer switches, `run_on_save` | ⬜ | Needs a `zenith.inspections` settings section. |
 
 ## Effort
 
