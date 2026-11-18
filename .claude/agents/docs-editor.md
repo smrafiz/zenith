@@ -39,7 +39,8 @@ rules).
 | `plan/NN-*.md` | Feature template (Goal · Parity checklist · UX · Architecture · Data & settings · Actions & keymap · Milestones · Tests · Risks · Effort). When a feature ships: ✅ + "Implemented in" crate path, settings, known gaps, deviations. Replace a *verify* note with the verified fact and its `path:line @ sha` or source URL. Keep the reasoning. |
 | `plan/16-upstream-and-extensions.md` | The hook/PR tracking table. |
 | `plan/sync-log.md`, `plan/build-log.md` | Append-only (release-ops-engineer supplies numbers). |
-| `CLAUDE.md` | Rules and status that bind every session; keep it short. |
+| `CLAUDE.md` | Rules that bind every session; keep it under ~8 KB. Status lives in `HANDOFF.md` §2. |
+| `docs/guides/fork-findings.md`, `docs/map/DOCS.md` | Findings by topic; router rows point at files that exist. |
 | `README.md`, `zed-kit/README.md` | User-facing; commands work exactly as written. |
 | `CHANGELOG.md` (once it exists) | One entry per change, each traced to a commit sha. |
 | `.claude/agents/*.md` | A stale fact here is repeated by every run of that agent; keep frontmatter valid YAML. |

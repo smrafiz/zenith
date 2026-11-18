@@ -4,7 +4,7 @@
 - Plan 21 M1a, M1b-1, M1b-2a, M1b-2b, M3a in new crate `crates/zenith_inspections` (fork `feat/look`, pushed through `9c2cf04a91`). Commit list + notes: `plan/21-project-inspections.md` §Progress (zenith `main`, pushed through `95d3bd2`).
   - PHPCS/PHPStan on save → editor diagnostics; "inspect changed files" (git); "fix file with PHPCBF"; `zenith.inspections` settings; project panel folder → **Inspect PHP Files**.
 - Two independent reviews; all MUST/SHOULD findings fixed (`0de1f893e7`, `9efcff7fff`, `b362cc109d`). 25 crate tests, each regression test proven by mutation.
-- Engineering notes added to `CLAUDE.md` §Findings (diagnostics push path + test-support trap, ignored-folder scan, deps, PHPCS columns, bundle cost). Committed + pushed (`146d106`).
+- Engineering notes added to `CLAUDE.md` §Findings (moved 2026-11-18 to `docs/guides/fork-findings.md`) (diagnostics push path + test-support trap, ignored-folder scan, deps, PHPCS columns, bundle cost). Committed + pushed (`146d106`).
 
 ### In Flight
 - none. Session ran on the **work** machine (`~/GithubRepos/`). Its release bundle (started 17:16) was killed by the shutdown; work app = 2026-11-16 build, backup `~/Applications-backup/Zenith Dev-20261118-1716.app`.

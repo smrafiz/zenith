@@ -19,6 +19,7 @@ zenith/
   zed-kit/        config layer for stock Zed (plan 03): install.sh, templates, zed-php-fmt
   .claude/agents/ 15 engineer agents + shared rules (README.md)
   .claude/hooks/  guard hooks (read-only bash, push guard, writer gate)
+  docs/           task router (map/DOCS.md) + fork findings (guides/)
   CLAUDE.md       project rules for AI agents
   HANDOFF.md      current state + next steps (machine-to-machine handoff)
 ```

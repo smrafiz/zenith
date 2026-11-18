@@ -36,21 +36,31 @@ Xcode notes from the work machine:
 
 | Area | State |
 |---|---|
-| Plan (35 docs) + GitHub (32 issues, 6 milestones) | ✅ `wp-sigmadevs/zenith`; plan 35 PHP toolchain = issue #32 (Phase 3, before 21) |
+| Plan (35 docs) + GitHub (32 issues, 6 milestones; README, LICENSE, SECURITY, issue/PR templates) | ✅ `wp-sigmadevs/zenith`; plan 35 PHP toolchain = issue #32 (Phase 3, before 21) |
 | Engineer agents (15) + hooks | ✅ `.claude/agents/`, `.claude/hooks/` — modernized, pushed (`81cba24`) |
 | 03 config layer (`zed-kit`) | 🟨 installed on both machines (home 2026-11-17: install.sh, WPCS 3.4.1, Phpactor on in `zed-config` `98e70fb`); **not yet verified in a running Zed** |
 | Fork | ✅ `wp-sigmadevs/zed` (smrafiz has write). Branches: `zenith` (`0cb9e7432e`: upstream main + rebrand + `.zenith` project dir) · `feat/branding` (`0214f9dbc5`: icon, full rebrand, logo, tagline — merged into `zenith` @ `76f912fa08`) · `feat/rebrand` (`8c4e083700`, now contained in feat/branding) |
 | Plan 01 | ✅ run, tests, upstream merge; `script/bundle-mac -i` → `/Applications/Zenith Dev.app` opens (home machine, 2026-11-16) |
 | Icon | ✅ `brand/zenith-icon.svg` (layers `background`/`glyph`) + 512/1024 PNGs; swapped into all 8 `crates/zed/resources/app-icon*.png` on `feat/branding` |
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
-| Plan 32 welcome | 🟨 merged into fork `zenith` (`2800023217`); awaiting visual check |
-| Plan 34 Claude Design | 🟨 fork `feat/look` @ `65c87e35ba` pushed — steps 1, 2, 3a, 4a–4d (Search Everywhere: All/Classes/Files/Symbols/Actions), 6a (plan 34 §Progress). Not merged into `zenith`. Rebuild from `feat/look` started 2026-11-17 23:45 |
+| Plan 32 welcome | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). In the home app (`feat/look` @ `65c87e35ba`, installed 2026-11-18 00:05). Owner: visual check, remove README notice |
+| Plan 33 accounts | ⬜ brief only; Sign In hidden meanwhile |
+| Plan 34 Claude Design | 🟨 fork `feat/look` @ `65c87e35ba` pushed — steps 1, 2, 3a, 4a–4d (Search Everywhere: All/Classes/Files/Symbols/Actions), 6a (plan 34 §Progress). Not merged into `zenith`; installed on home only (2026-11-18 00:05), not visually checked. Next: 4e waits on plan 19; owner picks next board (5 Agents after 22/23, 6 Debug/Run, 3b/3c) |
 | Plan 21 inspections | 🟨 fork `feat/look` @ `9c2cf04a91` pushed: PHPCS/PHPStan on save, changed files, folder, PHPCBF, settings (plan 21 §Progress). 25 tests. Not seen in a running app: the 2026-11-18 bundle was stopped by a shutdown |
-| `.zenith` project dir | ✅ merged into `zenith` (`0cb9e7432e`); `.zed/` still read. Not yet checked in running app |
-| UI mockups | ✅ merged into `main` (`219d2e7`): `mockups/zenith-v2.html` = target look; default Driftwood + Archipelago Icons (plan 14) |
+| `.zenith` project dir | ✅ `feat/zenith-dir` merged into `zenith` (`0cb9e7432e`). New settings/tasks/debug go to `.zenith/`; `.zed/` still read (settings merged, `.zenith` wins). Not yet checked in running app |
+| UI mockups | ✅ `docs/ui-mockups` merged into `main` (`219d2e7`): `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` = target look (Editing / Debugging / Agent review scenes, orange = agents only), Claude Design export (`5e0d712`); default Driftwood + Archipelago Icons (plan 14), being built in plan 34 |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
 | `cargo test -p workspace` | ✅ 307 passed (work machine) |
 | Toolchain | Rust 1.98.1 (pinned by repo), Xcode 26.5, cmake 4.5 |
+
+Installed on **work** machine (home ran `zed-kit/install.sh` 2026-11-17: zed-php-fmt link + phpactor.json; WPCS 3.4.1 in global Composer (phpcs pinned to 3.13.6 — WPCS has no PHPCS 4 support; Homebrew phpcs 4.0.4 also present, `~/.zshrc` puts `~/.composer/vendor/bin` first); no Xdebug; home Zed settings = symlink to `~/GithubProjects/zed-config`, Phpactor off via `"!phpactor"` since its first commit): `~/.local/bin/zed-php-fmt` → repo symlink; `~/.config/phpactor/phpactor.json`; Zed settings backups `~/.config/zed/settings.json.backup-20261115-*`.
+Machine facts: PHP 8.5, Composer 2.10, Node 22, phpcs + WPCS in `~/.composer/vendor/bin`, Valet, fswatch; no Xdebug, no Intelephense licence. Home machine: Xcode 26.5 + Metal Toolchain, cmake.
+
+Open issues (plan 03):
+
+- Verify 03 in Zed: go-to-def/rename, Phpactor code action, PHPCS (WP) / PHPStan (Laravel) inline, Pint on save, no duplicate completions, per-project Intelephense stubs applied, Phpactor auto-download.
+- Xdebug not loaded (`install.sh --with-xdebug` or Herd/Valet PHP).
+- `install.sh --dry-run` labels real checks as `dry` too (cosmetic).
 
 ## 2b. Rebrand (plan 02) — status
 
@@ -80,7 +90,7 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Visual check of the `feat/look` bundle (welcome, `.zenith`, look, title bar, Search Everywhere ⇧⇧ / ⌘⇧A / Tab). If it failed, see CLAUDE.md finding on `LK_CUSTOM_WEBRTC`. Backup of the previous app: `~/Applications-backup/Zenith Dev-20261116-2350.app`. The home app is `65c87e35ba` (no plan 21); plan 21 needs a new bundle of `9c2cf04a91` (only when the owner asks; ≈1 h incremental, `df -h ~` ≥ 30 GiB), then check it on a real WordPress project.
+0. Visual check of the `feat/look` bundle (welcome, `.zenith`, look, title bar, Search Everywhere ⇧⇧ / ⌘⇧A / Tab). If it failed, see `docs/guides/fork-findings.md` on `LK_CUSTOM_WEBRTC`. Backup of the previous app: `~/Applications-backup/Zenith Dev-20261116-2350.app`. The home app is `65c87e35ba` (no plan 21); plan 21 needs a new bundle of `9c2cf04a91` (only when the owner asks; ≈1 h incremental, `df -h ~` ≥ 30 GiB), then check it on a real WordPress project.
 0b. Owner: merge `feat/look` into `zenith` after the visual check; remove the fork README notice.
 0c. Owner picks the next plan 34 board: 6 Debug/Run layout, 3b (waits for plan 19) / 3c gutter-icon decision; 4e Hooks waits for `wp-hooks-ls`.
 0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
