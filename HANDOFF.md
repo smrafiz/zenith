@@ -45,6 +45,7 @@ Xcode notes from the work machine:
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
 | Plan 32 welcome | 🟨 merged into fork `zenith` (`2800023217`); awaiting visual check |
 | Plan 34 Claude Design | 🟨 fork `feat/look` @ `65c87e35ba` pushed — steps 1, 2, 3a, 4a–4d (Search Everywhere: All/Classes/Files/Symbols/Actions), 6a (plan 34 §Progress). Not merged into `zenith`. Rebuild from `feat/look` started 2026-11-17 23:45 |
+| Plan 21 inspections | 🟨 fork `feat/look` @ `9c2cf04a91` pushed: PHPCS/PHPStan on save, changed files, folder, PHPCBF, settings (plan 21 §Progress). 25 tests. Not seen in a running app: the 2026-11-18 bundle was stopped by a shutdown |
 | `.zenith` project dir | ✅ merged into `zenith` (`0cb9e7432e`); `.zed/` still read. Not yet checked in running app |
 | UI mockups | ✅ merged into `main` (`219d2e7`): `mockups/zenith-v2.html` = target look; default Driftwood + Archipelago Icons (plan 14) |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
@@ -102,5 +103,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubProjects/zenith && claude   # work machine: ~/GithubRepos/zenith
-> Read HANDOFF.md, CLAUDE.md and .claude/handoff-17dfa722-66da-4a00-8ce8-f700324175a5.md (the current brief). Ask the owner about §4 steps 0/0b/0c; never rebuild the app unless asked in that message.
+> Read HANDOFF.md, CLAUDE.md and .claude/handoff-8bc5b35e-d2e2-44a9-808b-af7bdd1cc61c.md (the current brief). Ask the owner whether to restart the bundle and about §4 steps 0/0b/0c; never rebuild the app unless asked in that message.
 ```
