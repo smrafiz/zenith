@@ -61,6 +61,7 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 4e Go to… keys | ✅ ⌘O Go to Class, ⌘⇧O Go to File, ⌘⌥O Go to Symbol, ⌘E Recent Files → Search Everywhere tabs; ⌘⇧E Recent Locations → its own list (file:line from the panes' navigation history, newest first, fuzzy; the project panel keeps ⌘1). Bound in `zenith.json`, repeated under the editor contexts that bind the same keys deeper. A keymap test resolves them in editor, terminal and project panel against the real keymap files. Linux/Windows: Ctrl+O / Ctrl+E stay with the terminal and vim mode | `6e60df402e` `e650075134` `1abb437945` `f28e2895ca` |
 | 4e Hooks | ⬜ waits for `wp-hooks-ls` (plan 19) | — |
 | 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
+| 9a Rails | ✅ 36 px icon rails both sides (new `zenith_rails` crate, feature `rails`): left = left-dock panels on top, bottom-dock panels (terminal, debug) at the foot, as the board; right = right-dock panels. Reuses `PanelButtons` (vertical option); the status bar's dock buttons go blank while rails are on. Upstream: ~50 lines in `dock.rs` + `workspace.rs` (rails slot, side padding, rails painted after the zoom overlay). Not seen in the app yet. **Missing icons:** DB, web and Local History have no panel in Zed | `f283f3b60f` + zoom fix |
 
 ## Per-board method
 
