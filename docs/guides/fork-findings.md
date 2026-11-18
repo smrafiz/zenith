@@ -31,6 +31,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Changing `assets/settings/default.json` breaks upstream tests that assume the old default; pin the old value inside those tests (done for project_panel `test_focus_follows_mouse_into_blank_area`, git_ui `test_history_tab_pane_navigation_focuses_rendered_panel`). Run the touched crates' tests after any default change.
 - Upstream file edits that can't be one line: append a block at end of file (e.g. `command_palette.rs` shared-history fns) — modified upstream lines conflict on sync, an appended block rarely does.
 - An action shown by an upstream menu but handled in a zenith crate lives in `zed_actions` (appended `pub mod zenith_inspections`), so the upstream crate needs no dependency on ours.
+- Zenith reads `~/.config/zenith/settings.json`, not Zed's `~/.config/zed/settings.json`; a setting the owner has in Zed (e.g. `project_panel.folder_indicator: "both"`) is missing in Zenith unless it is a Zenith default or copied over (2026-11-18).
 
 ## GPUI UI
 
@@ -50,6 +51,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - `zenith_title_bar` tests need `workspace` test-support in dev-deps (they failed to build on HEAD before `9bdf1df19b`: `RemoteConnectionOptions::Mock` non-exhaustive).
 - Zed does not scan inside git-ignored folders (`vendor/`), so a FakeFs test with an ignored folder can't tell `include_ignored` true from false; use an ignored *file* in a scanned folder (`*.cache.php`).
 - Crates depending on `project_panel` need `remote_connection` with `test-support` in dev-deps (`RemoteConnectionOptions::Mock` non-exhaustive, E0004).
+- `SecurityModal::new` (and anything building `ui_input::InputField`) panics in `workspace` tests: the erased editor factory is set only when `editor` initialises. Test the logic as a free function instead (`security_modal.rs` `has_legacy_settings`).
 
 ## Search Everywhere (plan 34)
 
