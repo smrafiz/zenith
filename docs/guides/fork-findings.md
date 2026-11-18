@@ -32,6 +32,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Upstream file edits that can't be one line: append a block at end of file (e.g. `command_palette.rs` shared-history fns) — modified upstream lines conflict on sync, an appended block rarely does.
 - An action shown by an upstream menu but handled in a zenith crate lives in `zed_actions` (appended `pub mod zenith_inspections`), so the upstream crate needs no dependency on ours.
 - Zenith reads `~/.config/zenith/settings.json`, not Zed's `~/.config/zed/settings.json`; a setting the owner has in Zed (e.g. `project_panel.folder_indicator: "both"`) is missing in Zenith unless it is a Zenith default or copied over (2026-11-18).
+- Every keymap loaded in `zed.rs` `load_default_keymap` must go through `filter_disabled_ai_bindings`, or `test_disable_ai_filters_keybindings` fails once it binds an AI action.
 
 ## GPUI UI
 
@@ -52,6 +53,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Zed does not scan inside git-ignored folders (`vendor/`), so a FakeFs test with an ignored folder can't tell `include_ignored` true from false; use an ignored *file* in a scanned folder (`*.cache.php`).
 - Crates depending on `project_panel` need `remote_connection` with `test-support` in dev-deps (`RemoteConnectionOptions::Mock` non-exhaustive, E0004).
 - `SecurityModal::new` (and anything building `ui_input::InputField`) panics in `workspace` tests: the erased editor factory is set only when `editor` initialises. Test the logic as a free function instead (`security_modal.rs` `has_legacy_settings`).
+- Dev/test builds read `assets/` from the checkout at runtime (`util::fs_embed!`), so swapping `default.json` changes test behaviour without a rebuild: handy to check whether a failure predates a defaults change.
 
 ## Search Everywhere (plan 34)
 
@@ -75,6 +77,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 
 - Look sources live outside this repo: `~/GithubProjects/archipelago` (Driftwood theme + Archipelago Icons = Atom Material, MIT) and `~/GithubProjects/zed-config` (owner's default profile). Islands geometry (rounded, gapped docks) can't be a Zed theme — needs `workspace` dock rendering (plan 14 risk). Zed icon themes match exact names/suffixes only (`blade.php`, `test.ts` ok; `*Test.php`, `*Controller.php` impossible).
 - Mockup checks: headless Chrome (`--headless=new --screenshot` / `--dump-dom`) has a 500 px minimum window; click-test by injecting a script that clicks, then `--dump-dom` and grep PASS/FAIL. Repo mockups are full HTML docs; artifact copies omit doctype/head (the Artifact tool adds them).
+- `ui::Icon::from_path`: a path starting `icons/` is an embedded asset drawn as a single-colour mask; any other path is an external image in full colour. Colour icon themes must load from files on disk (`zenith_look` writes the bundled theme to the data dir). Archipelago Icons is not in Zed's extension registry, so `auto_install_extensions` can't fetch it (2026-11-18).
 
 ## Other
 
