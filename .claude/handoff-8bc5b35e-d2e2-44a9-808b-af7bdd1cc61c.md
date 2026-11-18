@@ -34,7 +34,7 @@
 - zenith: `plan/21-project-inspections.md`, `plan/README.md`, `CLAUDE.md`, `HANDOFF.md`.
 
 ### Resume With
-Read zenith `CLAUDE.md`, `HANDOFF.md` and this brief. Ask the owner whether to restart `./script/bundle-mac -i` (≈1 h, check `df -h` ≥30 GiB first), then visually check plan-21 features on a real WordPress project; next plan-21 step is suppress actions (`// phpcs:ignore`, `@phpstan-ignore`).
+Update 2026-11-18 22:59 (home): bundle of `9c2cf04a91` installed; suppress actions done in fork `0d5c24f61c` (plan 21 M3b, after that build). Next: owner checks the app on a real WordPress project (HANDOFF §4 step 0); next plan-21 step = baseline awareness (`phpstan-baseline.neon`, new-since-branch-base).
 
 ### Start With
 none
