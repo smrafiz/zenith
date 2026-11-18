@@ -76,9 +76,9 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | Left rail foot: TODO, Hooks, Terminal, Problems | Terminal, Debug, Problems ✅; TODO ⬜ plan 27; Hooks ⬜ plan 19 |
 | Right rail: Agents, Database, HTTP | Agents ✅; Database ⬜ plan 12; HTTP ⬜ plan 08 |
 | Tool window header "Project ··· ×" | ✅ Project + Structure (`4e9c0c5916`); "···" menu not added |
-| Project root shows its path (`~/Sites/…`) | ⬜ upstream project panel |
+| Project root shows its path (`~/Sites/…`) | ✅ `d30c0ad763` (with islands on) |
 | Tabs with file icons + git colours, breadcrumbs | ✅ (11b) |
-| Active tab accent line | ⬜ not themable; needs tab rendering change |
+| Active tab accent line | ✅ `d30c0ad763` (with islands on; theme `text_accent`) |
 | Gutter hook icons, inline WP warning | ⬜ plan 19 (inline diagnostics ✅) |
 | Inlay parameter hints with background | ✅ |
 | Status bar: problems count, PHP version, language server, position, UTF-8, LF, indent | ✅ (indent `4e9c0c5916`; PHP via `zenith_php_tools`) |
