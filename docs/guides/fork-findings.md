@@ -54,6 +54,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Crates depending on `project_panel` need `remote_connection` with `test-support` in dev-deps (`RemoteConnectionOptions::Mock` non-exhaustive, E0004).
 - `SecurityModal::new` (and anything building `ui_input::InputField`) panics in `workspace` tests: the erased editor factory is set only when `editor` initialises. Test the logic as a free function instead (`security_modal.rs` `has_legacy_settings`).
 - Dev/test builds read `assets/` from the checkout at runtime (`util::fs_embed!`), so swapping `default.json` changes test behaviour without a rebuild: handy to check whether a failure predates a defaults change.
+- A crate used only as a dev-dependency (e.g. `menu` in `zenith_search`) compiles in tests and clippy but breaks the app build once non-test code uses it. Run `cargo check -p zenith` after every new `use` (2026-11-19, fixed `3ee50bf86b`).
 
 ## Search Everywhere (plan 34)
 
