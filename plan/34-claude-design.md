@@ -62,6 +62,7 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 4e Hooks | ⬜ waits for `wp-hooks-ls` (plan 19) | — |
 | 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
 | 9a Rails | ✅ 36 px icon rails both sides (new `zenith_rails` crate, feature `rails`): left = left-dock panels on top, bottom-dock panels (terminal, debug) at the foot, as the board; right = right-dock panels. Reuses `PanelButtons` (vertical option); the status bar's dock buttons go blank while rails are on. Upstream: ~50 lines in `dock.rs` + `workspace.rs` (rails slot, side padding, rails painted after the zoom overlay). Not seen in the app yet. **Missing icons:** DB, web and Local History have no panel in Zed | `f283f3b60f` + zoom fix |
+| 11b Defaults | ✅ From the Main board: tab file icons + git colours, minimap always, line-ending and encoding buttons in the status bar, terminal docked right (button on the right rail; ⌃` toggles it, ⌃⇧` new terminal — already bound upstream). Tests of settings, editor, search, diagnostics, outline, vim, terminal_view pass. Not seen in the app yet. **Status bar still missing:** agent message (plan 22), `PHP 8.5 · docker` (plan 35) | `f2f3431ec6` `dbb21a4ba1` |
 
 ## Per-board method
 
