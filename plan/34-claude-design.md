@@ -65,6 +65,26 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 11b Defaults | ✅ From the Main board: tab file icons + git colours, minimap always, line-ending and encoding buttons in the status bar, terminal docked right (button on the right rail; ⌃` toggles it, ⌃⇧` new terminal — already bound upstream). Tests of settings, editor, search, diagnostics, outline, vim, terminal_view pass. Not seen in the app yet. **Status bar still missing:** agent message (plan 22), `PHP 8.5 · docker` (plan 35) | `f2f3431ec6` `dbb21a4ba1` |
 | 10a Islands | ✅ Panels as rounded, separated islands: darker window background, 2 px gap, rounded border on each dock and the editor area (`IslandsActive` global set by `zenith_rails`). Upstream: ~43 lines in `workspace.rs` + 3 in `dock.rs`, all guarded by the global (no effect when off). Not seen in the app yet; corner radius, gap and border colour are guesses against the board | `feat(zenith_rails): rounded, separated panel islands` |
 
+## Main board check (2026-11-18, code vs `Main.dc.html`; not yet seen in a running app)
+
+| Board element | State |
+|---|---|
+| Driftwood, Archipelago Icons, JetBrains Mono 17 / 1.8 | ✅ built in (`19998b882b`) |
+| Title bar: mark, badge, project, branch, Search Everywhere, run config ▶ 🐞, agent chip, settings | ✅ (`4e9c0c5916` adds mark + settings) |
+| Agent chip counts "1 running · review 2" | ⬜ plan 22 |
+| Left rail top: Project, Commit, Local History | Project, Git ✅; Local History ⬜ plan 05; Outline (Structure) also shown |
+| Left rail foot: TODO, Hooks, Terminal, Problems | Terminal, Debug, Problems ✅; TODO ⬜ plan 27; Hooks ⬜ plan 19 |
+| Right rail: Agents, Database, HTTP | Agents ✅; Database ⬜ plan 12; HTTP ⬜ plan 08 |
+| Tool window header "Project ··· ×" | ✅ Project + Structure (`4e9c0c5916`); "···" menu not added |
+| Project root shows its path (`~/Sites/…`) | ⬜ upstream project panel |
+| Tabs with file icons + git colours, breadcrumbs | ✅ (11b) |
+| Active tab accent line | ⬜ not themable; needs tab rendering change |
+| Gutter hook icons, inline WP warning | ⬜ plan 19 (inline diagnostics ✅) |
+| Inlay parameter hints with background | ✅ |
+| Status bar: problems count, PHP version, language server, position, UTF-8, LF, indent | ✅ (indent `4e9c0c5916`; PHP via `zenith_php_tools`) |
+| Status bar agent message "Claude Code waiting for review" | ⬜ plan 22 |
+| Collab button (not on board) | hidden by default |
+
 ## Per-board method
 
 1. Read the board (`mockups/claude-design/<Board>.dc.html`).
