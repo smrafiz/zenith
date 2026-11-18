@@ -12,6 +12,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Per-crate gates are cheap after a warm build: `cargo check` 8 crates ≈ 52 s; `cargo test -p project --test integration <filter>` ≈ 1 min; incremental release bundle 12 min.
 - Release bundle can fail on `webrtc-sys` build: it downloads `webrtc-mac-arm64-release.zip` (255 MB) from GitHub releases with no retry; on a flaky line it times out (2026-11-17 home). Fix: `curl -L -C - …` until complete, `unzip -t`, unzip, then `LK_CUSTOM_WEBRTC=<dir>/mac-arm64-release ./script/bundle-mac -i` (`webrtc-sys/build/src/lib.rs` `custom_dir()` skips the download).
 - Release bundle 2026-11-18 (work machine, after Rust-file changes in ~10 crates): 39 → 25 GiB free while compiling; `project` alone compiled > 53 min in release; not finished when the session ended (owner shut down).
+- Disk (home, 2026-11-18/19): one session of per-crate tests on editor/zed/workspace took `target/` to 98 GiB (debug 72, incremental 10–38). `cargo clean --profile dev` freed 74.8 GiB and `--profile release` (clippy) 7.2 GiB; keeping `target/aarch64-apple-darwin` (19 GiB) keeps the next bundle incremental.
 
 ## Rebrand and branding
 
@@ -33,6 +34,8 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - An action shown by an upstream menu but handled in a zenith crate lives in `zed_actions` (appended `pub mod zenith_inspections`), so the upstream crate needs no dependency on ours.
 - Zenith reads `~/.config/zenith/settings.json`, not Zed's `~/.config/zed/settings.json`; a setting the owner has in Zed (e.g. `project_panel.folder_indicator: "both"`) is missing in Zenith unless it is a Zenith default or copied over (2026-11-18).
 - Every keymap loaded in `zed.rs` `load_default_keymap` must go through `filter_disabled_ai_bindings`, or `test_disable_ai_filters_keybindings` fails once it binds an AI action.
+- Changing editor defaults broke upstream editor tests: indent-guide colouring (`setup_indent_guides_editor`) and the 1.8 line height (`code_lens::test_code_lens_resolve_only_visible`); both now pin the old values. Two `zed` tests already failed before that (zenith action namespaces, project panel docked left) and were updated (2026-11-18).
+- Zenith chrome switches: `workspace::IslandsActive` (set by `zenith_rails`) gates the tab accent line, root location, picker 🔍/`esc` field, Go to Line dialog; `workspace::dock::RailsActive` gates the tool-window headers. Upstream crates key off these instead of depending on zenith crates.
 
 ## GPUI UI
 
@@ -41,6 +44,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Title bar (plan 34): upstream holds sections in `ArrayVec<_, 5>` (`crates/title_bar/src/title_bar.rs` ~257); a 6th push panics `CapacityError` when the onboarding banner shows. Add Zenith UI as ONE section (`zenith_title_bar::middle`).
 - Picker: `render_header` draws only when there are matches, below the query editor. For chrome above the search box wrap the picker and build it with `.embedded()`; the wrapper is the `ModalView`.
 - gpui keymap precedence (`crates/gpui/src/keymap.rs` ~216): deepest matching context first, then later-loaded binding. `"SearchEverywhere > Editor"` in `zenith.json` beats the picker's `tab: menu::SelectNext` and `editor::Tab`; a user keymap still overrides.
+- `workspace::StatusItemView` needs `hide_setting` (return `None` when there is no setting). Status items read live state at render time instead of caching it, so settings changes show without a subscription.
 
 ## Testing
 
@@ -55,6 +59,8 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - `SecurityModal::new` (and anything building `ui_input::InputField`) panics in `workspace` tests: the erased editor factory is set only when `editor` initialises. Test the logic as a free function instead (`security_modal.rs` `has_legacy_settings`).
 - Dev/test builds read `assets/` from the checkout at runtime (`util::fs_embed!`), so swapping `default.json` changes test behaviour without a rebuild: handy to check whether a failure predates a defaults change.
 - A crate used only as a dev-dependency (e.g. `menu` in `zenith_search`) compiles in tests and clippy but breaks the app build once non-test code uses it. Run `cargo check -p zenith` after every new `use` (2026-11-19, fixed `3ee50bf86b`).
+- gpui tests: a view holding an `Editor` only by `WeakEntity` sees it dropped after the closure that made it; keep the editor in a root view (`zenith_look` indent test). `element.layout_as_root` outside a draw panics. `cx.set_global(SettingsStore::test(cx))` is a double borrow: bind the store first. `IconButton` has no `debug_selector`; wrap it in a `div`.
+- A sabotage edit that stops the crate compiling proves nothing (2026-11-19: `let _ = (ix, line)` broke type inference). Check the sabotaged run prints `test result: FAILED`, not a compile error.
 
 ## Search Everywhere (plan 34)
 

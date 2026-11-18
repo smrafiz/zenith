@@ -1,6 +1,6 @@
 # Zenith — Handoff (work machine → home machine)
 
-Last updated: 2026-11-18 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
+Last updated: 2026-11-19 (home machine; repos under `~/GithubProjects/`, not `~/GithubRepos/`). Read with `CLAUDE.md` (project rules) and `plan/README.md` (roadmap).
 
 ## 1. Set up the home machine
 
@@ -45,8 +45,8 @@ Xcode notes from the work machine:
 | Plan 02 rebrand | ✅ code done, compiled, tests pass, bundle opens — see §2b |
 | Plan 32 welcome | 🟨 `feat/welcome` merged into fork `zenith` (`2800023217`, pushed 2026-11-17; check + welcome/palette tests green). In the home app (`feat/look` @ `65c87e35ba`, installed 2026-11-18 00:05). Owner: visual check, remove README notice |
 | Plan 33 accounts | ⬜ brief only; Sign In hidden meanwhile |
-| Plan 34 Claude Design | 🟨 fork `feat/look` @ `65c87e35ba` pushed — steps 1, 2, 3a, 4a–4d (Search Everywhere: All/Classes/Files/Symbols/Actions), 6a (plan 34 §Progress). Not merged into `zenith`; installed on home only (2026-11-18 00:05), not visually checked. Next: 4e waits on plan 19; owner picks next board (5 Agents after 22/23, 6 Debug/Run, 3b/3c) |
-| Plan 21 inspections | 🟨 fork `feat/look` @ `9c2cf04a91` pushed: PHPCS/PHPStan on save, changed files, folder, PHPCBF, settings (plan 21 §Progress). Home app rebuilt 2026-11-18 22:59 from `9c2cf04a91` (backup `~/Applications-backup/Zenith Dev-20261118-home.app`); not yet checked by the owner. Suppress actions `0d5c24f61c` (30 tests) came after that build |
+| Plan 34 Claude Design | 🟨 fork `feat/look` @ `c52e3978da` pushed — steps 1–4f, 6a, 9a, 10a, 11b (plan 34 §Progress + "Main board check"): built-in look (Archipelago Icons in-app, JetBrains Mono, owner profile defaults), tool-window headers + "···" menu, tab accent line, root location, indent status item, title bar mark + gear, Search Everywhere per board, Recent Files popup, ⌃Tab Switcher, Recent Locations code lines, picker 🔍/esc field, Go to Line dialog. Not merged into `zenith`. **Nothing after `9c2cf04a91` seen in a running app** |
+| Plan 21 inspections | 🟨 fork `feat/look` @ `c52e3978da`: on save, changed files, folder, current file, project, PHPCBF fix, suppress (⌘.), settings (plan 21 §Progress); 33 tests. Home app = `9c2cf04a91` (no suppress, no file/project scope) |
 | `.zenith` project dir | ✅ `feat/zenith-dir` merged into `zenith` (`0cb9e7432e`). New settings/tasks/debug go to `.zenith/`; `.zed/` still read (settings merged, `.zenith` wins). Not yet checked in running app |
 | UI mockups | ✅ `docs/ui-mockups` merged into `main` (`219d2e7`): `mockups/zenith-v1.html` (all features on one screen), `mockups/zenith-v2.html` = target look (Editing / Debugging / Agent review scenes, orange = agents only), Claude Design export (`5e0d712`); default Driftwood + Archipelago Icons (plan 14), being built in plan 34 |
 | First build `cargo build -p zed` | ✅ on work machine (debug, after installing the Metal Toolchain; first build ≈ 1 h, incremental ≈ 2 min; target/ ≈ 25 GB) |
@@ -90,9 +90,9 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ## 4. Next steps (in order)
 
-0. Visual check of the `feat/look` bundle (welcome, `.zenith`, look, title bar, Search Everywhere ⇧⇧ / ⌘⇧A / Tab). If it failed, see `docs/guides/fork-findings.md` on `LK_CUSTOM_WEBRTC`. Backup of the previous app: `~/Applications-backup/Zenith Dev-20261116-2350.app`. The home app is `9c2cf04a91` (plan 21 on-save, changed files, folder, PHPCBF; built 2026-11-18 22:59): check it on a real WordPress project. Since that build (all on `feat/look`, pushed): suppress actions `0d5c24f61c`, trust-prompt `.zed` text `9d12dcff93`, folder chevrons `7605e744f1`, built-in look `19998b882b` (Archipelago Icons + owner profile + JetBrains Mono), Problems rail button `12339f1e9b`. They need the next bundle (only when the owner asks; ≈ 50 min incremental, `df -h ~` ≥ 30 GiB).
+0. Build `feat/look` @ `c52e3978da` (only when the owner asks; ≈ 20–50 min, app-build cache kept, 95 GiB free) and visually check everything since `9c2cf04a91` against `mockups/claude-design/` (Main, SearchEverywhere, ToolWindows boards; headless Chrome screenshots of the boards: `--headless=new --screenshot`). Fix what is off. If webrtc download fails, see `docs/guides/fork-findings.md` `LK_CUSTOM_WEBRTC`. App backups: `~/Applications-backup/Zenith Dev-20261118-home.app` (= `65c87e35ba`).
 0b. Owner: merge `feat/look` into `zenith` after the visual check; remove the fork README notice.
-0c. Owner picks the next plan 34 board: 6 Debug/Run layout, 3b (waits for plan 19) / 3c gutter-icon decision; 4e Hooks waits for `wp-hooks-ls`.
+0c. Next feature after the visual check: plan 27 TODO window (2–3 d, owner leaning there); then plan 21 baseline/new-since-branch, plan 05 Local History. Board gaps waiting on plans: plan 34 "Main board check" table.
 0a. Owner to decide: JetBrains settings import first slice (plan 31) on the welcome Customize page — detect `~/Library/Application Support/JetBrains/<Product><ver>`, import keymap base + editor font/size/tabs/soft wrap/theme; hide or redirect "get merch"/"open docs".
 1. ✅ 2026-11-16: notice removed, `feat/branding` merged into `zenith` (`76f912fa08`), pushed.
 2. Commit-prefix decision (§3.1), then close plan 02.
@@ -113,5 +113,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubProjects/zenith && claude   # work machine: ~/GithubRepos/zenith
-> Read HANDOFF.md, CLAUDE.md and .claude/handoff-8bc5b35e-d2e2-44a9-808b-af7bdd1cc61c.md (the current brief). Ask the owner whether to restart the bundle and about §4 steps 0/0b/0c; never rebuild the app unless asked in that message.
+> Read HANDOFF.md, CLAUDE.md and .claude/handoff-169c3411-c7d8-40dd-a660-6141116af62d.md (the current brief). Ask the owner whether to restart the bundle and about §4 steps 0/0b/0c; never rebuild the app unless asked in that message.
 ```
