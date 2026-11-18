@@ -32,7 +32,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 18 | [Performance guard, LS tuning, telemetry](18-performance-and-telemetry.md) | Core/Config | ~2 wk | ⬜ |
 | 19 | [WordPress tools](19-wordpress-tools.md) | LS + Core | 2–3 wk | ⬜ |
 | 20 | [File & project templates](20-file-templates.md) | Core | 1 wk | ⬜ |
-| 21 | [Project-wide inspections & Problems panel](21-project-inspections.md) | Core | 1–2 wk | ⬜ |
+| 21 | [Project-wide inspections & Problems panel](21-project-inspections.md) | Core | 1–2 wk | 🔨 M1a |
 | 22 | [Agent worktree manager](22-agent-worktrees.md) | Core | 2–3 wk | ⬜ |
 | 23 | [Agent review queue](23-agent-review-queue.md) | Core | 1–2 wk | ⬜ |
 | 24 | [Composer & npm panel](24-package-manager-panel.md) | Core | 1 wk | ⬜ |
