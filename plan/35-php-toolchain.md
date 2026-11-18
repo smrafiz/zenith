@@ -58,6 +58,18 @@ Why now: every PHP feature in the plan (19 WordPress, 21 inspections, 25 Laravel
 }
 ```
 
+## Progress (fork `feat/look`, crate `zenith_php_tools`)
+
+| Step | State | Commit |
+|---|---|---|
+| M1a Detection | ✅ WordPress (plugin/theme header, `wp-config.php`, `wp-content`), Laravel (`artisan` + `laravel/framework`), plain PHP; `resolve()` project `vendor/bin` → system `PATH`; PHP candidates Herd → Homebrew → `PATH`; version from `php -v` | `b2422817f0` |
+| M1b Status | ✅ `PHP 8.5` status bar item in PHP projects (hidden elsewhere); "zenith php tools: status" message lists project type, PHP path, each tool's source. Not seen in the app yet | `6841dc9d4d` `c63de8e982` |
+| M2a Managed folder | ✅ `~/.local/share/zenith/tools/php/<profile>/vendor/bin`; profile `composer.json` for WordPress / Laravel / plain PHP (ranges); resolution project → managed → system, tested; status shows "Zenith" as a source | `be31d8abb1` |
+| M2b Consent + install | ⬜ banner (Install / Not now / Never), remembered answer, trust check, Composer run with `COMPOSER_HOME` in the managed folder, progress and log, lock files checked into Zenith and installed by a CI job | — |
+| M3–M5 | ⬜ | — |
+
+Nothing here downloads or runs a tool yet.
+
 ## Milestones
 
 1. Detection (project type, PHP, project `vendor/bin`) + "PHP tools: status".
