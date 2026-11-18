@@ -63,6 +63,7 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 | 6a Layout | ✅ project/outline/git panels left, agent right | `20fff816a2` |
 | 9a Rails | ✅ 36 px icon rails both sides (new `zenith_rails` crate, feature `rails`): left = left-dock panels on top, bottom-dock panels (terminal, debug) at the foot, as the board; right = right-dock panels. Reuses `PanelButtons` (vertical option); the status bar's dock buttons go blank while rails are on. Upstream: ~50 lines in `dock.rs` + `workspace.rs` (rails slot, side padding, rails painted after the zoom overlay). Not seen in the app yet. **Missing icons:** DB, web and Local History have no panel in Zed | `f283f3b60f` + zoom fix |
 | 11b Defaults | ✅ From the Main board: tab file icons + git colours, minimap always, line-ending and encoding buttons in the status bar, terminal docked right (button on the right rail; ⌃` toggles it, ⌃⇧` new terminal — already bound upstream). Tests of settings, editor, search, diagnostics, outline, vim, terminal_view pass. Not seen in the app yet. **Status bar still missing:** agent message (plan 22), `PHP 8.5 · docker` (plan 35) | `f2f3431ec6` `dbb21a4ba1` |
+| 10a Islands | ✅ Panels as rounded, separated islands: darker window background, 2 px gap, rounded border on each dock and the editor area (`IslandsActive` global set by `zenith_rails`). Upstream: ~43 lines in `workspace.rs` + 3 in `dock.rs`, all guarded by the global (no effect when off). Not seen in the app yet; corner radius, gap and border colour are guesses against the board | `feat(zenith_rails): rounded, separated panel islands` |
 
 ## Per-board method
 
@@ -76,5 +77,5 @@ Make the running editor match `mockups/claude-design/` (11 boards, Driftwood dar
 
 - Gutter hook icons: extension API or fork hook? Check Zed source before step 3.
 - Agent review on a worktree branch: does Zed's agent diff support it, or does plan 23 need its own view?
-- "Accept all" is the primary orange button on board 3/11 — owner to confirm it should not be neutral (risk: accept without reading).
+- "Accept all": **decided neutral** (2026-11-18). Zenith's Keep All / Reject All buttons in `agent_ui` already use the default style; keep it that way when the review board is built.
 - Stripes/Islands: worth the merge cost? Measure the upstream diff first.
