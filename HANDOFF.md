@@ -117,5 +117,5 @@ Name risk: pending USPTO "ZENITH" word mark (Zenith IOS Manager LLC, filed Jun 2
 
 ```
 cd ~/GithubProjects/zenith && claude   # work machine: ~/GithubRepos/zenith
-> Read HANDOFF.md, CLAUDE.md and .claude/handoff-0169ea71-c387-493c-a77f-e0ecbdf26ba8.md (the current brief). Never build/bundle unless the owner says so in that message; ask about §4 step 0.
+> Read HANDOFF.md, CLAUDE.md and .claude/handoff-ece3398d-bcc7-49fd-8b9f-23332bcae0ce.md (the current brief). Never build/bundle unless the owner says so in that message; ask about §4 step 0.
 ```

@@ -103,3 +103,14 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 ## Other
 
 - Plinth (`~/GithubRepos/plinth`, Next.js + Prisma + better-auth multi-tenant CMS) fits the Zenith website (`zenith.plinthsites.com`), not accounts: users are CMS editors, no blob/licence/registry (plan 33).
+
+## Defaults, keys and rails (2026-11-19, home)
+
+- A changed default breaks upstream tests that assumed the old one; pin the old value in each (done: `show_pinned_tabs_in_separate_row` → three `pane` tests call `set_pinned_tabs_separate_row(cx, false)`; `terminal.dock` → right needed no pins in `terminal_view`).
+- Key precedence: Zed's `alt-cmd-left/right` and `cmd-shift-f` sit in the `Pane` context; a binding in `Workspace` loses to them. Put Zenith overrides in a `"context": "Pane"` block of `zenith.json` and prove it in `zenith_search` `test_jetbrains_keys_win_in_every_context` (resolve against Zed-only and merged keymaps).
+- Rails: `PanelButtons` (vertical) buttons are draggable (`DraggedPanelButton`); `zenith_rails::drop_zone` docks the panel on drop (left top = Left, left foot = Bottom, right rail = Right). Right-click already offers Dock Left/Right/Bottom.
+- Tool-window header and ⋮ menu live in `workspace/src/dock.rs` (`zenith_panel_menu`, `zenith_project_panel_menu`); settings writes use `settings::update_settings_file(<dyn fs::Fs>::global(cx), ...)`, current values read from `cx.global::<SettingsStore>().merged_settings()`.
+- Row tints in `project_panel` (`zenith_row_tint`): green for test paths, brown for ignored; only when `RailsActive`.
+- `zenith_splash`: shown from `zenith::show_splash` right after `release_channel::init`; closes via `observe_new::<Workspace>` after ≥ 1.5 s, hard stop 20 s.
+- Bundle times on the home machine with sccache: 15–20 min even after `workspace`/`settings` edits.
+
