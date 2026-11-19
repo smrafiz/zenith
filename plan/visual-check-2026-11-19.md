@@ -33,3 +33,26 @@ Matches: left stripe layout (3 top / 4 bottom), project panel header with `…` 
 ## Not checked
 
 - Tool windows (TODO, Commit, Local History, WordPress, Agents, Database, HTTP, Tests, Scratches) and Search Everywhere: need working keys.
+
+## Fixes made (code only, not built or installed yet)
+
+Fork `feat/look`:
+- `792dfb4795` Search Everywhere crash: every ⇧⇧/⌘O/⌘E/⌘⇧E shortcut quit the app (panel `icon()` read the workspace mid-update). Regression test added.
+- `34293c3f6f`, `7d94af7f01` Main board values: search box 340×28, radius 7, `#31343a`, ⇧⇧ key cap; 20 px `#4a5b8c` project badge; 26 px pill agent chip; rails 40 px wide, 28 px buttons, no border, window background; islands 5 px gap, 10 px radius; Driftwood `text.muted #b4b7be`, active line number `#8c93a1`, gutter `#282c34`.
+
+Owner kept font sizes 16 / 17 / 1.8 (board: 13 / 13.5 / 24 px).
+
+Next build: `workspace` changed ⇒ full ~2.5 h release rebuild. Build only when the owner asks.
+
+## Still different (not done)
+
+- Rail buttons 28 px (board 30 px): `IconButton` has no 30 px size.
+- Project panel: 36 px header, 24 px rows, selected row radius 6 with 6 px inset (upstream `project_panel`).
+- Tabs 36 px, breadcrumb bar 28 px / 12 px text, status bar 26 px / 12 px, 16 px item gap (upstream).
+- Editor: 50 px line-number column, 24 px gutter-icon column (upstream `editor`).
+- Missing features: External Libraries node, gutter hook icons, live agent counts, Database/HTTP/Local History/WordPress panels, agent message in the status bar.
+
+## User settings to change by hand (`~/.config/zenith/settings.json`)
+
+- PHP servers: `["intelephense", "!phpactor", "!phptools", "!phpantom", "..."]` (phpantom causes the false "Function … not found"; phpactor crashes).
+- Intelephense WordPress stubs under `lsp.intelephense.settings.intelephense.stubs` (default list + `"wordpress"`).
