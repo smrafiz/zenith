@@ -7,8 +7,11 @@ Last updated: 2026-11-19 (home machine; repos under `~/GithubProjects/`, not `~/
 ```sh
 # Tools
 xcode-select -p || echo "install Xcode (see below)"
-brew install gh cmake fswatch
+brew install gh cmake fswatch sccache
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # if no rustup
+cargo install --locked cargo-nextest bacon cargo-sweep   # plan 17
+# sccache for ~/GithubRepos (or ~/GithubProjects) only — not machine-wide:
+mkdir -p ~/GithubRepos/.cargo && printf '[build]\nrustc-wrapper = "sccache"\n' > ~/GithubRepos/.cargo/config.toml
 gh auth login            # smrafiz (daily) — add wp-sigmadevs too if you need admin tasks
 gh auth switch -u smrafiz
 

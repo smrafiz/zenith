@@ -43,3 +43,8 @@ Record in `plan/build-log.md`: clean build time, incremental (touch one zenith f
 ## Effort
 
 1–2 days.
+
+## Progress
+
+- 2026-11-19 (A5): `line-tables-only` dev profile in fork `.cargo/config.toml` (`10757fd480`); `target/debug` wiped (69 GiB) and rebuilt smaller; sccache + cargo-nextest + bacon + cargo-sweep installed (setup in `HANDOFF.md` §1); sccache scoped to `~/GithubRepos` with a Shopify opt-out. Incremental `cargo check -p zenith` 15.7 s → 4.0 s. Numbers: `plan/build-log.md`.
+- Left: A4 per-crate features already exist for shipped crates (`crates/zenith/Cargo.toml`); add one per new crate. Measure clean `cargo build -p zed` / bundle with the new profile.
