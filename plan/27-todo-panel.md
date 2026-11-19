@@ -8,10 +8,10 @@ First: check whether upstream Zed or an extension already highlights/lists TODOs
 
 ## Parity checklist
 
-- [ ] Patterns (configurable regex, case-insensitive): `TODO`, `FIXME`, `HACK`, `XXX`, `shortcut:` (ponytail debt), `@todo` (must)
-- [ ] Scopes: project / current file / changed files (git) (must)
-- [ ] Group by file / by pattern; counts (must)
-- [ ] Click → jump; live update on save (must)
+- [~] Patterns (configurable regex, case-insensitive): `TODO`, `FIXME`, `HACK`, `XXX`, `shortcut:` (ponytail debt), `@todo` (must)
+- [x] Scopes: project / current file / changed files (git) (must)
+- [x] Group by file / by pattern; counts (must)
+- [x] Click → jump; live update on save (must)
 - [ ] Highlight in editor (colour per pattern) (must — via LS hint diagnostics or tree-sitter highlights query)
 - [ ] Filter by author (git blame) / age (later)
 - [ ] Warn on commit if new TODOs added (later)
@@ -31,3 +31,8 @@ First: check whether upstream Zed or an extension already highlights/lists TODOs
 ## Effort
 
 2–3 days.
+
+## Progress
+
+- 2026-11-19: fork `feat/look` `29216b3d25` + `75d0d2de06` — crate `zenith_todo`: bottom-dock panel, project search + comment check (grammar comment scope, else a `//`/`#`/`/*`/`*` marker before the match), scopes Project / Current File / Changed Files, group by file / pattern, click → line, rescan on save. 3 unit tests (mutation-checked), clippy clean. Not yet seen in a running app.
+- Left: `zenith.todo` setting (patterns, scope) — needs `settings_content`, a large recompile; editor highlight per pattern; keybinding; position not persisted; author/age filters; commit warning.
