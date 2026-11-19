@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Zenith splash</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#131416;font-family:Inter,system-ui,sans-serif}
+.splash{position:relative;width:640px;height:400px;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px #000a,0 0 0 1px #ffffff14;
+ background:linear-gradient(180deg,#1b1446 0%,#2a1d6b 58%,#7a3a78 80%,#ff7a3d 100%)}
+svg{position:absolute;inset:0}
+.t{position:absolute;left:36px;top:44px;color:#fff}
+.t h1{margin:0;font-size:56px;font-weight:700;letter-spacing:-1.5px;line-height:1}
+.t p{margin:10px 0 0;font-size:15px;color:#e6ddffcc}
+.v{position:absolute;left:38px;top:150px;color:#e6ddffb0;font-size:15px}
+.b{position:absolute;left:36px;bottom:22px;right:36px;color:#ffffffb8;font-size:11.5px;display:flex;justify-content:space-between}
+.bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:#ffffff1f}
+.bar i{display:block;height:100%;width:38%;background:#ff7a3d}
+</style></head><body>
+<div class="splash">
+<svg viewBox="0 0 640 400" preserveAspectRatio="none" aria-hidden="true">
+ <defs><radialGradient id="g" cx="470" cy="215" r="170" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd27a" stop-opacity=".85"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient></defs>
+ <circle cx="470" cy="215" r="170" fill="url(#g)"/><circle cx="470" cy="215" r="34" fill="#ffe3a8"/>
+ <path d="M250 400 L410 160 L470 250 L520 190 L640 400Z" fill="#2a1d6b" opacity=".85"/>
+ <path d="M330 400 L470 235 L540 330 L580 280 L640 400Z" fill="#1b1446"/>
+ <path d="M410 160 l-26 40 l26 -12 l22 22z" fill="#fff" opacity=".9"/>
+ <path d="M0 400 L0 345 Q200 320 380 350 T640 335 V400Z" fill="#120d33"/>
+</svg>
+<div class="t"><h1>Zenith</h1><p>IDE depth. Editor speed.</p></div>
+<div class="v">Version 0.1 (dev)</div>
+<div class="b"><span>Starting up… loading extensions</span><span>© Zenith contributors</span></div>
+<div class="bar"><i></i></div>
+</div></body></html>

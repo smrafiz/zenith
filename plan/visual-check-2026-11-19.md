@@ -56,3 +56,22 @@ Next build: `workspace` changed ⇒ full ~2.5 h release rebuild. Build only when
 
 - PHP servers: `["intelephense", "!phpactor", "!phptools", "!phpantom", "..."]` (phpantom causes the false "Function … not found"; phpactor crashes).
 - Intelephense WordPress stubs under `lsp.intelephense.settings.intelephense.stubs` (default list + `"wordpress"`).
+
+## Re-check after bundle `7d94af7f01` (home, Xcode 27.2, 2026-11-19 evening)
+
+Bundle 19 m 33 s (Xcode 27.2.0 27B52, sccache on); app starts, no panic on stderr. Compared a window on `easy-demo-importer/inc/Bootstrap.php` with `Main.dc.html` (rendered headless at 1600×1000).
+
+**Matches now:** logo, `ED` project badge, branch, wide search pill with `⇧⇧` cap, run config + ▶ + 🐞, orange `Agents` pill, settings gear, rails (3 top / 4 bottom), project panel header, tabs, minimap, status-bar error count, indentation label, inline diagnostic chips.
+
+**Still different — needs an upstream edit (not one line):**
+- Search pill sits left of the run controls, not centred (upstream `title_bar.rs` lays sections out with `justify_between`; centring needs a layout change).
+- No `⌄` on the project name and branch in the title bar (`render_project_name`, `render_worktree_and_branch`).
+- Project panel: flat full-width selection, not an inset rounded row; row/header heights.
+- Status bar right order: mockup `PHP 8.5 · docker · LS name · pos · UTF-8 · LF · indent`; app `pos · LF · PHP · UTF-8 · indent · PHP 8.4`, no LS name.
+- Breadcrumb shows `inc/Bootstrap.php` (slashes), mockup `project › folder › file › class › method`.
+
+**Still different — a missing feature (waits on its plan):** `External Libraries` node, hook gutter glyphs (plan 19), live agent counts and Agents/Database/HTTP rail icons (plans 22, 08, 12), `Claude Code waiting for review` in the status bar.
+
+**Owner choices, not bugs:** fonts 16/17/1.8, indent-guide background colouring (`19998b882b`), inline git blame, parameter hints.
+
+**Not checked:** tool windows, Search Everywhere dialog, TODO window (⌘⇧6) — keys can't be sent from here.
