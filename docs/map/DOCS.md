@@ -14,4 +14,5 @@ Open the row for your task, then only the file it links.
 | Engineer agents, routing, hooks | [.claude/agents/README.md](../../.claude/agents/README.md) | Roster and per-phase routing |
 | Target look | [mockups/zenith-v2.html](../../mockups/zenith-v2.html) | v1 = all features; v2 = target; plan 14 |
 | Brand assets | [brand/](../../brand/) | Icon SVG + PNGs |
+| gh accounts, repo admin, licences, issue tracking | [docs/guides/repo-admin.md](../guides/repo-admin.md) | Which account for admin tasks |
 | Security reporting | [SECURITY.md](../../SECURITY.md) | |

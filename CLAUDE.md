@@ -11,33 +11,17 @@ Zenith = fork of Zed aiming at full PhpStorm/WebStorm parity (classic + agentic 
 ## Repo & accounts
 
 - Repo: `wp-sigmadevs/zenith` (public). Local: `~/GithubRepos/zenith` (work) / `~/GithubProjects/zenith` (home; fork at `~/GithubProjects/zed`). Default branch `main`.
-- gh accounts on this machine: `smrafiz` (default, write access) and `wp-sigmadevs` (owner). Repo settings/admin tasks: `gh auth switch -u wp-sigmadevs`, then switch back to `smrafiz`.
-- Personal-account repo ⇒ collaborators can't get admin; that's fine, owner does admin tasks.
-- Enabled: Discussions, private vulnerability reporting, secret scanning + push protection, Dependabot alerts.
-- Licence: MIT for this repo. Fork code follows Zed licences (GPL-3.0 editor, AGPL server, Apache GPUI); new `zenith_*` crates GPL-3.0-or-later. Standalone LSes (wp-hooks-ls, etc.) MIT in own repos.
+- Accounts, admin tasks, repo security settings, licences, issue tracking: `docs/guides/repo-admin.md`.
 - Never use Zed name/logo for Zenith (trademark).
 
 ## Layout
 
-```
-plan/        35 plan docs — start at plan/README.md (index, phases, timeline)
-zed-kit/     plan 03 config layer for STOCK Zed (works today, no fork)
-  bin/zed-php-fmt (+ test-zed-php-fmt.sh)   stdin→file→stdout adapter for pint/phpcbf/php-cs-fixer
-  install.sh [--dry-run] [--with-xdebug]    idempotent, never overwrites
-  apply-template.sh <wordpress|laravel|node> <dir>
-  settings.global.jsonc                      keys to merge into ~/.config/zed/settings.json
-  phpactor/phpactor.json                     global Phpactor config (completion off)
-  templates/{wordpress,laravel,node}/
-docs/        map/DOCS.md (task router), guides/fork-findings.md
-.github/     issue templates (feature, bug), PR template
-```
-
-GitHub tracking: 32 issues (one per plan doc 01–31, plus #32 for plan 35), 6 milestones (Phase 0–5), labels `layer:*`, `type:*`, `continuous`.
+- `plan/` 35 plan docs (start at `plan/README.md`) · `zed-kit/` plan 03 config layer for stock Zed (`zed-kit/README.md`) · `docs/` router + guides · `.github/` issue and PR templates.
 
 ## Conventions
 
 - Commits: conventional (`docs:`, `feat(zed-kit):`, `fix:`, `chore:`) — a hook rejects others.
-- Fork naming: crates `zenith_*`, umbrella `zenith`, settings key `"zenith"`, branch `zenith`, data dir `~/.local/share/zenith/`, bundle `Zenith.app`.
+- Fork naming: crates `zenith_*`, umbrella `zenith`, settings key `"zenith"`, branch `zenith`, data dir `~/.local/share/zenith/`, bundle `Zenith.app`. New `zenith_*` crates: GPL-3.0-or-later.
 - All fork code in new crates; upstream files get one-line hooks only (plan/02). Extension/LS-first where possible (plan/16). Shared infra in `zenith_core` (plan/15).
 - Supercharger hook blocks writes under `~/.config/` — give the user the exact edit instead; never work around it.
 
