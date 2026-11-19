@@ -37,6 +37,10 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Changing editor defaults broke upstream editor tests: indent-guide colouring (`setup_indent_guides_editor`) and the 1.8 line height (`code_lens::test_code_lens_resolve_only_visible`); both now pin the old values. Two `zed` tests already failed before that (zenith action namespaces, project panel docked left) and were updated (2026-11-18).
 - Zenith chrome switches: `workspace::IslandsActive` (set by `zenith_rails`) gates the tab accent line, root location, picker 🔍/`esc` field, Go to Line dialog; `workspace::dock::RailsActive` gates the tool-window headers. Upstream crates key off these instead of depending on zenith crates.
 
+- Work machine 2026-11-19 (plan 17, details `plan/build-log.md`): release bundle after `settings_content` + `editor` edits 162 m 14 s; after a `zenith_*`-only change 47 m 09 s. `crates/settings` RustEmbeds `assets/settings/*` and `assets/keymaps/*`, so editing `default.json` or `zenith.json` recompiles `settings` and ~everything above it in release (~2.5 h); `workspace`, `editor`, `ui`, `project*`, `theme` edits cost the same. Themes (`assets/themes`) go through the `assets` crate (`editor`, `zed`, `zenith_look`, …).
+- sccache via `~/GithubRepos/.cargo/config.toml` (`rustc-wrapper`); caches third-party crates only. Its server idles out after 600 s mid-build: start it with `SCCACHE_IDLE_TIMEOUT=0 sccache --start-server`. Never put that in Cargo `[env]` — any `[env]`/profile/rustflags change invalidates every crate (cost one forced full rebuild).
+- Stopping a bundle mid-crate leaves that crate dirty; the next run recompiles it fully.
+
 ## GPUI UI
 
 - `ui::Button::full_width()` centers its label; for left-aligned nav drop it and let the column stretch.
@@ -45,6 +49,10 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Picker: `render_header` draws only when there are matches, below the query editor. For chrome above the search box wrap the picker and build it with `.embedded()`; the wrapper is the `ModalView`.
 - gpui keymap precedence (`crates/gpui/src/keymap.rs` ~216): deepest matching context first, then later-loaded binding. `"SearchEverywhere > Editor"` in `zenith.json` beats the picker's `tab: menu::SelectNext` and `editor::Tab`; a user keymap still overrides.
 - `workspace::StatusItemView` needs `hide_setting` (return `None` when there is no setting). Status items read live state at render time instead of caching it, so settings changes show without a subscription.
+
+- Never read an entity that is mid-update: `cx.entity().read(cx)` inside `observe_new` (startup panic, `zenith_todo` `1e536b0b39`), or calling `panel.icon()` / `enabled()` inside a `Workspace` action — the terminal panel's `icon` reads the workspace (every Search Everywhere shortcut quit the app, `792dfb4795`). Pass the value in, or `window.defer`. Test with a real workspace + a panel that reads it.
+- Release panics don't reach `Zenith.log` and leave no crash report; the app just exits. Run `"/Applications/Zenith Dev.app/Contents/MacOS/zed"` directly with stderr to a file and `RUST_BACKTRACE=1` to see the panic.
+- Upstream `IconButton` sizes are fixed (`ButtonSize` 32/28/22/18/16 px); a 30 px rail button needs a custom element.
 
 ## Testing
 
@@ -61,6 +69,8 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - A crate used only as a dev-dependency (e.g. `menu` in `zenith_search`) compiles in tests and clippy but breaks the app build once non-test code uses it. Run `cargo check -p zenith` after every new `use` (2026-11-19, fixed `3ee50bf86b`).
 - gpui tests: a view holding an `Editor` only by `WeakEntity` sees it dropped after the closure that made it; keep the editor in a root view (`zenith_look` indent test). `element.layout_as_root` outside a draw panics. `cx.set_global(SettingsStore::test(cx))` is a double borrow: bind the store first. `IconButton` has no `debug_selector`; wrap it in a `div`.
 - A sabotage edit that stops the crate compiling proves nothing (2026-11-19: `let _ = (ix, line)` broke type inference). Check the sabotaged run prints `test result: FAILED`, not a compile error.
+
+- `zenith_search`'s keymap test loads the real `zenith.json`; every action it binds must be registered in that test binary. Bindings to sibling crates (e.g. `zenith_todo::ToggleFocus`) need a stub `actions!` in the test module. Run `zenith_search` tests after any `zenith.json` edit.
 
 ## Search Everywhere (plan 34)
 
@@ -80,11 +90,15 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - Intelephense `stubs` setting replaces defaults — templates list defaults + `wordpress`.
 - phpcbf exit codes: 0 none, 1 fixed, 2 fixed+remaining, 3 error (wrapper treats ≤2 as success).
 
+- PHP servers: the fork's defaults turn off `phptools`/`phpantom`/`phpactor`, but a user `languages.PHP.language_servers` ending in `"..."` turns them back on. PHPantom 0.11.1 flags every WordPress function as `Function 'x' not found`; phpactor 2026.10.07.0 dies (`Class "Amp\Failure" not found`). LSP `workspace/configuration` returns `lsp.<server>.settings.<section>`, so Intelephense stubs go under `settings.intelephense.stubs`.
+
 ## Look and mockups
 
 - Look sources live outside this repo: `~/GithubProjects/archipelago` (Driftwood theme + Archipelago Icons = Atom Material, MIT) and `~/GithubProjects/zed-config` (owner's default profile). Islands geometry (rounded, gapped docks) can't be a Zed theme — needs `workspace` dock rendering (plan 14 risk). Zed icon themes match exact names/suffixes only (`blade.php`, `test.ts` ok; `*Test.php`, `*Controller.php` impossible).
 - Mockup checks: headless Chrome (`--headless=new --screenshot` / `--dump-dom`) has a 500 px minimum window; click-test by injecting a script that clicks, then `--dump-dom` and grep PASS/FAIL. Repo mockups are full HTML docs; artifact copies omit doctype/head (the Artifact tool adds them).
 - `ui::Icon::from_path`: a path starting `icons/` is an embedded asset drawn as a single-colour mask; any other path is an external image in full colour. Colour icon themes must load from files on disk (`zenith_look` writes the bundled theme to the data dir). Archipelago Icons is not in Zed's extension registry, so `auto_install_extensions` can't fetch it (2026-11-18).
+
+- Mockup → code: `mockups/claude-design/*.dc.html` hold exact inline CSS. Flatten one to an indented `tag [style]` tree with Python `html.parser` to read sizes/colours (Main board: window 1568×930 r12, title 42 px, rails 40 px / 30 px buttons r7, islands gap 5 r10 border `#1e1f22`, tabs 36, breadcrumbs 28 / 12 px, editor 13.5 px / 24 px lines, status 26 / 12 px). Driftwood already matches most board colours.
 
 ## Other
 
