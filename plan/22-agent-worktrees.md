@@ -6,6 +6,8 @@ Run several coding agents (Claude Code, Codex, Gemini CLI, Zed Agent) in paralle
 
 First: audit upstream Zed — it may already have parallel agent threads/worktree support; build only the gaps.
 
+Audit note 2026-11-19 (fork @ b4130a774e): upstream already has claude-agent-acp (`project/src/agent_server_store.rs:2223`), Gemini (`agent_servers/src/agent_servers.rs:28`), Codex (UNVERIFIED) and worktree threads (`agent_ui/src/thread_worktree_archive.rs`). Plan 22 shrinks to the gaps.
+
 ## Parity checklist (no JetBrains equivalent — Zenith differentiator)
 
 - [ ] New agent task: prompt + agent type + base branch → creates worktree `../<repo>.wt/<slug>` on branch `agent/<slug>` (must)

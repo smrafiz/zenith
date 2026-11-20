@@ -16,6 +16,8 @@ Candidate PRs to zed-industries/zed (each generic, useful beyond Zenith):
 | Buffer pre-save / post-save + pre-agent-edit events | local history checkpoints | 05, 23 |
 | Terminal link/path rewriter hook | container → host paths | 11 |
 | Gutter decoration provider for custom runnables | HTTP ▶, test ✓/✗ | 07, 08 |
+| Terminal OSC 133 prompt marks (`TerminalBackendEvent::PromptMark`, scroll to prev/next prompt) | jump-to-prompt, command blocks | 38 |
+| "Notification shown" observer in `workspace/src/notifications.rs` | notifications timeline | 36 |
 
 Process:
 1. Check Zed's contribution guide + open issues/discussions for each hook (maybe already requested).

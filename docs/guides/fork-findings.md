@@ -114,3 +114,13 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - `zenith_splash`: shown from `zenith::show_splash` right after `release_channel::init`; closes via `observe_new::<Workspace>` after ≥ 1.5 s, hard stop 20 s.
 - Bundle times on the home machine with sccache: 15–20 min even after `workspace`/`settings` edits.
 
+
+## Editor look and features (2026-11-19)
+
+- Code lens exists upstream (`settings_content/src/editor.rs:575-583`, `editor/src/code_lens.rs`, `default.json:467` is `"off"`). The default PHP language server is Phpactor, with inlay hints off by default (key names UNVERIFIED). Intelephense inlay hints (1.15.0) and code lens (1.12.0) are Premium only. The zed-config `language_servers` PHP setting is Zed-only, so Zenith runs Phpactor.
+- Fold placeholder `⋯` is drawn at `editor.rs:2049` / `fold_map.rs:572` (`display_map.rs:3733` is a test). The fold chevron already shows on folded, cursor and hover rows (`fold.rs:57`). A chip restyle = 1 call site + an appended helper behind `RailsActive`.
+- Inlay hint style is tunable only through theme `hint` / `hint.background` (`editor.rs:588-598`). Rounded UI-font chips would need `display_map`/element changes: rejected as high risk (upstream-PR candidate).
+- Italic property: Driftwood `property` is already italic (`archipelago.json:1007-1010`). `@property` is also used by css/yaml/json/rust, so "no effect elsewhere" is impossible theme-only. PHP `property_element` capture vs `@variable` precedence is UNVERIFIED.
+- The user's Zenith settings live in `~/.config/zenith/settings.json`, separate from the zed-config symlink. Behavior-menu clicks do write there.
+- Find in Files popup seeds the query from the selection, or the word at the caret (`zenith_search`).
+- The Zenith Dev credentials provider writes plaintext JSON (`zed_credentials_provider.rs:46-60,130-147`). Use `cx.read/write/delete_credentials` for secrets (plans 15, 37).

@@ -1,0 +1,7 @@
+- [Toolbar item facts](gpui-toolbar-item-facts.md) — verified workspace toolbar/markdown_preview API facts and leasing traps (zenith_markdown)
+- [Panel chrome facts](gpui-panel-chrome-facts.md) — in-panel headers, chips, QuickActionBar fold, act_as, rustfmt-diff trap
+- [Diagnostics panel facts](gpui-diagnostics-panel-facts.md) — verified diagnostics/panel/test APIs + set_active trap (zenith_problems)
+- [Fold facts](gpui-fold-facts.md) — fold API, added_to_workspace ordering, chip colours, test setup (zenith_folds)
+- [Find in Files facts](gpui-find-in-files-facts.md) — Picker sizing traps, standalone picker_preview, Picker key context, include globs (zenith_search)
+- [Templates popup facts](gpui-templates-popup-facts.md) — ProjectPanel/RelPath/create_entry overwrite traps, naming-step picker (zenith_templates)
+- [Scratches facts](gpui-scratches-facts.md) — Fs trash/watch, open_abs_path no project, modal Enter keys, prompt_err (zenith_scratches)

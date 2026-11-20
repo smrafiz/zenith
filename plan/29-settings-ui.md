@@ -6,6 +6,8 @@ Every Zenith feature configurable through a UI, not just JSON — JetBrains-styl
 
 First: check upstream Zed's settings UI (in progress upstream as of 2025/2026 — *verify*). If it supports registering sections from settings schemas, plug Zenith in; build our own only if not.
 
+Owner request 2026-11-19: a JetBrains-style Settings revamp (left category tree, search, User/Project scope, reset per setting). Check Zed's current settings UI for registerable sections first (UNVERIFIED).
+
 ## Parity checklist
 
 - [ ] Sections: one per Zenith feature (Scratches, Local History, Tests, HTTP, DB, Inspections, WordPress, Laravel, Agents, Toolbar, …) (must)

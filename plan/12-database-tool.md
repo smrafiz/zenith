@@ -26,6 +26,19 @@ DataGrip-lite inside Zed: connect, browse schema, run SQL with completion, view/
 | Schema diff / migrations | | ✅ |
 | Agent access: expose DB via MCP to agents (read-only default) | ✅ (via 06) | |
 
+## Reconciled 2026-11-19
+
+Verified against fork @ b4130a774e. Where this conflicts with the sections below, this note wins.
+
+- `sqlx` 0.8.6 is already in the lock (`Cargo.toml:944`); use it with `gpui_tokio`.
+- Secrets: `cx.read/write/delete_credentials`, not the global credentials provider (plan 37).
+- Connections file lives in `.zenith/`, not `.zed/`.
+- v1 = SQLite + MySQL + PostgreSQL, read-only: MySQL `SET SESSION TRANSACTION READ ONLY`, PostgreSQL `default_transaction_read_only`, SQLite `mode=ro`. Parameterized queries.
+- `import.rs` reads `.env` / `wp-config.php` by regex and never runs PHP. `zenith_core::detect.db_credentials` (plan 15).
+- Steps: E1 connect / introspect / query; E2 secrets + detect; E3 panel + console + results `Item`.
+- Not in the first slice: edit grid, DDL, completion, export, SSH tunnel.
+- Screenshot target: Data Source > list (MySQL, PostgreSQL, SQLite, ...), Add Application Database (Laravel/WP), Data Source from URL/File.
+
 ## UX
 
 - Right dock "Database" panel: connection tree, toolbar (+, refresh, console, disconnect).

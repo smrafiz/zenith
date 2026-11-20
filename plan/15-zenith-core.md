@@ -15,7 +15,8 @@ One crate for infrastructure every feature needs, so 04–31 don't each reinvent
 | `mcp` | Tool registry: features register MCP tools (`name`, JSON schema, handler) consumed by 06 | 05, 07, 12, 21, 22 |
 | `settings` | `ZenithSettings` root + per-feature typed sub-settings + `enabled` flag helper | all |
 | `ui` | Shared components: tree view, filterable list, results table/grid (from 12), diff Item wrapper, empty states | 05, 07, 08, 12, 21, 24 |
-| `detect` | Project detection: Composer (PSR-4 map), package.json, Laravel, WordPress (plugin/theme headers), Docker Compose | 11, 19, 20, 24, 25 |
+| `detect` | Project detection: Composer (PSR-4 map), package.json, Laravel, WordPress (plugin/theme headers), Docker Compose; `detect.db_credentials` (DB creds from `.env` / `wp-config.php`, regex only) | 11, 12, 19, 20, 24, 25 |
+| `secrets` | Keychain-only secret store over `cx.read/write/delete_credentials`; never the global credentials provider (plaintext on Dev, plan 37) | 12, 37 |
 | `trace` | `tracing` span helpers + metrics feeding the perf view (18) | all |
 
 ## API sketch

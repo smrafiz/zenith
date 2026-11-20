@@ -20,6 +20,17 @@ JetBrains-style scratches: global, project-independent files of any language, li
 - Panel "Scratches" in left dock, icon + list grouped by language, context menu: Rename, Delete (to Trash), Reveal, Run.
 - Run → spawns a Zed task in terminal using per-extension runner map.
 
+## Reconciled 2026-11-19
+
+Verified against fork @ b4130a774e.
+
+- Directory: `paths::data_dir()/scratches` (`paths.rs:144`; macOS `~/Library/Application Support/Zenith`). Not `~/.local/share/zenith/`.
+- Delete: `Fs::trash(path, RemoveOptions)` (`fs/src/fs.rs:129`). `trash_file` in this plan is wrong.
+- `cmd-shift-n` collides with `jetbrains.json:86,138` (file_finder) and `default-macos.json:722` (`NewWindow`). `zenith.json` must bind the same contexts.
+- Must work with no project open (global scratches).
+- Recommend an own panel, not a project_panel node.
+- Owner decision pending: may `cmd-shift-n` override Go to File / New Window?
+
 ## Architecture
 
 - Storage dir: `~/.local/share/zenith/scratches/` (setting override).

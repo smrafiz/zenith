@@ -47,6 +47,9 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 33 | [Zenith accounts](33-zenith-accounts.md) | Service | TBD | ⬜ |
 | 34 | [Claude Design: target look](34-claude-design.md) | UI | per board | 🟨 |
 | 35 | [PHP toolchain, zero setup](35-php-toolchain.md) | Core | 2–3 wk | 🔨 M1, M2a |
+| 36 | [Notifications tool window](36-notifications.md) | Core | TBD | ⬜ |
+| 37 | [Deployment (FTP/FTPS/SFTP)](37-deployment.md) | Core | TBD | ⬜ blocked on owner decisions |
+| 38 | [Terminal parity](38-terminal.md) | Config + upstream PR | TBD | ⬜ |
 
 ## Build order & rationale
 

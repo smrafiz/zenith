@@ -19,10 +19,10 @@ crates/
 ```
 
 Upstream touch points (target: ≤ 5 lines total across upstream files per feature):
-- `Cargo.toml` workspace members (auto via `crates/*` glob? *verify*).
+- `Cargo.toml` workspace `members` are explicit: 2 lines per new crate (~254-264 and ~539-549), verified @ b4130a774e.
 - `crates/zed/Cargo.toml` → depend on `zenith`.
 - `crates/zed/src/main.rs` → `zenith::init(cx)`.
-- `crates/zed/src/zed.rs` → register panels where other panels are loaded (*verify*: `initialize_panels` / `load_panels`).
+- `crates/zed/src/zed.rs` → no edit needed for panels: observe `Workspace` creation and `add_panel` (pattern: `zenith_todo.rs:114-122`, verified @ b4130a774e).
 - `assets/keymaps/default-macos.json` → avoid; ship our own keymap file merged at init if possible.
 
 ## Zed building blocks (verify each against current source)
@@ -33,7 +33,7 @@ Upstream touch points (target: ≤ 5 lines total across upstream files per featu
 | Center tab/view | `workspace::Item` trait — e.g. diff views, HTTP response, DB grid |
 | Commands | `actions!(namespace, [Foo, Bar])` + `cx.on_action` / `workspace.register_action` |
 | Settings | `settings::Settings` impl + JSON schema; read with `MySettings::get_global(cx)` |
-| Persistence | `db` crate (SQLite via `sqlez`), `define_connection!` style migrations |
+| Persistence | `db` crate (SQLite via `sqlez`), `db::static_connection!` (`db/src/db.rs:247`; not `define_connection!`) migrations |
 | Buffer/file events | `project::Project` / `BufferStore` events (e.g. saved, reloaded) |
 | File system | `fs::Fs` trait (works for local + remote) |
 | Running processes | `task` crate / terminal for user-visible; `smol::process` / `util::command` for background |
