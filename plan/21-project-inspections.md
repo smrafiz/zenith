@@ -60,6 +60,37 @@ Parser fixtures per analyzer (real outputs); suppression insertion golden tests.
 
 Large projects: PHPStan full run slow → default scope "changed files", full run on demand; respect analyzer caches.
 
+## As built: new since branch (B0–B2)
+
+Implemented in fork `crates/zenith_inspections` (`since_branch.rs`, `new_since_branch.rs`), branch `feat/inspections-baseline`, commits `ca13b98370`, `1323a2968a`, `cd9a962fda` (local, not pushed; not yet seen in a running app).
+
+How to use:
+
+- Command palette: `zenith inspections: toggle new since branch` (action `ToggleNewSinceBranch`; no keybinding found in the fork). Default **off**.
+- On: PHPCS and PHPStan findings on lines unchanged since the merge base with the default branch are hidden; "inspect changed files" also lists files changed on the branch. Off: all findings. A toast says which, and the shown findings are re-inspected.
+- The switch is per project folder and survives restart (key-value store, namespace `zenith_inspections`, key = folder path, value `on`/`off`). Toggling applies to every visible folder; the base lookup uses the first folder.
+- Untrusted folder: no git runs, all findings show, the toast says "The project is not trusted."
+- Fallback to all findings (with a note once per session): not trusted, no git repository, no default branch, git failure. An untracked file counts as all lines new.
+
+Baselines:
+
+- PHPStan `ignore.unmatched` messages ("Ignored error pattern ... was not matched", a stale baseline entry) are dropped in `phpstan_files`; they are housekeeping, not code problems. Top-level `errors` entries of the same kind are only logged when real findings exist.
+- Fixtures: `fixtures/phpstan-baseline-single-file.json`, `fixtures/phpstan-baseline-whole-project.json`.
+
+Security:
+
+- `worktree_trusted` is checked in `base_branch` before any git call; every since-branch git call starts there.
+- `GIT_HARDENING` (`core.fsmonitor=false`, `protocol.ext.allow=never`, `core.hooksPath=/dev/null`, `--no-optional-locks`, `--no-pager`, `--literal-pathspecs`) is defence in depth. It does not stop `filter.<name>.clean` / `process`, which git runs when it reads a changed file. The trust gate is the only guard for those.
+
+Known limits:
+
+- PHPStan errors a change causes on untouched lines (callers of a renamed method) are hidden. Upgrade path: analyse the base in a temporary worktree and compare findings.
+- A file in a nested repo is not tracked by the folder's repo: all findings show. Multi-repo folders: base is looked up for the first folder only (code reading; not tested).
+- The set of files with hidden findings is in memory only; after a restart the switch is remembered but only files with findings now showing are re-run on toggle.
+- First `is_on` per folder does a synchronous key-value (SQLite) read on the main thread.
+- A finding without a line (PHPStan) is mapped to line 1, so it is hidden unless line 1 changed.
+- Test `test_clean_filter_marker_is_created_by_plain_git` relies on git's clean-filter behaviour (run here on git 2.54.0); a different git may fail it.
+
 ## Progress
 
 | Step | State | Notes |
@@ -75,7 +106,7 @@ Large projects: PHPStan full run slow → default scope "changed files", full ru
 
 | B0/B1 — since-branch helpers | done in fork `ca13b98370` (`feat/inspections-baseline`, local, not pushed) | Hunk-header line filter, PHPStan baseline fixtures, `GIT_HARDENING` flags for git calls. |
 | B2 — new since branch | done in fork `1323a2968a` (same branch; running-app check pending) | Action `ToggleNewSinceBranch`: PHPCS/PHPStan findings on lines unchanged since the merge base with the default branch are hidden; the project run also covers files changed on the branch. Switch is per folder, persisted in the key-value store. Git runs only in trusted folders (`worktree_trusted` via `base_branch`): `GIT_HARDENING` does not stop `filter.<name>.clean`/`process`, so the trust gate is the only guard. Fallback notes show once per session. Known limits: PHPStan errors a change causes on untouched lines (renamed method's callers) are hidden; a file in a nested repo is not tracked by the folder's repo, so all findings show; the set of files with hidden findings is in memory only, not persisted. |
-| B3 — docs | not started | |
+| B3 — docs | ✅ | "As built: new since branch" above; hardening note in `docs/guides/fork-findings.md` (Inspections). |
 
 ## Effort
 
