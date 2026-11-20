@@ -50,7 +50,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 36 | [Notifications tool window](36-notifications.md) | Core | TBD | ⬜ |
 | 37 | [Deployment (FTP/FTPS/SFTP)](37-deployment.md) | Core | TBD | ⬜ blocked on owner decisions |
 | 38 | [Terminal parity](38-terminal.md) | Config + upstream PR | TBD | ⬜ |
-| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | ⬜ not planned; a new session may start it with lead-engineer |
+| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | 🟡 in progress in `zed-extlib` |
+| 40 | [Next.js & React Tools](40-nextjs-react-tools.md) | Web | ~1.5 wk | 🟡 in progress in `zed-extlib` |
 
 ## Build order & rationale
 
