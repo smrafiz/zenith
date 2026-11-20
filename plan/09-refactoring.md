@@ -47,6 +47,13 @@ PhpStorm-level refactorings for PHP (and TS where tsserver allows), with preview
 
 References via LSP → if none, delete; else show usages in preview with "Delete anyway".
 
+## Progress (crate `zenith_refactor`)
+
+| Step | State | Commit |
+|---|---|---|
+| M1 Core Restructuring Engine | ✅ `RefactorThis` action menu bindings; `derive_psr4_namespace` calculator; `plan_move_class` updating `namespace` and rewriting all `use` imports and qualified usages across project files; `plan_safe_delete` analyzing symbol usage counts and reporting all call sites with warnings; `plan_change_signature` reordering parameters, inserting default values, and rewriting caller argument lists; `RefactorPlan` diff preview applicator with per-file exclusions; clippy clean; sabotage tested. | `1e2ec762a5` |
+| M2 Multi-Buffer Diff Preview UI | ⬜ | — |
+
 ## Milestones
 
 1. `Refactor This` menu wired to existing LSP code actions + preview UI.
