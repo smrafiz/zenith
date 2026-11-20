@@ -19,7 +19,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1–C5 done in fork (unpushed unless pushed later, app check pending); known limits in plan 05 |
 | 06 | [Zed as MCP/IDE server for external agents](06-ide-mcp-server.md) | Core | 2–3 wk | ⬜ |
 | 07 | [Test runner UI](07-test-runner.md) | Core | 2–3 wk | ⬜ |
-| 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | ⬜ |
+| 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | 🔨 M1–M4 done in `zed-extlib` |
 | 09 | [Advanced refactoring](09-refactoring.md) | Extension + Core | 4–6 wk | 🔨 M1, M2 done in `zed-extlib` |
 | 10 | [Git: merge conflicts & interactive rebase](10-git-merge-rebase.md) | Core | 3–4 wk | ⬜ |
 | 11 | [Docker / remote interpreters](11-docker-interpreters.md) | Core | 4+ wk | ⬜ |

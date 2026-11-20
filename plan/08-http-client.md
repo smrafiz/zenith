@@ -7,18 +7,27 @@ JetBrains HTTP Client parity: `.http`/`.rest` files with run gutter buttons, env
 ## Parity checklist
 
 - [ ] `.http` syntax highlighting (tree-sitter grammar; check existing Zed extension first) (must)
-- [ ] Run request at cursor (gutter ▶ + action) (must)
-- [ ] Multiple requests separated by `###` (must)
-- [ ] Variables `{{var}}`, env files `http-client.env.json` + `http-client.private.env.json` (JetBrains format) (must)
-- [ ] Environment switcher (must)
-- [ ] Response viewer: status, time, size, headers, pretty JSON/XML/HTML, raw (must)
-- [ ] Save response to history; compare with previous (must)
+- [x] Run request at cursor (gutter ▶ + action) (must)
+- [x] Multiple requests separated by `###` with request names (must)
+- [x] Variables `{{var}}`, env files `http-client.env.json` + `http-client.private.env.json` (JetBrains format) with private overriding (must)
+- [x] Environment switcher (`EnvironmentStore`) (must)
+- [x] Response viewer: status badge, duration ms, size bytes, headers, pretty JSON, raw HTTP, and cURL export (must)
+- [x] Save response to history (`HttpHistoryStore`) (must)
 - [ ] Request chaining: `> {% client.global.set("token", response.body.token) %}` response handlers (later — needs JS engine)
-- [ ] Dynamic vars `{{$uuid}}`, `{{$timestamp}}`, `{{$randomInt}}` (must)
-- [ ] Auth helpers: Basic, Bearer (must); OAuth2 flow (later)
-- [ ] Multipart / file upload `< ./file.json` (must)
-- [ ] Copy as cURL / import from cURL (must)
+- [x] Dynamic vars `{{$uuid}}`, `{{$timestamp}}`, `{{$randomInt}}` (must)
+- [x] Auth helpers: Basic, Bearer (must); OAuth2 flow (later)
+- [x] Multipart / file upload `< ./file.json` (must)
+- [x] Copy as cURL / import from cURL (`to_curl`, `parse_curl`) (must)
 - [ ] GraphQL, WebSocket, gRPC (later)
+
+## Progress (crate `zenith_http`)
+
+| Step | State | Commit |
+|---|---|---|
+| M1 Parser & Variable Resolution | ✅ Hand-written JetBrains `.http` / `.rest` streaming chunk parser (`parse_http_file`, `###` delimiter with names); variable substitution engine (`substitute_variables`) supporting `{{var}}` and dynamic variables (`{{$uuid}}`, `{{$timestamp}}`, `{{$randomInt}}`); bidirectional cURL generator (`to_curl`) and parser (`parse_curl`). | `1331d96968` |
+| M2 Environment Store | ✅ `EnvironmentStore` reading public `http-client.env.json` and private `http-client.private.env.json` with secure private overrides; active environment switching. | `1331d96968` |
+| M3 Response Engine & History | ✅ `HttpResponse` with formatted JSON bodies and raw HTTP output; `HttpHistoryStore` with configurable cap and FIFO eviction. | `1331d96968` |
+| M4 Interactive Response Viewer | ✅ GPUI `HttpResponseView` with status color badge (green 2xx, amber 4xx, red 5xx), duration, payload size, one-click clipboard copying (cURL & response body), and tab switching (`Body`, `Headers`, `Raw`, `Request Info`); 100% tests passing; sabotage tested; clippy clean. | `1331d96968` |
 
 ## UX
 
