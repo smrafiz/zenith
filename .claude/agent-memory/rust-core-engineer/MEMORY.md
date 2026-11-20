@@ -1,0 +1,3 @@
+- [sqlez API](sqlez-api.md) — verified sqlez/db signatures and traps for fork stores
+- [zenith_inspections gotchas](zenith-inspections-gotchas.md) — fmt reformats old code, PHPStan baseline output, git flags, disk
+- [gpui capture APIs](gpui-capture-apis.md) — verified buffer-save/worktree/settings APIs used by local_history C2

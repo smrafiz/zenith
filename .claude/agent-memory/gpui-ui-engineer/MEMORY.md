@@ -4,4 +4,5 @@
 - [Fold facts](gpui-fold-facts.md) — fold API, added_to_workspace ordering, chip colours, test setup (zenith_folds)
 - [Find in Files facts](gpui-find-in-files-facts.md) — Picker sizing traps, standalone picker_preview, Picker key context, include globs (zenith_search)
 - [Templates popup facts](gpui-templates-popup-facts.md) — ProjectPanel/RelPath/create_entry overwrite traps, naming-step picker (zenith_templates)
+- [Local History facts](gpui-local-history-facts.md) — FileDiffView embedding, Store read jobs, panel-focus target, test deps (zenith_local_history C3)
 - [Scratches facts](gpui-scratches-facts.md) — Fs trash/watch, open_abs_path no project, modal Enter keys, prompt_err (zenith_scratches)
