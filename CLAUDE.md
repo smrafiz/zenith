@@ -30,7 +30,7 @@ Zenith = fork of Zed aiming at full PhpStorm/WebStorm parity (classic + agentic 
 Details and evidence: `docs/guides/fork-findings.md`.
 
 - Fork's own `CLAUDE.md` hard rule: any source edit ⇒ prepend `> [!IMPORTANT]` + review line to README.md; only the human removes it.
-- Nothing user-visible says "Zed" (owner rule, 2026-11-16).
+- Nothing user-visible says "Zed" (owner rule, 2026-11-16), EXCEPT: upstream credit (About window, README) and "Zed Agent" (their feature/service name; owner 2026-11-20, avoid trademark trouble). Keep upstream LICENSE files; new crates GPL-3.0-or-later.
 - Upstream edit that can't be one line ⇒ append a block at end of file. Title bar: add Zenith UI as ONE section (6th section panics). Don't edit upstream default keymaps; use `assets/keymaps/zenith.json`.
 - Changed `assets/settings/default.json` ⇒ run the touched crates' tests (upstream tests assume old defaults).
 - New non-test fork code ⇒ `cargo check -p zenith` (tests and clippy enable `test-support` and hide app-build errors).
