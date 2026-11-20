@@ -52,7 +52,7 @@ References via LSP → if none, delete; else show usages in preview with "Delete
 | Step | State | Commit |
 |---|---|---|
 | M1 Core Restructuring Engine | ✅ `RefactorThis` action menu bindings; `derive_psr4_namespace` calculator; `plan_move_class` updating `namespace` and rewriting all `use` imports and qualified usages across project files; `plan_safe_delete` analyzing symbol usage counts and reporting all call sites with warnings; `plan_change_signature` reordering parameters, inserting default values, and rewriting caller argument lists; `RefactorPlan` diff preview applicator with per-file exclusions; clippy clean; sabotage tested. | `1e2ec762a5` |
-| M2 Multi-Buffer Diff Preview UI | ⬜ | — |
+| M2 Multi-Buffer Diff Preview UI | ✅ `RefactorPreviewModal` implementation with `ModalView`, `EventEmitter<DismissEvent>`, and `Focusable`; split view with file tree, individual inclusion/exclusion checkboxes, All/None batch selectors, diff cards with old/new deletion/creation highlights (`cx.theme().status().deleted` / `created`); atomic disk applicator `apply_to_disk` with source file cleanup on move; clippy clean; sabotage tested. | `cde3ba1b23` |
 
 ## Milestones
 
