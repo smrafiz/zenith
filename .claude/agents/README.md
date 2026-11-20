@@ -220,10 +220,9 @@ don't delegate a handful of tool calls.
 
 ## Open points
 
-- **Commit prefix conflict.** `CLAUDE.md` says conventional commits (a hook
-  rejects others); plan/02 and plan/16 say `zenith(<feature>): …`. Agents use
-  conventional commits with the crate as scope. Settle it and have docs-editor
-  fix the plans.
+- **Commit prefix** (settled 2026-11-20): conventional with the crate as scope,
+  e.g. `feat(zenith_local_history): …`. plan/02 updated; plan/16 may still say
+  `zenith(<feature>): …`.
 - The user-level `~/.claude/agents/debugger.md` shares a name with ours; the
   project one wins inside this repo.
 - Still *verify* (docs don't settle them): the `db` migration macro name, the

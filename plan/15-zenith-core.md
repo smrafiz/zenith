@@ -2,7 +2,7 @@
 
 ## Goal
 
-One crate for infrastructure every feature needs, so 04–31 don't each reinvent it. Build **before** feature 05; refactor 04 onto it.
+One crate for infrastructure every feature needs, so 04–31 don't each reinvent it. `store` is extracted from `zenith_local_history` on second use (05 owns its own `store.rs` first); refactor 04 onto it.
 
 ## Modules
 
@@ -44,7 +44,7 @@ let php = zenith_core::detect::composer(&fs, root).await?; // psr4: Vec<(prefix,
 ## Milestones
 
 1. `settings`, `process`, `trace`.
-2. `store` + `jobs` (needed by 05).
+2. `store` + `jobs`: extracted from `zenith_local_history` on second use, not built before 05.
 3. `paths` + `detect`.
 4. `mcp` registry (with 06).
 5. `ui` components extracted as 05/07/12 need them (extract on second use, not before).

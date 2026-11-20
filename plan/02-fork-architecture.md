@@ -33,7 +33,7 @@ Upstream touch points (target: ≤ 5 lines total across upstream files per featu
 | Center tab/view | `workspace::Item` trait — e.g. diff views, HTTP response, DB grid |
 | Commands | `actions!(namespace, [Foo, Bar])` + `cx.on_action` / `workspace.register_action` |
 | Settings | `settings::Settings` impl + JSON schema; read with `MySettings::get_global(cx)` |
-| Persistence | `db` crate (SQLite via `sqlez`), `db::static_connection!` (`db/src/db.rs:247`; not `define_connection!`) migrations |
+| Persistence | `db` crate (SQLite via `sqlez`), `db::static_connection!` (`db/src/db.rs:247`; not `define_connection!`) is the shared DB; large stores get their own file (pattern: `crates/agent/src/db.rs`); migrations are `Domain::MIGRATIONS` |
 | Buffer/file events | `project::Project` / `BufferStore` events (e.g. saved, reloaded) |
 | File system | `fs::Fs` trait (works for local + remote) |
 | Running processes | `task` crate / terminal for user-visible; `smol::process` / `util::command` for background |
@@ -49,7 +49,7 @@ Upstream touch points (target: ≤ 5 lines total across upstream files per featu
 - Action namespace: `zenith_<feature>::*`, all discoverable in command palette.
 - Every feature: on/off setting, default **on** in our fork.
 - Every feature crate: unit tests + at least one `#[gpui::test]` UI smoke test.
-- Commit prefix: `zenith(<feature>): ...`.
+- Commit prefix: conventional with crate scope, e.g. `feat(zenith_local_history): ...` (settles the old `zenith(<feature>)` style; the commit hook rejects it).
 - Each feature doc in `plan/` updated to ✅ with "Implemented in" crate path + notes on deviations.
 
 ## Feature doc template
