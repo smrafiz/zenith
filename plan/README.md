@@ -37,7 +37,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 23 | [Agent review queue](23-agent-review-queue.md) | Core | 1–2 wk | ⬜ |
 | 24 | [Composer & npm panel](24-package-manager-panel.md) | Core | 1 wk | ⬜ |
 | 25 | [Laravel tools](25-laravel-tools.md) | LS + Core | 2–3 wk | ⬜ |
-| 26 | [Live templates & postfix completion](26-live-templates-postfix.md) | LS | 1–2 wk | ⬜ |
+| 26 | [Live templates & postfix completion](26-live-templates-postfix.md) | LS + Core | 1–2 wk | 🔨 M1, M2 done in `zed-extlib` |
 | 27 | [TODO panel](27-todo-panel.md) | Core | 2–3 d | ⬜ |
 | 28 | [Bookmarks](28-bookmarks.md) | Core | 3–4 d | ⬜ |
 | 29 | [Zenith settings UI](29-settings-ui.md) | Core | 1–2 wk | ⬜ |
