@@ -6,6 +6,8 @@
 **Upstream hooks:** ≤ 5 one-line hooks in `project_panel.rs` (keep separate from plan 05 C3's hook).
 
 > Status legend: ⬜ not started · 🟨 in progress · ✅ done
+>
+> **Status (2026-11-20):** implemented in `crates/zenith_external_libraries` with `project_panel` hooks on `feat/external-libraries` (unmerged). Code review found a fix round open: hide only under detected roots, honour the `enabled` setting, upstream hooks over the ≤ 5 budget. Milestone ✅ below means code written, not review-clean.
 
 ## Problem
 
@@ -209,7 +211,7 @@ M3, M4, M5 can be done in parallel after M2.
 
 ## Progress
 
-(Updated as work proceeds)
+(Updated as work proceeds. All ✅ below are pre-review; see the status note at the top.)
 
 | Milestone | Commit | Status |
 |---|---|---|

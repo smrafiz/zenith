@@ -1,5 +1,7 @@
 # 25 — Laravel Tools (F7)
 
+> **Status (2026-11-20):** code in `crates/zenith_laravel` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring. Milestone ✅ below means code and tests only; the crate has no init/umbrella feature and nothing in `crates/zenith` or `crates/zed` depends on it, so its actions/panels are unreachable in the app.
+
 ## Goal
 
 Laravel Idea–level navigation and tooling.

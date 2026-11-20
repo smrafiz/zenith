@@ -19,8 +19,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1–C5 done in fork (unpushed unless pushed later, app check pending); known limits in plan 05 |
 | 06 | [Zed as MCP/IDE server for external agents](06-ide-mcp-server.md) | Core | 2–3 wk | ⬜ |
 | 07 | [Test runner UI](07-test-runner.md) | Core | 2–3 wk | ⬜ |
-| 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | 🔨 M1–M4 done in `zed-extlib` |
-| 09 | [Advanced refactoring](09-refactoring.md) | Extension + Core | 4–6 wk | 🔨 M1, M2 done in `zed-extlib` |
+| 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | 🔨 code in `crates/zenith_http` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring |
+| 09 | [Advanced refactoring](09-refactoring.md) | Extension + Core | 4–6 wk | 🔨 code in `crates/zenith_refactor` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring |
 | 10 | [Git: merge conflicts & interactive rebase](10-git-merge-rebase.md) | Core | 3–4 wk | ⬜ |
 | 11 | [Docker / remote interpreters](11-docker-interpreters.md) | Core | 4+ wk | ⬜ |
 | 12 | [Database tool](12-database-tool.md) | Core | 2–3 mo | ⬜ |
@@ -30,14 +30,14 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 16 | [Upstream contributions & extension-first](16-upstream-and-extensions.md) | Process | ongoing | ⬜ |
 | 17 | [Build optimization & Cargo features](17-build-optimization.md) | Dev | 1–2 d | ⬜ |
 | 18 | [Performance guard, LS tuning, telemetry](18-performance-and-telemetry.md) | Core/Config | ~2 wk | ⬜ |
-| 19 | [WordPress tools](19-wordpress-tools.md) | LS + Core | 2–3 wk | ⬜ |
+| 19 | [WordPress tools](19-wordpress-tools.md) | LS + Core | 2–3 wk | 🔨 code in `crates/zenith_wordpress` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring (M1, M2) |
 | 20 | [File & project templates](20-file-templates.md) | Core | 1 wk | ⬜ |
 | 21 | [Project-wide inspections & Problems panel](21-project-inspections.md) | Core | 1–2 wk | 🔨 M1a, M1b, M3a, M3b (all scopes); B0–B3 new-since-branch done in fork (unpushed, app check pending) |
 | 22 | [Agent worktree manager](22-agent-worktrees.md) | Core | 2–3 wk | ⬜ |
 | 23 | [Agent review queue](23-agent-review-queue.md) | Core | 1–2 wk | ⬜ |
 | 24 | [Composer & npm panel](24-package-manager-panel.md) | Core | 1 wk | ⬜ |
-| 25 | [Laravel tools](25-laravel-tools.md) | LS + Core | 2–3 wk | ⬜ |
-| 26 | [Live templates & postfix completion](26-live-templates-postfix.md) | LS + Core | 1–2 wk | 🔨 M1, M2 done in `zed-extlib` |
+| 25 | [Laravel tools](25-laravel-tools.md) | LS + Core | 2–3 wk | 🔨 code in `crates/zenith_laravel` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring (M1, M2) |
+| 26 | [Live templates & postfix completion](26-live-templates-postfix.md) | LS + Core | 1–2 wk | 🔨 code in `crates/zenith_postfix` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring |
 | 27 | [TODO panel](27-todo-panel.md) | Core | 2–3 d | ⬜ |
 | 28 | [Bookmarks](28-bookmarks.md) | Core | 3–4 d | ⬜ |
 | 29 | [Zenith settings UI](29-settings-ui.md) | Core | 1–2 wk | ⬜ |
@@ -50,8 +50,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 36 | [Notifications tool window](36-notifications.md) | Core | TBD | ⬜ |
 | 37 | [Deployment (FTP/FTPS/SFTP)](37-deployment.md) | Core | TBD | ⬜ blocked on owner decisions |
 | 38 | [Terminal parity](38-terminal.md) | Config + upstream PR | TBD | ⬜ |
-| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | ⬜ |
-| 40 | [Next.js & React Tools](40-nextjs-react-tools.md) | Web | ~1.5 wk | ⬜ |
+| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | 🔨 implemented in `crates/zenith_external_libraries` with `project_panel` hooks (`feat/external-libraries`, unmerged); fix round open: hide only under detected roots, enabled setting, upstream hooks over budget |
+| 40 | [Next.js & React Tools](40-nextjs-react-tools.md) | Web | ~1.5 wk | 🔨 code in `crates/zenith_nextjs` (`feat/external-libraries`, unmerged), tests pass, NOT wired into the app, not reviewed for wiring (M1, M2) |
 
 ## Build order & rationale
 
