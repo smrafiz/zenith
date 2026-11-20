@@ -133,3 +133,7 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - `FakeFs` panics on non-UTF-8 roots, and APFS refuses non-UTF-8 file names, so a non-UTF-8 path test cannot run on either.
 - UNCONFIRMED (security-engineer, 6/10): the single-file / invisible-worktree tool-trust path in `zenith_inspections` may run tools from `<parent>/vendor/bin`.
 - UNCONFIRMED (7/10): upstream Zed git hardening does not cover `filter.<d>.clean` / `process`. `zenith_inspections` relies on the trust gate alone (`since_branch.rs` module doc).
+- `"tab": null` does not unbind a global `menu::SelectNext`: keymap ranking is by context depth. Bind focus actions (`FocusNextControl` / `FocusPreviousControl`) in the view's own context instead (`zenith.json`, `LocalHistoryList || LocalHistoryView`).
+- Under `cfg(test)` the text group interval is 0, so edits do not coalesce into one undo step. Call `set_group_interval` in tests that count undo steps.
+- A test binary that loads `zenith.json` with `.expect` needs stub actions for actions defined in other crates, or it panics on the unknown name.
+- `cargo sweep --maxsize 40000` reclaims the shared `target/`.

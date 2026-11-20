@@ -16,7 +16,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 02 | [Fork architecture & conventions](02-fork-architecture.md) | Core | — | 🟨 |
 | 03 | [Config layer: PHP/JS intelligence, inspections, frameworks](03-config-layer.md) | Config/Extension | 1–3 wk | 🟨 |
 | 04 | [Scratch files](04-scratches.md) | Core | ~1 wk | ⬜ |
-| 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1–C3 done in fork (unpushed, app check pending); C4, C5 open |
+| 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1–C5 done in fork (unpushed unless pushed later, app check pending); known limits in plan 05 |
 | 06 | [Zed as MCP/IDE server for external agents](06-ide-mcp-server.md) | Core | 2–3 wk | ⬜ |
 | 07 | [Test runner UI](07-test-runner.md) | Core | 2–3 wk | ⬜ |
 | 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | ⬜ |
@@ -50,8 +50,8 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 36 | [Notifications tool window](36-notifications.md) | Core | TBD | ⬜ |
 | 37 | [Deployment (FTP/FTPS/SFTP)](37-deployment.md) | Core | TBD | ⬜ blocked on owner decisions |
 | 38 | [Terminal parity](38-terminal.md) | Config + upstream PR | TBD | ⬜ |
-| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | 🟡 in progress in `zed-extlib` |
-| 40 | [Next.js & React Tools](40-nextjs-react-tools.md) | Web | ~1.5 wk | 🟡 in progress in `zed-extlib` |
+| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | ⬜ |
+| 40 | [Next.js & React Tools](40-nextjs-react-tools.md) | Web | ~1.5 wk | ⬜ |
 
 ## Build order & rationale
 
