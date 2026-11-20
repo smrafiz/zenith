@@ -41,7 +41,7 @@ Best-in-class WordPress plugin/theme development — beyond PhpStorm's WP suppor
 | Step | State | Commit |
 |---|---|---|
 | M1 Hook Indexer & Core Specs | ✅ Streaming PHP parser, `do_action`/`apply_filters` definitions with docblocks & `@since`/`@param`, `add_action`/`add_filter` listeners with string, array (`$this`, `::class`), and closure callbacks, priority, accepted args; built-in WordPress core hooks registry; prefix completion & hover docs; incremental file removal/indexing; clippy clean; sabotage tested. | `d2529b4dfc` |
-| M2 Hooks Panel UI | ⬜ | — |
+| M2 Hooks Panel UI | ✅ Dock panel (`WpHooksPanel`) implementing `Panel`, `Focusable`, `EventEmitter`; All / Actions / Filters tabs; search filter; expandable hook rows with chevrons and listener counts; callback descriptions, priority badges, and definition lines; click-to-jump to file and line via `workspace.open_abs_path`; action `ToggleWpHooksPanel`; tested with `gpui::test`. | `f7cf0730e6` |
 | M3 Template Hierarchy | ⬜ | — |
 
 ## Milestones
