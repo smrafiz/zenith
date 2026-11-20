@@ -25,6 +25,13 @@ Laravel Idea–level navigation and tooling.
 - **`zenith_laravel`** crate: Artisan + Routes (+ Migrations, Logs) panels; commands via `zenith_core::process`.
 - IDE helper: action "Generate IDE helpers" runs `php artisan ide-helper:generate && ide-helper:models -N && ide-helper:meta`.
 
+## Progress (crate `zenith_laravel`)
+
+| Step | State | Commit |
+|---|---|---|
+| M1 Navigation & Code Intelligence Indexer | ✅ Laravel project detection (`artisan`, `bootstrap/app.php`, `composer.json`); view dot-name mapping (`resources/views/**/*.blade.php`), view completion; Blade `<x-component>` tag mapping; route parsing (`routes/web.php`, `routes/api.php`) with method, URI, action, name completions; nested config key parsing (`config/*.php`) for `config('app.name')`; `.env` variable parsing and completion; clippy clean; sabotage tested. | `993be8275c` |
+| M2 Artisan & Routes Panels | ⬜ | — |
+
 ## Milestones
 
 1. Survey existing Laravel LS options.
