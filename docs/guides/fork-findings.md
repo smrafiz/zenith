@@ -124,3 +124,10 @@ Facts learned while building Zenith in the fork (`wp-sigmadevs/zed`). Moved verb
 - The user's Zenith settings live in `~/.config/zenith/settings.json`, separate from the zed-config symlink. Behavior-menu clicks do write there.
 - Find in Files popup seeds the query from the selection, or the word at the caret (`zenith_search`).
 - The Zenith Dev credentials provider writes plaintext JSON (`zed_credentials_provider.rs:46-60,130-147`). Use `cx.read/write/delete_credentials` for secrets (plans 15, 37).
+
+
+## Local history and inspections (2026-11-20)
+
+- `FakeFs` panics on non-UTF-8 roots, and APFS refuses non-UTF-8 file names, so a non-UTF-8 path test cannot run on either.
+- UNCONFIRMED (security-engineer, 6/10): the single-file / invisible-worktree tool-trust path in `zenith_inspections` may run tools from `<parent>/vendor/bin`.
+- UNCONFIRMED (7/10): upstream Zed git hardening does not cover `filter.<d>.clean` / `process`. `zenith_inspections` relies on the trust gate alone (`since_branch.rs` module doc).

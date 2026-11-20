@@ -16,7 +16,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 02 | [Fork architecture & conventions](02-fork-architecture.md) | Core | — | 🟨 |
 | 03 | [Config layer: PHP/JS intelligence, inspections, frameworks](03-config-layer.md) | Config/Extension | 1–3 wk | 🟨 |
 | 04 | [Scratch files](04-scratches.md) | Core | ~1 wk | ⬜ |
-| 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1 in progress |
+| 05 | [Local history](05-local-history.md) | Core | 1–2 wk | 🔨 C1–C3 done in fork (unpushed, app check pending); C4, C5 open |
 | 06 | [Zed as MCP/IDE server for external agents](06-ide-mcp-server.md) | Core | 2–3 wk | ⬜ |
 | 07 | [Test runner UI](07-test-runner.md) | Core | 2–3 wk | ⬜ |
 | 08 | [HTTP client](08-http-client.md) | Core | 3–4 wk | ⬜ |
@@ -32,7 +32,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 18 | [Performance guard, LS tuning, telemetry](18-performance-and-telemetry.md) | Core/Config | ~2 wk | ⬜ |
 | 19 | [WordPress tools](19-wordpress-tools.md) | LS + Core | 2–3 wk | ⬜ |
 | 20 | [File & project templates](20-file-templates.md) | Core | 1 wk | ⬜ |
-| 21 | [Project-wide inspections & Problems panel](21-project-inspections.md) | Core | 1–2 wk | 🔨 M1a, M1b, M3a, M3b (all scopes) |
+| 21 | [Project-wide inspections & Problems panel](21-project-inspections.md) | Core | 1–2 wk | 🔨 M1a, M1b, M3a, M3b (all scopes); B0–B2 new-since-branch done in fork (unpushed, app check pending); B3 docs open |
 | 22 | [Agent worktree manager](22-agent-worktrees.md) | Core | 2–3 wk | ⬜ |
 | 23 | [Agent review queue](23-agent-review-queue.md) | Core | 1–2 wk | ⬜ |
 | 24 | [Composer & npm panel](24-package-manager-panel.md) | Core | 1 wk | ⬜ |
@@ -50,6 +50,7 @@ Goal: make Zed a full replacement for PhpStorm/WebStorm for classic **and** agen
 | 36 | [Notifications tool window](36-notifications.md) | Core | TBD | ⬜ |
 | 37 | [Deployment (FTP/FTPS/SFTP)](37-deployment.md) | Core | TBD | ⬜ blocked on owner decisions |
 | 38 | [Terminal parity](38-terminal.md) | Config + upstream PR | TBD | ⬜ |
+| 39 | [External Libraries](39-external-libraries.md) | Core | ~1.5 wk | ⬜ not planned; a new session may start it with lead-engineer |
 
 ## Build order & rationale
 

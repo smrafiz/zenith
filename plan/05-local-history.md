@@ -27,7 +27,7 @@ Automatic, git-independent history of every file change, browsable and restorabl
 ## Architecture
 
 - Crate: own `zenith_local_history` with its own `store.rs`; no `zenith_core` yet (plan 15: store extracted on second use). Upstream hooks (4/5): `Cargo.toml` members, workspace dep, `zed_actions` module, project_panel menu line.
-- Storage: SQLite (via `db`/`sqlez`) in `paths::data_dir()/local_history/history.db` (macOS `~/Library/Application Support/Zenith/`), a separate file, NOT the shared `db.sqlite` (pattern: `crates/agent/src/db.rs`):
+- Storage: SQLite (via `db`/`sqlez`) in `paths::data_dir()/local_history/history.db` (macOS `~/Library/Application Support/Zenith/local_history/`, not `~/.local/share/zenith`), a separate file, NOT the shared `db.sqlite` (pattern: `crates/agent/src/db.rs`):
   - `blobs(hash TEXT PK, content BLOB zstd-compressed)` — content-addressed dedupe
   - `revisions(id, worktree_root, rel_path, blob_hash, ts, label, source)`
 - Hooks (verified, fork @ 8bcf87ad77):
@@ -47,7 +47,7 @@ Automatic, git-independent history of every file change, browsable and restorabl
     "enabled": true,
     "retention_days": 14,
     "max_file_size_kb": 2048,
-    "max_db_size_mb": 1024,
+    "max_db_size_mb": 500,
     "snapshot_external_changes": true
   }
 }
@@ -64,6 +64,18 @@ Automatic, git-independent history of every file change, browsable and restorabl
 3. External-change snapshots + deleted-file recovery.
 4. Agent-edit labels.
 5. Labels, project history.
+
+## Progress
+
+Fork branch `feat/local-history` (local, not pushed; running-app check pending): `55334a5615`, `5601c64bff`, `ec20e7e720`, `9e6de83562`, `14d1989fc9`, `f130b256d0`, `3e4a047e1b`.
+
+| Chunk | State | Notes |
+|---|---|---|
+| C1 storage | done in fork | `zenith_local_history/src/store.rs`: dedupe, retention, DB dir 0700, `history.db` 0600. Default `max_db_size_mb` 500 (0 is raised to 1). |
+| C2 capture | done in fork | Snapshot on open and save through one gate (`capture.rs` `is_trackable`): local files only (`file.is_local`), skips private, ignored, external and symlinked entries (a symlinked plugin dir gets no history, deliberate), `file_scan_exclusions`. `wp-config.php` and `.env*` are never stored (`store.rs`, also for single-file worktrees). The gate is re-applied when history is shown. |
+| C3 view | done in fork | Show History view (revision list + diff), `alt-shift-h`, project panel "Local History…" (6-line hook in `project_panel.rs`, `zed_actions::zenith_local_history`). |
+| C4 revert | not started | Revert file / hunk. |
+| C5 external changes + recover | not started | `RecoverDeletedFiles` is declared in `zed_actions` with no handler. Its write path must be canonicalised inside the worktree before writing. |
 
 ## Chunks
 
