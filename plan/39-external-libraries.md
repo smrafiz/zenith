@@ -213,8 +213,8 @@ M3, M4, M5 can be done in parallel after M2.
 
 | Milestone | Commit | Status |
 |---|---|---|
-| M1 detection | | ⬜ |
-| M2 panel integration | | ⬜ |
-| M3 read-only + trust | | ⬜ |
-| M4 indexing verification | | ⬜ |
-| M5 settings + polish | | ⬜ |
+| M1 detection | `ef1ff99115` | ✅ done |
+| M2 panel integration | `ef1ff99115` | ✅ done |
+| M3 read-only + trust | `ef1ff99115` | ✅ done |
+| M4 indexing verification | `ef1ff99115` | ✅ done |
+| M5 settings + polish | `ef1ff99115` | ✅ done |
