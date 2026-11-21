@@ -7,7 +7,7 @@
 
 > Status legend: ⬜ not started · 🟨 in progress · ✅ done
 >
-> **Status (2026-11-20):** implemented in `crates/zenith_external_libraries` with `project_panel` hooks on `feat/external-libraries` (unmerged). Code review found a fix round open: hide only under detected roots, honour the `enabled` setting, upstream hooks over the ≤ 5 budget. Milestone ✅ below means code written, not review-clean.
+> **Status (2026-11-21):** merged into fork `zenith` @ `7ef1dc7da2` (from `feat/external-libraries` @ `3ec7baecab`). Reviewed (code + security, 2 rounds); fixes landed: library folders hidden only under detected roots, `zenith.external_libraries.enabled` honoured, separate library context menu (`crates/project_panel/src/zenith_libraries.rs`). Wired into the app via `project_panel` hooks. NOT built: M3 (read-only banner, trust exclusions) and hook 5 (no drag-and-drop). Known gaps: see Progress.
 
 ## Problem
 
@@ -178,7 +178,9 @@ The external libraries section uses a synthetic `WorktreeId` marker (or a separa
 | 3 | `project_panel.rs` `render_entry` | Dispatch to external library rendering | 1 |
 | 4 | `project_panel.rs` context menu | Restrict menu for library entries | 1 |
 | 5 | `project_panel.rs` drag-and-drop | Disable DnD for library entries | 1 |
-| **Total** | | | **5** |
+| **Total (plan)** | | | **5** |
+
+**Actual (2026-11-21):** `project_panel.rs` carries 9 hook lines plus a 475-line fork module (`zenith_libraries.rs`) inside the upstream crate, over the budget of 5. Owner decision needed (plan 02). Hook 5 (drag-and-drop) is not built.
 
 Each hook is a one-line call to a function in `zenith_external_libraries`.
 
@@ -211,12 +213,14 @@ M3, M4, M5 can be done in parallel after M2.
 
 ## Progress
 
-(Updated as work proceeds. All ✅ below are pre-review; see the status note at the top.)
+(Updated 2026-11-21, after review; statuses below are post-review.)
 
 | Milestone | Commit | Status |
 |---|---|---|
-| M1 detection | `ef1ff99115` | ✅ done |
-| M2 panel integration | `ef1ff99115` | ✅ done |
-| M3 read-only + trust | `ef1ff99115` | ✅ done |
-| M4 indexing verification | `ef1ff99115` | ✅ done |
-| M5 settings + polish | `ef1ff99115` | ✅ done |
+| M1 detection | `ef1ff99115`, merged `7ef1dc7da2` | ✅ done, reviewed |
+| M2 panel integration | `ef1ff99115`, merged `7ef1dc7da2` | 🟨 built + reviewed; hook 5 (no drag-and-drop) not built; hooks over budget |
+| M3 read-only + trust | not built | ⬜ read-only banner and trust exclusions not built |
+| M4 indexing verification | not verified | ⬜ no measurement recorded |
+| M5 settings + polish | `7ef1dc7da2` | 🟨 `zenith.external_libraries.enabled` done; other polish not verified |
+
+Known gaps (review 2026-11-21): 9 hook lines + 475-line module in `project_panel` vs budget 5; `zenith_row_kind` per-frame cost; `zenith_menu` hook untested; no running-app check.
